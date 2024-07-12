@@ -1,67 +1,49 @@
-# Cloudflare Docs
+# Cloudflare 中文文档【AI翻译】
 
-**[View the docs →](https://developers.cloudflare.com/)**
+**[查看官方文档 →](https://developers.cloudflare.com/)**
 
-[Contribute to the docs](https://github.com/cloudflare/cloudflare-docs/blob/production/CONTRIBUTING.md)
+[贡献官方文档](https://github.com/cloudflare/cloudflare-docs/blob/production/CONTRIBUTING.md)
 
-## Setup
+贡献翻译文档：直接拉取这个项目到本地，修改后提PR就行。
 
-You must have [Hugo](https://gohugo.io) installed on your system and available in your `$PATH` as a global binary. Most operating systems are supported – follow the relevant [installation instructions](https://gohugo.io/installation/) for your operating system to get started.
+## 安装
 
-> **Important:** This project is built with version `0.125.6+extended` and is the minimum required version. You may (probably) use a newer version of Hugo, but will be subject to any Hugo changes.
+你必须在系统上安装 [HUGO](https://gohugo.io)，并在你的 `$PATH` 中作为全局二进制文件提供。大多数操作系统都支持 Hugo，请按照操作系统的相关[安装说明](https://gohugo.io/installation/)开始安装。
 
-You must also have a recent version of Node.js (18+) installed. You may use [Volta](https://github.com/volta-cli/volta), a Node version manager, to install the latest version of Node and `npm`, which is a package manager that is included with `node`'s installation.
+> **重要：** 本项目使用 `0.125.6+extended` 版本构建，这是所需的最低版本。你可以（可能）使用更新版本的 Hugo，但会受到 Hugo 改动的影响。
+
+你还必须安装最新版本的 Node.js (18+)。你可以使用 Node 版本管理器 [Volta](https://github.com/volta-cli/volta) 安装最新版本的 Node 和 `npm`，后者是随 `node` 安装一起提供的软件包管理器。
 
 ```sh
 $ curl https://get.volta.sh | bash
 $ volta install node
 ```
 
-Finally, install the Node.js dependencies for this project using npm or another package manager:
+最后，使用 npm 或其他软件包管理器为该项目安装 Node.js 依赖项：
 
 ```sh
 $ npm install
 ```
 
-## Development
+## 本地开发
 
-When making changes to the site, including any content changes, you may run a local development server by running the following command:
+在对网站进行更改（包括任何内容更改）时，可通过运行以下命令来运行本地开发服务器：
 
 ```sh
 $ npm run dev
 ```
 
-This spawns a server that will be accessible via `http://localhost:5173` in your browser. Additionally, any changes made within the project – including `content/**` changes – will automatically reload your browser tab(s), allowing you to instantly preview your changes.
+这将生成一个服务器，可通过浏览器中的 `http://localhost:5173` 访问。此外，在项目中进行的任何更改（包括 `content/**`更改）都会自动重新加载浏览器选项卡，让你可以即时预览更改内容。
 
-Additionally, this project includes a CI step for ensuring consistent code style. This applies to all files within the project, including markdown (`*.md`) files, but will not affect the content itself or the content's output display. To see the style error(s), you may run:
+此外，该项目还包含一个 CI 步骤，用于确保代码风格的一致性。这适用于项目中的所有文件，包括 markdown (`*.md`) 文件，但不会影响内容本身或内容的输出显示。要查看样式错误，可以运行
 
 ```sh
 $ npm run lint
 ```
 
-### Recommendations
+## 使用声明
 
-Part of our application accesses the GitHub API (to populate the [Wrangler changelog](https://github.com/cloudflare/cloudflare-docs/blob/production/layouts/partials/wrangler-changelog.html)).
+本仓库包含对[Cloudflare官方文档](https://github.com/cloudflare/cloudflare-docs)的翻译。原文档受知识共享署名 4.0 国际公共许可证 (Creative Commons Attribution 4.0 International License, CC BY 4.0) 保护。
 
-Since GitHub gives a higher request limit to authenticated requests, you may want to add a [classic token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#personal-access-tokens-classic) with permissions for `repos:public_repo` to `/assets/secrets/github_token.txt`. The token value should be the only thing in your file.
-
-## Deployment
-
-Our docs are deployed using [Cloudflare Pages](https://pages.cloudflare.com). Every commit pushed to production will automatically deploy to [developers.cloudflare.com](https://developers.cloudflare.com), and any pull requests opened will have a corresponding staging URL available in the pull request comments.
-
-## Available Visual Studio Code snippets
-
-Refer to [Visual Studio Code snippets](./SNIPPETS.md) for more information.
-
-## For Cloudflare employees
-
-To get write access to this repo, please reach out to the **Developer Docs** room in chat.
-
-## License and Legal Notices
-
-Except as otherwise noted, Cloudflare and any contributors grant you a license to the Cloudflare Developer Documentation and other content in this repository under the [Creative Commons Attribution 4.0 International Public License](https://creativecommons.org/licenses/by/4.0/legalcode), see the [LICENSE file](https://github.com/cloudflare/cloudflare-docs/blob/production/LICENSE), and grant you a license to any code in the repository under the [MIT License](https://opensource.org/licenses/MIT), see the [LICENSE-CODE file](https://github.com/cloudflare/cloudflare-docs/blob/production/LICENSE-CODE).
-
-Cloudflare products and services referenced in the documentation may be either trademarks or registered trademarks of Cloudflare in the United States and/or other countries. The licenses for this project do not grant you rights to use any Cloudflare names, logos, or trademarks. Cloudflare's general trademark guidelines can be found at [https://www.cloudflare.com/trademark/](https://www.cloudflare.com/trademark/).
-Cloudflare and any contributors reserve all other rights, whether under their respective copyrights, patents, or trademarks, whether by implication, estoppel, or otherwise.
-
-Please note that we may use AI tools to help us review technical documentation, pull requests and other issues submitted to our public GitHub page in order to identify and correct mistakes and other inconsistencies in our developer documentation. Please refrain from sharing any personal information in your submissions.
+### 使用许可
+本仓库中的翻译文档也同样适用知识共享署名 4.0 国际公共许可证 (CC BY 4.0)。
