@@ -5,10 +5,10 @@ _build:
   list: never
 ---
 
-## Git integration
+## Git 整合
 
-In addition to [Direct Upload](/pages/get-started/direct-upload/) deployments, you can deploy projects via [Git integration](/pages/configuration/git-integration). Git integration allows you to connect a GitHub or GitLab repository to your Pages application and have your Pages application automatically built and deployed after each new commit is pushed to it.
+除了[直接上传](/pages/get-started/direct-upload/)部署外，你还可以通过[Git 集成](/pages/configuration/git-integration)部署项目。Git 集成允许你将 GitHub 或 GitLab 仓库连接到 Pages 应用程序，并在每次推送新提交后自动构建和部署 Pages 应用程序。
 
 {{<render file="_git-integration-warning.md">}}
 
-Setup requires a basic understanding of [Git](https://git-scm.com/). If you are new to Git, refer to GitHub's [summarized Git handbook](https://guides.github.com/introduction/git-handbook/) on how to set up Git on your local machine.
+设置需要对 [Git](https://git-scm.com/) 有基本了解。如果你是 Git 新手，请参考 GitHub 的 [Git 手册汇总](https://guides.github.com/introduction/git-handbook/)，了解如何在本地机器上设置 Git。
