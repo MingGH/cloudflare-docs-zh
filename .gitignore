@@ -13,6 +13,4 @@ node_modules
 /.idea/cloudflare-docs.iml
 /.idea/modules.xml
 /.idea/vcs.xml
-/.vscode/devdocs.code-snippets
-/.vscode/extensions.json
 /.hyperlint/config.yaml
