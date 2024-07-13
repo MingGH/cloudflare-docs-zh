@@ -9,7 +9,7 @@ outputs:
     - rss
 ---
 
-# Changelog
+# 更新日志
 
 <!-- Actual content lives in /data/changelogs/pages.yaml. Update the file there for new entries to appear here. For more details, refer to https://developers.cloudflare.com/style-guide/documentation-content-strategy/content-types/changelog/#yaml-file -->
 

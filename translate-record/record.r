@@ -2,3 +2,4 @@
 /cloudflare-docs-zh/SNIPPETS.md,2099-07-12 23:34:24
 /cloudflare-docs-zh/CONTRIBUTING.md,2099-07-12 23:34:24
 /cloudflare-docs-zh/content/pages/functions/pricing.md,2024-07-12 23:46:13
+/cloudflare-docs-zh/content/pages/platform/changelog.md,2024-07-13 09:02:38
