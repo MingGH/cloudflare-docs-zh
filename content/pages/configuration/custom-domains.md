@@ -3,97 +3,97 @@ pcx_content_type: how-to
 title: Custom domains
 ---
 
-# Custom domains
+# 自定义域
 
-When deploying your Pages project, you may wish to point custom domains (or subdomains) to your site.
+部署页面项目时，你可能希望将自定义域（或子域）指向你的网站。
 
-## Add a custom domain
+## 添加自定义域
 
-To add a custom domain:
+添加自定义域：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/login).
-2. Select your account in **Account Home** > **Workers & Pages**.
-3. Select your Pages project > **Custom domains**.
-4. Select **Set up a domain**.
-5. Provide the domain that you would like to serve your Cloudflare Pages site on and select **Continue**.
+1.登录 [Cloudflare 仪表板](https://dash.cloudflare.com/login)。
+2.在**账户主页** > **Workers & Pages** 中选择你的账户。
+3.选择页面项目 > **自定义域**。
+4.选择 **设置域**。
+5.提供你希望为 Cloudflare Pages 站点提供服务的域，然后选择 **继续**。
 
-![Adding a custom domain for your Pages project through the Cloudflare dashboard](/images/pages/platform/domains.png)
+![通过 Cloudflare 面板为你的 Pages 项目添加自定义域名](/images/pages/platform/domains.png)
 
-### Add a custom apex domain
+#### 添加自定义顶点域
 
-If you are deploying to an apex domain (for example, `example.com`), then you will need to add your site as a Cloudflare zone and [configure your nameservers](#configure-nameservers).
+如果要部署到一个 apex 域（例如，`example.com`），则需要将网站添加为 Cloudflare 区域，并 [配置你的名称服务器](#configure-nameservers)。
 
-#### Configure nameservers
+#### 配置名称服务器
 
-To use a custom apex domain (for example, `example.com`) with your Pages project, [configure your nameservers to point to Cloudflare's nameservers](/dns/zone-setups/full-setup/setup/). If your nameservers are successfully pointed to Cloudflare, Cloudflare will proceed by creating a CNAME record for you.
+要在 Pages 项目中使用自定义的 apex 域（例如，`example.com`），请[配置你的名称服务器以指向 Cloudflare 的名称服务器](/dns/zone-setups/full-setup/setup/)。如果你的名称服务器成功指向 Cloudflare，Cloudflare 将继续为你创建 CNAME 记录。
 
-### Add a custom subdomain
+#### 添加自定义子域
 
-If you are deploying to a subdomain, it is not necessary for your site to be a Cloudflare zone. You will need to [add a custom CNAME record](#add-a-custom-cname-record) to point the domain to your Cloudflare Pages site. To deploy your Pages project to a custom apex domain, that custom domain must be a zone on the Cloudflare account you have created your Pages project on.
+如果你要部署到一个子域，则你的网站不必是 Cloudflare 区域。你需要[添加自定义 CNAME 记录](#add-a-custom-cname-record)将域名指向你的 Cloudflare 页面站点。要将你的 Pages 项目部署到自定义的 apex 域，该自定义域必须是你创建 Pages 项目的 Cloudflare 账户上的一个区域。
 
 {{<Aside type="note">}}
 
-If the zone is on the Enterprise plan, make sure that you [release the zone hold](/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds) before adding the custom domain. A zone hold would prevent the custom subdomain from activating.
+如果该zone位于企业计划中，请确保在添加自定义域之前[解除区保留](/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds)。区域保留将阻止自定义子域激活。
 
 {{</Aside>}}
 
-#### Add a custom CNAME record
+#### 添加自定义 CNAME 记录
 
-If you do not want to point your nameservers to Cloudflare, you must create a custom CNAME record to use a subdomain with Cloudflare Pages. After logging in to your DNS provider, add a CNAME record for your desired subdomain, for example, `shop.example.com`. This record should point to your custom Pages subdomain, for example, `<YOUR_SITE>.pages.dev`.
+如果你不想将你的名称服务器指向 Cloudflare，你必须创建一个自定义 CNAME 记录，以便使用 Cloudflare 页面的子域。登录 DNS 提供商后，为所需子域添加一条 CNAME 记录，例如 `shop.example.com`。此记录应指向你的自定义页面子域，例如，`<YOUR_SITE>.pages.dev`。
 
-| Type    | Name               | Content                 |
+| 类型 |名称 |内容 |
 | ------- | ------------------ | ----------------------- |
-| `CNAME` | `shop.example.com` | `<YOUR_SITE>.pages.dev` |
+| `CNAME` | `shop.example.com` | `<YOUR_SITE>.pages.dev`` |
 
-If your site is already managed as a Cloudflare zone, the CNAME record will be added automatically after you confirm your DNS record.
+如果你的网站已经作为 Cloudflare 区域进行管理，那么在你确认 DNS 记录后，CNAME 记录将自动添加。
 
 {{<Aside type="note">}}
 
-To ensure a custom domain is added successfully, you must go through the [Add a custom domain](#add-a-custom-domain) process described above. Manually adding a custom CNAME record pointing to your Cloudflare Pages site - without first associating the domain (or subdomains) in the Cloudflare Pages dashboard - will result in your domain failing to resolve at the CNAME record address, and display a [`522` error](/support/troubleshooting/cloudflare-errors/troubleshooting-cloudflare-5xx-errors/#error-522-connection-timed-out).
+为确保成功添加自定义域名，你必须通过上述[添加自定义域名](#add-a-custom-domain)流程。手动添加指向 Cloudflare Pages 站点的自定义 CNAME 记录 - 而不首先在 Cloudflare Pages 面板中关联域（或子域） - 将导致你的域无法解析到 CNAME 记录地址，并显示 [`522`错误](/support/troubleshooting/cloudflare-errors/troubleshooting-cloudflare-5xx-errors/#error-522-connection-timed-out)。
 
 {{</Aside>}}
 
-## Delete a custom domain
+## 删除自定义域
 
-To detach a custom domain from your Pages project, you must modify your zone's DNS records.
+要从 Pages 项目中分离自定义域，必须修改区域的 DNS 记录。
 
-First, log in to the Cloudflare dashboard > select your account in **Account Home** > select your website > **DNS**.
+首先，登录 Cloudflare 仪表板 > 在**账户主页**中选择你的账户 > 选择你的网站 > **DNS**。
 
-Then, in **DNS** > **Records**:
+然后，在 **DNS** > **Records** 中：
 
-1.  Locate your Pages project's CNAME record.
-2.  Select **Edit**.
-3.  Select **Delete**.
+1.  找到 Pages 项目的 CNAME 记录。
+2.  选择 **编辑**。
+3.  选择 **删除**。
 
-Next, in Account Home, go to **Workers & Pages**:
+接下来，在账户主页中，转到 ** 工作者和页面**：
 
-1.  In **Overview**, select your Pages project.
-2.  Go to **Custom domains**.
-3.  Select the **three dot icon** next to your custom domain > **Remove domain**.
+1.  在**概览**中，选择你的页面项目。
+2.  转到**自定义域**。
+3.  选择自定义域名旁边的**三点图标** > **删除域名**。
 
-After completing these steps, your Pages project will only be accessible through the `*.pages.dev` subdomain you chose when creating your project.
+完成这些步骤后，你的 Pages 项目将只能通过创建项目时选择的 `*.pages.dev` 子域访问。
 
-## Disable access to `*.pages.dev` subdomain
+## 禁止访问 `*.pages.dev` 子域
 
-To disable access to your project's provided `*.pages.dev` subdomain:
+禁止访问项目提供的 `*.pages.dev` 子域：
 
-1. Use Cloudflare Access over your previews (`*.{project}.pages.dev`). Refer to [Customize preview deployments access](/pages/configuration/preview-deployments/#customize-preview-deployments-access).
+1.在预览（`*.{project}.pages.dev`）上使用 Cloudflare Access。请参阅 [自定义预览部署访问](/pages/configuration/preview-deployments/#customize-preview-deployments-access)。
 
-2. Redirect the `*.pages.dev` URL associated with your production Pages project to a custom domain. You can use the account-level [Bulk Redirect](/rules/url-forwarding/bulk-redirects/) feature to redirect your `*.pages.dev` URL to a custom domain.
+2.将与生产页面项目相关联的 `*.pages.dev` URL 重定向到自定义域。你可以使用账户级 [批量重定向](/rules/url-forwarding/bulk-redirects/) 功能将`*.pages.dev` URL 重定向到自定义域。
 
-## Caching
+## 缓存
 
-For guidelines on caching, refer to [Caching and performance](/pages/configuration/serving-pages/#caching-and-performance).
+有关缓存的指导原则，请参阅 [缓存和性能](/pages/configuration/serving-pages/#caching-and-performance)。
 
-## Known issues
+## 已知问题
 
-### CAA records
+### CAA 记录
 
-Certification Authority Authorization (CAA) records allow you to restrict certificate issuance to specific Certificate Authorities (CAs).
+证书颁发机构授权 (CAA) 记录允许你限制向特定证书颁发机构 (CA) 颁发证书。
 
-This can cause issues when adding a [custom domain](/pages/configuration/custom-domains/) to your Pages project if you have CAA records that do not allow Cloudflare to issue a certificate for your custom domain.
+如果你的 CAA 记录不允许 Cloudflare 为你的自定义域签发证书，则在你的 Pages 项目中添加 [自定义域](/pages/configuration/custom-domains/) 时可能会出现问题。
 
-To resolve this, add the necessary CAA records to allow Cloudflare to issue a certificate for your custom domain.
+要解决这个问题，请添加必要的 CAA 记录，以便 Cloudflare 为你的自定义域签发证书。
 
 ```
 example.com.            300     IN      CAA     0 issue "comodoca.com"
@@ -106,12 +106,12 @@ example.com.            300     IN      CAA     0 issuewild "letsencrypt.org"
 example.com.            300     IN      CAA     0 issuewild "pki.goog; cansignhttpexchanges=yes"
 ```
 
-Refer to the [Certification Authority Authorization (CAA) FAQ](/ssl/edge-certificates/troubleshooting/caa-records/) for more information.
+更多信息请参阅 [认证机构授权 (CAA) 常见问题解答](/ssl/edge-certificates/troubleshooting/caa-records/)。
 
-### Change DNS entry away from Pages and then back again
+### 将 DNS 条目从 Pages 中更改出来，然后再更改回来
 
-Once a custom domain is set up, if you change the DNS entry to point to something else (for example, your origin), the custom domain will become inactive. If you then change that DNS entry to point back at your custom domain, anybody using that DNS entry to visit your website will get errors until it becomes active again. If you want to redirect traffic away from your Pages project temporarily instead of changing the DNS entry, it would be better to use an [Origin rule](/rules/origin-rules/) or a [redirect rule](/rules/url-forwarding/single-redirects/create-dashboard/) instead.
+一旦设置了自定义域名，如果你将 DNS 条目更改为指向其他内容（例如，你的源域名），自定义域名就会失效。如果你再将 DNS 条目改回指向你的自定义域，那么任何使用该 DNS 条目访问你网站的人都会出错，直到它再次激活为止。如果你想暂时将流量从 Pages 项目重定向，而不是更改 DNS 条目，最好使用 [Origin 规则](/rules/origin-rules/) 或 [redirect 规则](/rules/url-forwarding/single-redirects/create-dashboard/)。
 
-## Relevant resources
+## 相关资源
 
-- [Debugging Pages](/pages/configuration/debugging-pages/) - Review common errors when deploying your Pages project.
+- [调试页面](/pages/configuration/debugging-pages/) - 查看部署页面项目时的常见错误。
