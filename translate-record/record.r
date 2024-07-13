@@ -8,3 +8,4 @@
 /cloudflare-docs-zh/content/pages/configuration/custom-domains.md,2024-07-13 09:17:32,1c0518e30b58a11e25ad627e0022a458ace8a8bafeb23d3246edd2b3c57f559c
 /cloudflare-docs-zh/content/pages/framework-guides/deploy-a-hugo-site.md,2024-07-13 09:37:27,b99db3fdb9529fd1d92d2268e39e362cb1552461a359f2a24deedcb6fd5fbe0f
 /cloudflare-docs-zh/content/pages/_partials/_tutorials-before-you-start.md,2024-07-13 09:42:39,0cec5a263d49f6a9a621b1d249f178bd30c8b9ce1f705300e63a721bbe9e25f6
+/cloudflare-docs-zh/content/pages/_partials/_framework-guides/_create-github-repository-prefix.md,2024-07-13 09:44:02,cc282255737094ec57317aed0e09c6ae0553f60cf2558fc0c97ce6cceffbfa58
