@@ -4,42 +4,42 @@ title: Pricing
 weight: 12
 ---
 
-# Pricing
+# 定价
 
-Requests to your Functions are billed as Cloudflare Workers requests. Workers plans and pricing can be found [in the Workers documentation](/workers/platform/pricing/).
+对你的功能的请求作为 Cloudflare Workers 请求计费。Workers 计划和定价请参阅 [Workers 文档](/workers/platform/pricing/)。
 
-## Paid Plans
+## 付费计划
 
-Requests to your Pages functions count towards your quota for Workers Paid plans, including requests from your Function to KV or Durable Object bindings.
+对页面功能的请求将计入工人付费计划的配额，包括从功能到 KV 或耐用对象(Durable Object)绑定的请求。
 
-Pages supports the [Standard usage model](/workers/platform/pricing/#example-pricing-standard-usage-model).
+页面支持 [标准使用模式](/workers/platform/pricing/#example-pricing-standard-usage-model)。
 
 {{<Aside type="note">}}
 
-Workers Enterprise accounts are billed based on the usage model specified in their contract. To switch to the Standard usage model, reach out to your Customer Success Manager (CSM). Some Workers Enterprise customers maintain the ability to [change usage models](/workers/platform/pricing/#how-to-switch-usage-models).
+Workers企业账户根据其合同中指定的使用模式计费。要切换到标准使用模式，请联系你的客户成功经理 (CSM)。一些 Workers 企业客户可以[更改使用模式](/workers/platform/pricing/#how-to-switch-usage-models)。
 
 {{</Aside>}}
 
-### Static asset requests
+### 静态资产请求
 
-On both free and paid plans, requests to static assets are free and unlimited. A request is considered static when it does not invoke Functions. Refer to [Functions invocation routes](/pages/functions/routing/#functions-invocation-routes) to learn more about when Functions are invoked.
+在免费和付费计划中，对静态资产的请求都是免费且无限制的。不调用函数的请求被视为静态请求。请参阅 [函数调用路径](/pages/functions/routing/#functions-invocation-routes) 了解更多有关何时调用函数的信息。
 
-## Free Plan
+## 免费计划
 
-Requests to your Pages Functions count towards your quota for the Workers Free plan. For example, you could use 50,000 Functions requests and 50,000 Workers requests to use your full 100,000 daily request usage. The free plan daily request limit resets at midnight UTC.
+对页面功能的请求将计入 Workers 免费计划的配额。例如，你可以使用 50,000 个 "Functions"请求和 50,000 个 "Workers"请求来使用 100,000 个每日请求的全部用量。免费计划的每日请求限额在午夜（世界协调时）重置。
 
-There are two modes in Project Settings that determine how a Function will behave once the daily request limit has been reached: 1) Fail open and 2) Fail closed.
+在 "项目设置 "中，有两种模式可决定功能在达到每日请求限制后的行为方式：1) 失败打开 和 2) 失败关闭。
 
-### Fail open
+### 失败打开
 
-Once the daily request limit has been reached, Projects in fail open mode will bypass the Function and prevent it from operating on incoming traffic. Incoming requests will behave as if there was no Function, and pass through to the site's static assets. This is the default configuration for all Pages projects.
+一旦达到每日请求限制，处于失败打开模式的项目将绕过该功能并阻止其对传入流量进行操作。传入请求的行为就像没有函数一样，并传递到站点的静态资产。这是所有 Pages 项目的默认配置。
 
-### Fail closed
+### 失败关闭
 
-Once the daily request limit has been reached, Projects in fail closed mode will display a Cloudflare 1027 error page to visitors, signifying the Function has been temporarily disabled. Cloudflare recommends this option if your Function is performing security related tasks.
+一旦达到每日请求限制，处于故障关闭模式的项目将向访问者显示 Cloudflare 1027 错误页面，表明功能已被暂时禁用。如果你的功能正在执行与安全相关的任务，Cloudflare 建议使用此选项。
 
 {{<Aside type="note">}}
 
-The default configuration for all Pages projects is to Fail open. Fail closed can be configured per project by navigating to the Project Settings page.
+所有页面项目的默认配置都是 "失败打开"。每个项目都可以通过导航到 "项目设置 "页面配置 "失败关闭"。
 
 {{</Aside>}}
