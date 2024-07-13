@@ -7,3 +7,4 @@
 /cloudflare-docs-zh/content/pages/how-to/deploy-a-wordpress-site.md,2024-07-13 09:03:35,81ceba0a135fae0a74a001f461a84ff7dd6200424c09e9f29aed5837269605aa
 /cloudflare-docs-zh/content/pages/configuration/custom-domains.md,2024-07-13 09:17:32,1c0518e30b58a11e25ad627e0022a458ace8a8bafeb23d3246edd2b3c57f559c
 /cloudflare-docs-zh/content/pages/framework-guides/deploy-a-hugo-site.md,2024-07-13 09:37:27,b99db3fdb9529fd1d92d2268e39e362cb1552461a359f2a24deedcb6fd5fbe0f
+/cloudflare-docs-zh/content/pages/_partials/_tutorials-before-you-start.md,2024-07-13 09:42:39,0cec5a263d49f6a9a621b1d249f178bd30c8b9ce1f705300e63a721bbe9e25f6
