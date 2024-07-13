@@ -5,22 +5,22 @@ title: Hugo
 
 # Hugo
 
-[Hugo](https://gohugo.io/) is a tool for generating static sites, written in Go. It is incredibly fast and has great high-level, flexible primitives for managing your content using different [content formats](https://gohugo.io/content-management/formats/).
+[Hugo](https://gohugo.io/)是一款用 Go 语言编写的静态网站生成工具。它的运行速度快得令人难以置信，而且拥有强大、灵活的高级原语，可使用不同的[内容格式](https://gohugo.io/content-management/formats/)管理内容。
 
-In this guide, you will create a new Hugo application and deploy it using Cloudflare Pages. You will use the `hugo` CLI to create a new Hugo site.
+在本指南中，你将创建一个新的 Hugo 应用程序，并使用 Cloudflare Pages 进行部署。你将使用 `hugo` CLI 创建一个新的 Hugo 站点。
 
 {{<render file="_tutorials-before-you-start.md">}}
 
-Go to [Deploy with Cloudflare Pages](#deploy-with-cloudflare-pages) if you already have a Hugo site hosted with your [Git provider](/pages/get-started/git-integration/).
+如果你已经有一个托管在 [Git 提供商](/pages/get-started/git-integration/)的 Hugo 网站，请转到 [使用 Cloudflare 页面部署](#deploy-with-cloudflare-pages)。
 
-## Install Hugo
+## Hugo安装
 
-Install the Hugo CLI, using the specific instructions for your operating system.
+使用操作系统的具体说明安装 Hugo CLI。
 
 {{<tabs labels="MacOS | Windows | Linux">}}
 {{<tab label="macos" default="true">}}
 
-If you use the package manager [Homebrew](https://brew.sh), run the `brew install` command in your terminal to install Hugo:
+如果使用软件包管理器 [Homebrew](https://brew.sh)，请在终端运行 `brew install` 命令安装 Hugo：
 
 ```sh
 $ brew install hugo
@@ -29,13 +29,13 @@ $ brew install hugo
 {{</tab>}}
 {{<tab label="windows">}}
 
-If you use the package manager [Chocolatey](https://chocolatey.org/), run the `choco install` command in your terminal to install Hugo:
+如果使用软件包管理器 [Chocolatey](https://chocolatey.org/)，请在终端运行 `choco install` 命令安装Hugo：
 
 ```sh
 $ choco install hugo --confirm
 ```
 
-If you use the package manager [Scoop](https://scoop.sh/), run the `scoop install` command in your terminal to install Hugo:
+如果使用软件包管理器 [Scoop](https://scoop.sh/)，请在终端运行 `scoop install` 命令安装 Hugo：
 
 ```sh
 $ scoop install hugo
@@ -44,31 +44,31 @@ $ scoop install hugo
 {{</tab>}}
 {{<tab label="linux">}}
 
-The package manager for your Linux distribution may include Hugo. If this is the case, install Hugo directly using the distribution's package manager — for instance, in Ubuntu, run the following command:
+你的 Linux 发行版的软件包管理器可能包含 Hugo。如果是这种情况，请使用发行版的软件包管理器直接安装 Hugo，例如，在 Ubuntu 中，运行以下命令：
 
 ```sh
 $ sudo apt-get install hugo
 ```
 
-If your package manager does not include Hugo or you would like to download a release directly, refer to the [**Manual**](/pages/framework-guides/deploy-a-hugo-site/#manual-installation) section.
+如果你的软件包管理器不包含 Hugo，或者你想直接下载发行版，请参阅 [**手册**](/pages/framework-guides/deploy-a-hugo-site/#manual-installation)部分。
 {{</tab>}}
 {{</tabs>}}
 
-### Manual installation
+### 手动安装
 
-The Hugo GitHub repository contains pre-built versions of the Hugo command-line tool for various operating systems, which can be found on [the Releases page](https://github.com/gohugoio/hugo/releases).
+Hugo GitHub 仓库包含适用于各种操作系统的 Hugo 命令行工具预构建版本，可在 [Releases 页面](https://github.com/gohugoio/hugo/releases) 上找到。
 
-For more instruction on installing these releases, refer to [Hugo's documentation](https://gohugo.io/getting-started/installing/).
+有关安装这些版本的更多说明，请参阅 [Hugo 文档](https://gohugo.io/getting-started/installing/)。
 
-## Create a new project
+## 创建一个新项目
 
-With Hugo installed, refer to [Hugo's Quick Start](https://gohugo.io/getting-started/quick-start/) to create your project or create a new project by running the `hugo new` command in your terminal:
+安装 Hugo 后，请参阅 [Hugo 快速入门](https://gohugo.io/getting-started/quick-start/) 创建项目，或在终端运行 `hugo new` 命令创建新项目：
 
 ```sh
 $ hugo new site my-hugo-site
 ```
 
-Hugo sites use themes to customize the look and feel of the statically built HTML site. There are a number of themes available at [themes.gohugo.io](https://themes.gohugo.io) — for now, use the [Ananake theme](https://themes.gohugo.io/themes/gohugo-theme-ananke/) by running the following commands in your terminal:
+Hugo网站使用主题来定制静态构建的 HTML 网站的外观和感觉。[theme.gohugo.io](https://themes.gohugo.io)提供了许多主题，目前请在终端运行以下命令，使用[Ananake 主题](https://themes.gohugo.io/themes/gohugo-theme-ananke/)：
 
 ```sh
 $ cd my-hugo-site
@@ -77,33 +77,33 @@ $ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git the
 $ echo "theme = 'ananke'" >> hugo.toml
 ```
 
-## Create a post
+## 创建帖子
 
-Create a new post to give your Hugo site some initial content. Run the `hugo new` command in your terminal to generate a new post:
+创建一篇新文章，为Hugo网站添加一些初始内容。在终端运行 "hugo new "命令，生成新帖子：
 
 ```sh
 $ hugo new content posts/hello-world.md
 ```
 
-Inside of `hello-world.md`, add some initial content to create your post. Remove the `draft` line in your post's frontmatter when you are ready to publish the post. Any posts with `draft: true` set will be skipped by Hugo's build process.
+在 `hello-world.md` 中添加一些初始内容以创建帖子。准备发布文章时，移除文章 frontmatter 中的 `draft` 行。任何设置了 `draft: true` 的文章都会被Hugo的构建过程跳过。
 
 {{<render file="/_framework-guides/_create-github-repository_no_init.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
-To deploy your site to Pages:
+将网站部署到页面：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **Workers & Pages** > **创建应用程序** > **页面** > **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 **设置构建和部署**部分提供以下信息：
 
 {{<pages-build-preset framework="hugo">}}
 
 {{<Aside type="note" header="Base URL configuration">}}
 
-Hugo allows you to configure the `baseURL` of your application. This allows you to utilize the `absURL` helper to construct full canonical URLs. In order to do this with Pages, you must provide the `-b` or `--baseURL` flags with the `CF_PAGES_URL` environment variable to your `hugo` build command.
+Hugo 允许你配置应用程序的 `baseURL` 。这样，你就可以使用 `absURL` 辅助程序来构建完整的规范 URL。要在 Pages 中做到这一点，你必须为你的 `hugo` 编译命令提供 `-b` 或 `--baseURL` 标志和 `CF_PAGES_URL` 环境变量。
 
-Your final build command may look like this:
+你的最终构建命令可能是这样的
 
 ```sh
 $ hugo -b $CF_PAGES_URL
@@ -111,26 +111,26 @@ $ hugo -b $CF_PAGES_URL
 
 {{</Aside>}}
 
-After completing deployment configuration, select the **Save and Deploy**. You should see Cloudflare Pages installing `hugo` and your project dependencies, and building your site, before deploying it.
+完成部署配置后，选择**保存并部署**。在部署之前，你应该会看到 Cloudflare 页面正在安装 `hugo` 和你的项目依赖项，并正在构建你的网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`.
-Every time you commit new code to your Hugo site, Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev``上收到一个唯一的项目子域。
+每次你向 Hugo 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还可以在新的拉取请求中访问 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
-## Use a specific or newer Hugo version
+## 使用特定或更新的Hugo版本
 
-To use a [specific or newer version of Hugo](https://github.com/gohugoio/hugo/releases), create the `HUGO_VERSION` environment variable in your Pages project > **Settings** > **Environment variables**. Set the value as the Hugo version you want to specify (v0.112.0 or later is recommended for newer versions).
+要使用[特定或更新版本的 Hugo](https://github.com/gohugoio/hugo/releases)，请在 Pages 项目 > **设置** > **环境变量**中创建`HUGO_VERSION`环境变量。将值设为你要指定的 Hugo 版本(建议使用 v0.112.0 或更高版本)。
 
-For example, `HUGO_VERSION`: `0.115.4`.
+例如，`HUGO_VERSION`: `0.115.4`。
 
 {{<Aside type="note">}}
 
-If you plan to use [preview deployments](/pages/configuration/preview-deployments/), make sure you also add environment variables to your **Preview** environment.
+如果计划使用 [预览部署](/pages/configuration/preview-deployments/)，请确保在 **Preview** 环境中也添加了环境变量。
 
 {{</Aside>}}
 
