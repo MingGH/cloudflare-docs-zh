@@ -5,47 +5,47 @@ pcx_content_type: tutorial
 title: Migrating a Jekyll-based site from GitHub Pages
 ---
 
-# Migrating a Jekyll-based site from GitHub Pages
+# 从 GitHub 页面迁移基于 Jekyll 的网站
 
-In this tutorial, you will learn how to migrate an existing [GitHub Pages site using Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll) to Cloudflare Pages. Jekyll is one of the most popular static site generators used with GitHub Pages, and migrating your GitHub Pages site to Cloudflare Pages will take a few short steps.
+在本教程中，你将学习如何将现有的[使用 Jekyll 的 GitHub Pages 网站](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll)迁移到 Cloudflare Pages。Jekyll 是与 GitHub Pages 一起使用的最流行的静态网站生成器之一，将 GitHub Pages 网站迁移到 Cloudflare Pages 只需几个简单的步骤。
 
-This tutorial will guide you through:
+本教程将为你提供指导：
 
-1.  Adding the necessary dependencies used by GitHub Pages to your project configuration.
-2.  Creating a new Cloudflare Pages site, connected to your existing GitHub repository.
-3.  Building and deploying your site on Cloudflare Pages.
-4.  (Optional) Migrating your custom domain.
+1.  在项目配置中添加 GitHub Pages 使用的必要依赖项。
+2.  创建一个新的 Cloudflare Pages 站点，与现有的 GitHub 仓库相连。
+3.  在 Cloudflare 页面上构建和部署网站。
+4. (可选)迁移自定义域。
 
-Including build times, this tutorial should take you less than 15 minutes to complete.
-
-{{<Aside type="note">}}
-
-If you have a Jekyll-based site not deployed on GitHub Pages, refer to [the Jekyll framework guide](/pages/framework-guides/deploy-a-jekyll-site/).
-
-{{</Aside>}}
-
-## Before you begin
-
-This tutorial assumes:
-
-1.  You have an existing GitHub Pages site using [Jekyll](https://jekyllrb.com/)
-2.  You have some familiarity with running Ruby's command-line tools, and have both `gem` and `bundle` installed.
-3.  You know how to use a few basic Git operations, including `add`, `commit`, `push`, and `pull`.
-4.  You have read the [Get Started](/pages/get-started/) guide for Cloudflare Pages.
-
-If you do not have Rubygems (`gem`) or Bundler (`bundle`) installed on your machine, refer to the installation guides for [Rubygems](https://rubygems.org/pages/download) and [Bundler](https://bundler.io/).
-
-## Preparing your GitHub Pages repository
+包括构建时间在内，本教程应在 15 分钟内完成。
 
 {{<Aside type="note">}}
 
-If your GitHub Pages repository already has a `Gemfile` and `Gemfile.lock` present, you can skip this step entirely. The GitHub Pages environment assumes a default set of Jekyll plugins that are not explicitly specified in a `Gemfile`.
+如果你有一个未部署在 GitHub Pages 上的基于 Jekyll 的网站，请参阅[Jekyll 框架指南](/pages/framework-guides/deploy-a-jekyll-site/)。
 
 {{</Aside>}}
 
-Your existing Jekyll-based repository must specify a `Gemfile` (Ruby's dependency configuration file) to allow Cloudflare Pages to fetch and install those dependencies during the [build step](/pages/configuration/build-configuration/).
+## 开始之前
 
-Specifically, you will need to create a `Gemfile` and install the `github-pages` gem, which includes all of the dependencies that the GitHub Pages environment assumes.
+本教程假设
+
+1.  你已有一个使用 [Jekyll](https://jekyllrb.com/) 的 GitHub Pages 网站。
+2.  你对运行 Ruby 命令行工具有一定的了解，并且安装了 `gem` 和 `bundle`。
+3.  知道如何使用一些基本的 Git 操作，包括 "添加"、"提交"、"推送 "和 "拉取"。
+4.  你已阅读 Cloudflare 页面的 [入门](/pages/get-started/) 指南。
+
+如果你的机器上没有安装 Rubygems (`gem`) 或 Bundler (`bundle`) ，请参阅 [Rubygems](https://rubygems.org/pages/download) 和 [Bundler](https://bundler.io/) 的安装指南。
+
+## 准备 GitHub Pages 仓库
+
+{{<Aside type="note">}}
+
+如果你的 GitHub Pages 代码库中已经有了 `Gemfile` 和 `Gemfile.lock`，你可以完全跳过这一步。GitHub Pages 环境会默认设置一组未在`Gemfile`中明确指定的 Jekyll 插件。
+
+{{</Aside>}}
+
+你现有的基于 Jekyll 的版本库必须指定一个 "Gemfile"(Ruby 的依赖关系配置文件)，以便 Cloudflare Pages 在 [构建步骤](/pages/configuration/build-configuration/) 期间获取并安装这些依赖关系。
+
+具体来说，你需要创建一个 `Gemfile`并安装 `github-pages`gem，其中包括 GitHub Pages 环境假定的所有依赖项。
 
 ```sh
 ---
@@ -55,7 +55,7 @@ $ cd my-github-pages-repo
 $ bundle init
 ```
 
-Open the `Gemfile` that was created for you, and add the following line to the bottom of the file:
+打开为你创建的 `Gemfile`，在文件底部添加以下一行：
 
 ```ruby
 ---
@@ -64,7 +64,7 @@ header: Specifying the github-pages version
 gem "github-pages", "~> 215", group: :jekyll_plugins
 ```
 
-Your `Gemfile` should resemble the below:
+你的 `Gemfile`应与下相似：
 
 ```ruby
 ---
@@ -80,7 +80,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem "github-pages", "~> 215", group: :jekyll_plugins
 ```
 
-Run `bundle update`, which will install the `github-pages` gem for you, and create a `Gemfile.lock` file with the resolved dependency versions.
+运行 `bundle update`，它会为你安装 `github-pages`gem，并创建一个包含已解决依赖版本的 `Gemfile.lock `文件。
 
 ```sh
 ---
@@ -90,9 +90,9 @@ $ bundle update
 # Bundler will show a lot of output as it fetches the dependencies
 ```
 
-This should complete successfully. If not, verify that you have copied the `github-pages` line above exactly, and have not commented it out with a leading `#`.
+应该可以成功完成。如果没有，请检查是否准确复制了上面的 `github-pages` 行，并且没有注释掉前面的 `#`。
 
-You will now need to commit these files to your repository so that Cloudflare Pages can reference them in the following steps:
+现在，你需要将这些文件提交到你的版本库，以便 Cloudflare Pages 在以下步骤中引用它们：
 
 ```sh
 ---
@@ -103,52 +103,52 @@ $ git commit -m "deps: added Gemfiles"
 $ git push origin main
 ```
 
-## Configuring your Pages project
+## 配置页面项目
 
-With your GitHub Pages project now explicitly specifying its dependencies, you can start configuring Cloudflare Pages. The process is almost identical to [deploying a Jekyll site](/pages/framework-guides/deploy-a-jekyll-site/).
+现在，你的 GitHub Pages 项目已明确指定其依赖关系，你可以开始配置 Cloudflare Pages 了。此过程与 [部署 Jekyll 网站](/pages/framework-guides/deploy-a-jekyll-site/) 几乎相同。
 
 {{<Aside type="note">}}
 
-If you are configuring your Cloudflare Pages site for the first time, refer to the [Git integration guide](/pages/get-started/git-integration/), which explains how to connect your existing Git repository to Cloudflare Pages.
+如果你是第一次配置 Cloudflare Pages 网站，请参阅 [Git 集成指南](/pages/get-started/git-integration/)，其中介绍了如何将现有 Git 仓库连接到 Cloudflare Pages。
 
 {{</Aside>}}
 
-To deploy your site to Pages:
+将网站部署到页面：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 "**设置构建和部署**"部分提供以下信息：
 
 <div>
 
-| Configuration option | Value          |
-| -------------------- | -------------- |
-| Production branch    | `main`         |
-| Build command        | `jekyll build` |
-| Build directory      | `_site`        |
+| 配置选项 | 值 |
+| -------------------- | ------------- |
+| 生产分支 | `main` | 生产分支|
+| 生成命令 | `jekyll build` |
+| 构建目录 | `_site`       |
 
 </div>
 
-After you have configured your site, you can begin your first deploy. You should see Cloudflare Pages installing `jekyll`, your project dependencies, and building your site, before deploying it.
+配置好网站后，即可开始首次部署。在部署之前，你应该看到 Cloudflare 页面正在安装`jekyll`、项目依赖项并构建网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`. Every time you commit new code to your Jekyll site, Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev`上为你的项目获得一个唯一的子域。每次你向 Jekyll 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还将在新的拉取请求中访问 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
-## Migrating your custom domain
+## 迁移自定义域名
 
-If you are using a [custom domain with GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site), you must update your DNS record(s) to point at your new Cloudflare Pages deployment. This will require you to update the `CNAME` record at the DNS provider for your domain to point to `<your-pages-site>.pages.dev`, replacing `<your-username>.github.io`.
+如果你使用的是[带有 GitHub Pages 的自定义域名](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)，你必须更新 DNS 记录以指向新的 Cloudflare Pages 部署。这需要你更新域名 DNS 提供商的 `CNAME` 记录，使其指向 `<your-pages-site>.pages.dev`，替换 `<your-username>.github.io`。
 
-Note that it may take some time for DNS caches to expire and for this change to be reflected, depending on the DNS TTL (time-to-live) value you set when you originally created the record.
+请注意，DNS 缓存过期和反映此更改可能需要一些时间，这取决于你最初创建记录时设置的 DNS TTL(生存时间)值。
 
-Refer to the [adding a custom domain](/pages/configuration/custom-domains/#add-a-custom-domain) section of the Get started guide for a list of detailed steps.
+详细步骤请参阅入门指南中的 [添加自定义域](/pages/configuration/custom-domains/#add-a-custom-domain) 部分。
 
-## What's next?
+# 下一步是什么？
 
-- Learn how to [customize HTTP response headers](/pages/how-to/add-custom-http-headers/) for your Pages site using Cloudflare Workers.
-- Understand how to [rollback a potentially broken deployment](/pages/configuration/rollbacks/) to a previously working version.
-- [Configure redirects](/pages/configuration/redirects/) so that visitors are always directed to your 'canonical' custom domain.
+- 了解如何使用 Cloudflare Workers 为你的 Pages 站点[自定义 HTTP 响应头](/pages/how-to/add-custom-http-headers/)。
+- 了解如何 [回滚可能已损坏的部署](/pages/configuration/rollbacks/) 到以前的工作版本。
+- [配置重定向](/pages/configuration/redirects/)，这样访问者就会被引导到你的 "规范 "自定义域。
