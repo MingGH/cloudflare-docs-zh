@@ -1565,10 +1565,6 @@ span.Tooltip---root {
   --size: var(--logo-size, 2.5em);
   height: var(--size);
   width: var(--size);
-  color: var(--orange);
-  margin-right: var(--gap);
-  flex-shrink: 0;
-  fill: var(--orange);
 }
 
 .DocsNavLogoLockup--logo path {
