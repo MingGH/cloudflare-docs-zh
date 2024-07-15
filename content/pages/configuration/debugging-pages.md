@@ -3,46 +3,46 @@ pcx_content_type: how-to
 title: Debugging Pages
 ---
 
-# Debugging Pages
+# 调试页面
 
-When setting up your Pages project, you may encounter various errors that prevent you from successfully deploying your site. This guide gives an overview of some common errors and solutions.
+在设置 Pages 项目时，你可能会遇到各种错误，导致无法成功部署网站。本指南概述了一些常见错误和解决方案。
 
-## Check your build log
+## 检查构建日志
 
-You can review build errors in your Pages build log. To access your build log:
+你可以在页面构建日志中查看构建错误。要访问构建日志，请
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com).
-2. In **Account Home**, go to **Workers & Pages**.
-3. In **Overview**, select your Pages project > **View build**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com)。
+2. 在**账户主页**，转到**工作者和页面**。
+3. 在**概览**中，选择 Pages项目 > **查看构建**。
 
-![After logging in to the Cloudflare dashboard, access the build log by following the instructions above](/images/pages/platform/pages-build-log.png)
+![登录 Cloudflare 控制面板后，按照上述说明访问构建日志](/images/pages/platform/pages-build-log.png)
 
-Possible errors in your build log are included in the following sections.
+构建日志中可能出现的错误包含在以下章节中。
 
-### Initializing build environment
+### 初始化构建环境
 
-Possible errors in this step could be caused by improper installation during Git integration.
+此步骤中可能出现的错误可能是在 Git 集成过程中安装不当造成的。
 
-To fix this in GitHub:
-1. Log in to your GitHub account.
-2. Go to **Settings**  from your user icon > find **Applications** under Integrations.
-3. Find **Cloudflare Pages** > **Configure** > scroll down and select **Uninstall**.
-4. Re-authorize your GitHub user/organisation on the Cloudflare dashboard.
+在 GitHub 中修复此问题：
+1. 登录 GitHub 账户。
+2. 从用户图标进入**设置**> 在集成下找到**应用程序**。
+3. 找到 **Cloudflare Pages**> **Configure**> 向下滚动并选择 **Uninstall**。
+4. 在 Cloudflare 控制面板上重新授权你的 GitHub 用户/组织。
 
-To fix this in GitLab:
-1. Log in to your GitLab account.
-2. Go to **Preferences** from your user icon > **Applications**.
-3. Find **Cloudflare Pages** > scroll down and select **Revoke**.
+要在 GitLab 中解决这个问题
+1. 登录 GitLab 账户。
+2. 从用户图标 > **应用程序 > **首选项**。
+3. 找到 **Cloudflare页面** > 向下滚动并选择 **撤销**。
 
-Be aware that you need a role of **Maintainer** or above to successfully link your repository, otherwise the build will fail.
+请注意，要成功链接你的版本库，你需要一个 **Maintainer**或以上的角色，否则构建将失败。
 
-### Cloning git repository
+### 克隆 git 仓库
 
-Possible errors in this step could be caused by lack of Git Large File Storage (LFS). Check your LFS usage by referring to the [GitHub](https://docs.github.com/en/billing/managing-billing-for-git-large-file-storage/viewing-your-git-large-file-storage-usage) and [GitLab](https://docs.gitlab.com/ee/topics/git/lfs/) documentation.
+此步骤中可能出现的错误可能是由于 Git 大文件存储空间(LFS)不足造成的。请参考 [GitHub](https://docs.github.com/en/billing/managing-billing-for-git-large-file-storage/viewing-your-git-large-file-storage-usage) 和 [GitLab](https://docs.gitlab.com/ee/topics/git/lfs/) 文档，检查 LFS 的使用情况。
 
-Make sure to also review your submodule configuration by going to the `.gitmodules` file in your root directory. This file needs to contain both a `path` and a `url` property.
+请务必查看根目录下的 `.gitmodules` 文件，检查子模块配置。该文件需要包含 `path` 和 `url` 属性。
 
-Example of a valid configuration:
+有效配置示例
 
 ```js
 [submodule "example"]
@@ -50,13 +50,13 @@ Example of a valid configuration:
 	url = git://github.com/example/repo.git
 ```
 
-Example of an invalid configuration:
+无效配置示例：
 
 ```js
 [submodule "example"]
 	path = example/path
 ```
-or
+或
 ```js
 [submodule "example"]
         url = git://github.com/example/repo.git
@@ -64,33 +64,33 @@ or
 
 ### Building application
 
-Possible errors in this step could be caused by faulty setup in your Pages project. Review your build command, output folder and environment variables for any incorrect configuration.
+此步骤中可能出现的错误可能是由于 Pages 项目中的错误设置造成的。请检查你的构建命令、输出文件夹和环境变量中是否有任何不正确的配置。
 
-### Deploying to Cloudflare's global network
+### 部署到 Cloudflare 的全球网络
 
-Possible errors in this step could be caused by incorrect Pages Functions configuration. Refer to the [Functions](/pages/functions/) documentation for more information on Functions setup.
+此步骤中可能出现的错误可能是由于页面功能配置不正确造成的。有关功能设置的更多信息，请参阅 [功能](/pages/functions/) 文档。
 
-If you are not using Functions or have reviewed that your Functions configuration does not contain any errors, review the [Cloudflare Status site](https://www.cloudflarestatus.com/) for Cloudflare network issues that could be causing the build failure.
+如果你没有使用 Functions 或已检查过你的 Functions 配置不包含任何错误，请查看 [Cloudflare 状态网站](https://www.cloudflarestatus.com/) 以了解可能导致构建失败的 Cloudflare 网络问题。
 
-## Differences between `pages.dev` and custom domains
+## `pages.dev` 与自定义域的区别
 
-If your custom domain is proxied (orange-clouded) through Cloudflare, your zone's settings, like caching, will apply.
+如果你的自定义域名通过 Cloudflare 进行代理(橙色云)，你的区域设置(如缓存)将适用。
 
-If you are experiencing issues with a framework, like Nuxt.js, only on the custom domain, review if Auto Minify (deprecated) is enabled (log in to the [Cloudflare dashboard](https://dash.cloudflare.com/login) > **Speed** > **Optimization** > **Content Optimization** > **Auto Minify**) for HTML and disable it.
+如果你仅在自定义域上遇到框架(如 Nuxt.js)问题，请检查是否启用了 HTML 的自动最小化(已废弃)(登录 [Cloudflare 面板](https://dash.cloudflare.com/login) > **Speed**> **Optimization**> **Content Optimization**> **Auto Minify**)并禁用它。
 
-If you are experiencing issues with new content not being shown, go to **Rules** > **Page Rules** in the Cloudflare dashboard and check for a Page Rule with **Cache Everything** enabled. If present, remove this rule as Pages handles its own cache.
+如果你遇到新内容无法显示的问题，请转到 Cloudflare 面板中的 **Rules**> **Page Rules**，检查是否有启用了 **Cache Everything**的页面规则。如果存在，请删除此规则，因为页面会处理自己的缓存。
 
-If you are experiencing errors on your custom domain but not on your `pages.dev` domain, go to **DNS** > **Records** in the Cloudflare dashboard and set the DNS record for your project to be **DNS Only** (grey cloud). If the error persists, review your zone's configuration.
+如果你在自定义域上遇到错误，但在 `pages.dev` 域上没有，请转到 Cloudflare 面板中的 **DNS**> **Records**，将项目的 DNS 记录设置为 **DNS Only**(灰色云)。如果错误仍然存在，请检查你的区域配置。
 
-## Domain stuck in verification
+## 域名卡在验证中
 
-If your [custom domain](/pages/configuration/custom-domains/) has not moved from the **Verifying** stage in the Cloudflare dashboard, refer to the following debugging steps.
+如果你的 [自定义域](/pages/configuration/custom-domains/) 没有从 Cloudflare 面板中的 **Verifying**阶段移动，请参阅以下调试步骤。
 
-### Blocked HTTP validation
+### 阻止 HTTP 验证
 
-Pages uses HTTP validation and needs to hit an HTTP endpoint during validation. If another Cloudflare product is in the way (such as [Access](/cloudflare-one/policies/access/), [a redirect](/rules/url-forwarding/), [a Worker](/workers/), etc.), validation cannot be completed.
+页面使用 HTTP 验证，在验证过程中需要访问 HTTP 接口。如果有其他 Cloudflare 产品拦截(如 [Access](/cloudflare-one/policies/access/)、[a redirect](/rules/url-forwarding/)、[a Worker](/workers/) 等)，则无法完成验证。
 
-To check this, run a `curl` command against your domain hitting `/.well-known/acme-challenge/randomstring`. For example:
+要检查这一点，请在你的域中运行 `curl` 命令，点击 `/.owned/acme-challenge/randomstring`。例如
 ```sh
 $ curl -I https://example.com/.well-known/acme-challenge/randomstring
 
@@ -103,15 +103,15 @@ server: cloudflare
 cf-ray: 7b1ffdaa8ad60693-MAN
 ```
 
-In the example above, you are redirecting to Cloudflare Access (as shown by the `Location` header). In this case, you need to disable Access over the domain until the domain is verified. After the domain is verified, Access can be re-enabled.
+在上面的示例中，你正在重定向到 Cloudflare Access(如 `Location` 标头所示)。在这种情况下，你需要禁用域上的 Access，直到域通过验证。域通过验证后，可以重新启用 Access。
 
-You will need to do the same kind of thing for Redirect Rules or a Worker example too.
+你也需要为重定向规则或 Worker 示例做同样的事情。
 
-### Missing CAA records
+### 缺少 CAA 记录
 
-If nothing is blocking the HTTP validation, then you may be missing Certification Authority Authorization (CAA) records. This is likely if you have disabled [Universal SSL](/ssl/edge-certificates/universal-ssl/) or use an external provider.
+如果没有任何东西阻止 HTTP 验证，那么可能是缺少认证机构授权(CAA)记录。如果你禁用了 [Universal SSL](/ssl/edge-certificates/universal-ssl/)或使用外部提供商，就有可能出现这种情况。
 
-To check this, run a `dig` on the custom domain's apex (or zone, if this is a [subdomain zone](/dns/zone-setups/subdomain-setup/)). For example:
+要检查这一点，请在domain's apex (or zone，如果这是一个 [子域区域](/dns/zone-setups/subdomain-setup/))上运行 `dig`。例如
 
 ```sh
 $ dig CAA example.com
@@ -136,9 +136,9 @@ example.com.	300	IN	CAA	0 issue "amazon.com"
 ;; MSG SIZE  rcvd: 76
 ```
 
-In the above example, there is only a single CAA record which is allowing Amazon to issue ceritficates.
+在上述示例中，只有一条 CAA 记录允许亚马逊签发证书。
 
-To resolve this, you will need to add the following CAA records which allows all of the Certificate Authorities (CAs) Cloudflare uses to issue certificates:
+要解决这个问题，你需要添加以下 CAA 记录，这些记录允许 Cloudflare 使用的所有证书颁发机构 (CA) 颁发证书：
 ```
 example.com.            300     IN      CAA     0 issue "comodoca.com"
 example.com.            300     IN      CAA     0 issue "digicert.com; cansignhttpexchanges=yes"
@@ -152,20 +152,20 @@ example.com.            300     IN      CAA     0 issuewild "pki.goog; cansignht
 
 ### Zone holds
 
-A [zone hold](/fundamentals/setup/account/account-security/zone-holds/) will prevent Pages from adding a custom domain for a hostname under a zone hold.
+[zone hold](/fundamentals/setup/account/account-security/zone-holds/) 将阻止页面为区域搁置下的主机名添加自定义域名。
 
-To add a custom domain for a hostname with a zone hold, temporarily [release the zone hold](/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds) during the custom domain setup process.
+要为有区域保留的主机名添加自定义域，请在自定义域设置过程中暂时 [释放区域保留](/fundamentals/setup/account/account-security/zone-holds/#release-zone-holds)。
 
-Once the custom domain has been successfully completed, you may [reinstate the zone hold](/fundamentals/setup/account/account-security/zone-holds/#enable-zone-holds).
+自定义域成功完成后，你可以 [恢复区域保留](/fundamentals/setup/account/account-security/zone-holds/#enable-zone-holds)。
 
 {{<Aside type="warning" header="Still having issues">}}
 
-If you have done the steps above and your domain is still verifying after 15 minutes, join our [Discord](https://discord.cloudflare.com) for support or contact our support team through the [Support Portal](https://dash.cloudflare.com/?to=/:account/support).
+如果你已完成上述步骤，但 15 分钟后域名仍在验证中，请加入我们的 [Discord](https://discord.cloudflare.com) 寻求支持，或通过 [Support Portal](https://dash.cloudflare.com/?to=/:account/support) 联系我们的支持团队。
 
 {{</Aside>}}
 
-## Resources
+## 资源
 
-If you need additional guidance on build errors, contact your Cloudflare account team (Enterprise) or refer to the [Support Center](/support/contacting-cloudflare-support/) for guidance on contacting Cloudflare Support.
+如果你需要有关构建错误的其他指导，请联系你的 Cloudflare 账户团队(企业)，或参考 [支持中心](/support/contacting-cloudflare-support/) 以获得联系 Cloudflare 支持的指导。
 
-You can also ask questions in the Pages section of the [Cloudflare Developers Discord](https://discord.com/invite/cloudflaredev).
+你也可以在 [Cloudflare Developers Discord](https://discord.com/invite/cloudflaredev) 的页面部分提问。
