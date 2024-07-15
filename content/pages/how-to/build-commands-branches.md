@@ -4,15 +4,15 @@ pcx_content_type: how-to
 title: Set build commands per branch
 ---
 
-# Set build commands per branch
+# 为每个分支设置构建命令
 
-This guide will instruct you how to set build commands on specific branches. You will use the `CF_PAGES_BRANCH` environment variable to run a script on a specified branch as opposed to your Production branch. This guide assumes that you have a Cloudflare account and a Pages project.
+本指南将指导你如何在特定分支上设置编译命令。你将使用 `CF_PAGES_BRANCH` 环境变量在指定分支而非生产分支上运行脚本。本指南假定你拥有 Cloudflare 账户和 Pages 项目。
 
-## Set up
+## 设置
 
-Create a `.sh` file in your project directory. You can choose your file's name, but we recommend you name the file `build.sh`.
+在项目目录下创建一个 `.sh` 文件。你可以选择文件名，但我们建议你将文件命名为 `build.sh`。
 
-In the following script, you will use the `CF_PAGES_BRANCH` environment variable to check which branch is currently being built. Populate your `.sh` file with the following:
+在下面的脚本中，你将使用 `CF_PAGES_BRANCH` 环境变量来检查当前正在构建的分支。用以下内容填充你的 `.sh` 文件：
 
 ```bash
 # !/bin/bash
@@ -37,11 +37,11 @@ fi
 
 ## Publish your changes
 
-To put your changes into effect:
+将更改生效：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select **Workers & Pages** > in **Overview**, select your Pages project.
-3. Go to **Settings** > **Build & deployments** > **Build configurations** > **Edit configurations**.
-3. Update the **Build command** field value to `bash build.sh` and select **Save**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在 "账户主页 "中，选择 "**Workers & Pages**" > 在 "**Overview**"中，选择 "Pages "项目。
+3. 转到 **设置**> **构建和部署**> **构建配置**> **编辑配置**。
+3. 将 **Build command**字段值更新为 `bash build.sh`，然后选择 **Save**。
 
-To test that your build is successful, deploy your project.
+要测试构建是否成功，请部署项目。

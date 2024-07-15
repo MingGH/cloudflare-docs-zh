@@ -4,56 +4,56 @@ title: Limits
 weight: 1
 ---
 
-# Limits
+# 限制
 
-Below are limits observed by the Cloudflare Free plan. For more details on removing these limits, refer to the [Cloudflare plans](https://www.cloudflare.com/plans) page.
+以下是 Cloudflare 免费计划遵守的限制。有关移除这些限制的详细信息，请参阅 [Cloudflare 计划](https://www.cloudflare.com/plans) 页面。
 
 {{<render file="_limits_increase.md" productFolder="workers">}}
 
 ## Builds
 
-Each time you push new code to your Git repository, Pages will build and deploy your site. You can build up to 500 times per month on the Free plan. Refer to the Pro and Business plans in [Pricing](https://pages.cloudflare.com/#pricing) if you need more builds.
+每次向 Git 仓库推送新代码时，Pages 都会构建并部署你的网站。免费计划每月最多可构建 500 次。如果需要更多构建次数，请参阅 [定价](https://pages.cloudflare.com/#pricing)中的专业版和商业版计划。
 
-Builds will timeout after 20 minutes.
+构建将在 20 分钟后超时。
 
-## Custom domains
+## 自定义域
 
-Based on your Cloudflare plan type, a Pages project is limited to a specific number of custom domains. This limit is on a per-project basis.
+根据你的 Cloudflare 计划类型，页面项目仅限于特定数量的自定义域。此限制以每个项目为单位。
 
-| Free | Pro | Business | Enterprise |
+| 免费版 | 专业版 | 商务版 | 企业版|
 | ---- | --- | -------- | ---------- |
 | 100  | 250 | 500      | 500[^1]    |
 
-[^1]: If you need more custom domains, contact your account team.
+[^1]:如果你需要更多自定义域，请联系你的客户团队。
 
-## Files
+## 文件
 
-Pages uploads each file on your site to Cloudflare's globally distributed network to deliver a low latency experience to every user that visits your site. Cloudflare Pages sites can contain up to 20,000 files.
+页面会将你网站上的每个文件上传到 Cloudflare 的全球分布式网络，为访问你网站的每个用户提供低延迟体验。Cloudflare Pages 网站最多可包含 20,000 个文件。
 
-## File size
+## 文件大小
 
-The maximum file size for a single Cloudflare Pages site asset is 25 MiB.
+单个 Cloudflare Pages 站点资产的最大文件大小为 25 MiB。
 
 ## Headers
 
-A `_headers` file can have a maximum of 100 header rules.
+一个 `_headers` 文件最多可包含 100 条标题规则。
 
-An individual header in a `_headers` file can have a maximum of 2,000 characters. For managing larger headers, it is recommended to implement [Pages Functions](/pages/functions/).
+在`_headers`文件中，单个标题最多可包含 2000 个字符。要管理更大的headers，建议使用 [Pages Functions](/pages/functions/)。
 
-## Preview deployments
+## 预览部署
 
-You can have an unlimited number of [preview deployments](/pages/configuration/preview-deployments/) active on your project at a time.
+你可以在项目上同时激活不限数量的 [预览部署](/pages/configuration/preview-deployments/)。
 
-## Redirects
+## 重定向
 
-A `_redirects` file can have a maximum of 2,000 static redirects and 100 dynamic redirects, for a combined total of 2,100 redirects. It is recommended to use [Bulk Redirects](/pages/configuration/redirects/#surpass-_redirects-limits) when you have a need for more than the `_redirects` file supports.
+一个 `_redirects` 文件最多可包含 2,000 个静态重定向和 100 个动态重定向，合计 2,100 个重定向。如果需要的重定向次数超过了`_redirects`文件的支持范围，建议使用[批量重定向](/pages/configuration/redirects/#surpass-_redirects-limits)。
 
-## Users
+## 用户
 
-Your Pages site can be managed by an unlimited number of users via the Cloudflare dashboard. Note that this does not correlate with your Git project – you can manage both public and private repositories, open issues, and accept pull requests via  without impacting your Pages site.
+通过 Cloudflare 控制面板，你的 Pages 网站可由无限多的用户管理。请注意，这与你的 Git 项目无关--你可以通过它管理公共和私有仓库、打开问题和接受拉取请求，而不会影响你的 Pages 网站。
 
-## Projects
+## 项目
 
-Cloudflare Pages has a soft limit of 100 projects within your account in order to prevent abuse. If you need this limit raised, contact your Cloudflare account team or use the Limit Increase Request Form at the top of this page.
+为了防止滥用，Cloudflare Pages的软限制为 100 个项目。如果你需要提高此限制，请联系你的 Cloudflare 账户团队或使用本页顶部的限制增加申请表。
 
-In order to protect against abuse of the service, Cloudflare may temporarily disable your ability to create new Pages projects, if you are deploying a large number of applications in a short amount of time. Contact support if you need this limit increased.
+为了防止滥用服务，如果你在短时间内部署了大量应用程序，Cloudflare 可能会暂时禁止你创建新的页面项目。如果你需要增加此限制，请联系支持部门。

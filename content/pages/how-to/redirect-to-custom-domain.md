@@ -3,35 +3,35 @@ pcx_content_type: how-to
 title: Redirecting *.pages.dev to a Custom Domain
 ---
 
-# Redirect \*.pages.dev to a custom domain
+# 将 \*.pages.dev 重定向到自定义域
 
-Learn how to use [Bulk Redirects](/rules/url-forwarding/bulk-redirects/) to redirect your `*.pages.dev` subdomain to your [custom domain](/pages/configuration/custom-domains/).
+了解如何使用 [批量重定向](/rules/url-forwarding/bulk-redirects/) 将 `*.pages.dev` 子域重定向到你的 [自定义域](/pages/configuration/custom-domains/)。
 
-You may want to do this to ensure that your site's content is served only on the custom domain, and not the `*.pages.dev` site automatically generated on your first Pages deployment.
+你可能希望这样做，以确保网站内容只在自定义域上提供，而不是在首次部署 Pages 时自动生成的 `*.pages.dev` 网站上提供。
 
-## Setup
+## 设置
 
-To redirect a `*.pages.dev` subdomain to your custom domain:
+将 `*.pages.dev` 子域重定向到自定义域：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/domains), and select your account.
-2. Select **Workers & Pages** and select your Pages application.
-3. Go to **Custom domains** and make sure that your custom domain is listed. If it is not, add it by clicking **Set up a custom domain**.
-4. Go **Bulk Redirects**.
-5. [Create a bulk redirect list](/rules/url-forwarding/bulk-redirects/create-dashboard/#1-create-a-bulk-redirect-list) modeled after the following (but replacing the values as appropriate):
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/?to=/:account/pages/view/:pages-project/domains)，选择你的账户。
+2. 选择 **工作者和页面**，然后选择你的页面应用程序。
+3. 转到**自定义域**，确保你的自定义域已列出。如果没有，请点击**设置自定义域**进行添加。
+4. 转到**批量重定向**。
+5. [创建批量重定向列表](/rules/url-forwarding/bulk-redirects/create-dashboard/#1-create-a-bulk-redirect-list) 以下列内容为模型(但要根据情况替换数值)：
 
   {{<example>}}
 
-  | Source URL | Target URL  | Status | Parameters |
+  | 源 URL | 目标 URL | 状态 | 参数|
   | ---- | ----- | ------------ | ------------ |
-  | `*.pages.dev`    | `https://example.com` | `301`  | <ul><li>Preserve query string</li><li>Subpath matching</li><li>Preserve path suffix</li><li>Include subdomains</li></ul> |
+  | `*.pages.dev` | `https://example.com` | `301` | <ul><li>保留查询字符串</li><li>子路径匹配</li><li>保留路径后缀</li><li>包含子域</li></ul> |
 
   {{</example>}}
 
-6. [Create a bulk redirect rule](/rules/url-forwarding/bulk-redirects/create-dashboard/#2-create-a-bulk-redirect-rule) using the list you just created.
+6. 使用刚才创建的列表 [创建批量重定向规则](/rules/url-forwarding/bulk-redirects/create-dashboard/#2-create-a-bulk-redirect-rule)。
 
-To test that your redirect worked, go to your `*.pages.dev` domain. If the URL is now set to your custom domain, then the rule has propagated.
+要测试重定向是否成功，请访问你的 `*.pages.dev` 域。如果 URL 现在设置为自定义域，则说明规则已传播。
 
-## Related resources
+## 相关资源
 
-- [Redirect www to domain apex](/pages/how-to/www-redirect/)
-- [Handle redirects with Bulk Redirects](/rules/url-forwarding/bulk-redirects/)
+- [将 www 重定向到域名 apex](/pages/how-to/www-redirect/)
+- [使用批量重定向处理重定向](/rules/url-forwarding/bulk-redirects/)

@@ -3,12 +3,12 @@ pcx_content_type: how-to
 title: Enable Zaraz
 ---
 
-# Enable Zaraz
+# 启用 Zaraz
 
 {{<render file="_zaraz-definition.md" productFolder="zaraz">}}
 
-## Enable
+## 启用
 
-To enable Zaraz on Cloudflare Pages, you need a [custom domain](/pages/configuration/custom-domains/) associated with your project.
+要在 Cloudflare 页面上启用 Zaraz，你需要一个与项目相关联的 [自定义域](/pages/configuration/custom-domains/)。
 
-After that, [set up Zaraz](/zaraz/get-started/) on the custom domain.
+然后，在自定义域上 [设置 Zaraz](/zaraz/get-started/)。

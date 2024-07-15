@@ -19,3 +19,13 @@
 /content/pages/configuration/debugging-pages.md,2024-07-15 22:23:49,21e6662d78aa221c8b2be7376b93cbc941f374cd776cc34851c999a91980459a
 /content/pages/_partials/_headers_redirects_placeholders.md,2024-07-15 22:31:07,950b19540c3699195ccb8506d757561b4bbf256650f6d5e15e0da608fc02db08
 /content/pages/migrations/migrating-from-vercel/index.md,2024-07-15 22:32:16,efce66d393b3a2ca4705074c181c44ee725e60dac922749eac2ce8ffa57b50c2
+/content/pages/platform/storage-options.md,2024-07-15 22:35:56,cef036a6770e73b2b4b015266269d7edb58770960ab0864225e6f456ae3666b1
+/content/pages/platform/_index.md,2024-07-15 22:35:59,6101c35254f888a287c60eb65235690a30c834e38c1972f01addcb8addcd03da
+/content/pages/how-to/enable-zaraz.md,2024-07-15 22:36:00,8c903d562922aa9089ce6f4daa556de1e4fbcef00f1ff61136ece917d9f4cea8
+/content/pages/_partials/_web-analytics-setup.md,2024-07-15 22:36:00,c9e8197971e786da0ead99e50184d3fca164e763baa779da5e16c9f6a6fb29fb
+/content/pages/how-to/web-analytics.md,2024-07-15 22:36:02,ba330347e1bbcec5b1beeecc73c7c226b0ca6373f9fc5d426da1031477e40daf
+/content/pages/how-to/build-commands-branches.md,2024-07-15 22:36:02,e2f559a34b9f294617e37793844dcd44f3631e08649fddf17ff42e316dc9c006
+/content/pages/how-to/redirect-to-custom-domain.md,2024-07-15 22:36:04,110f71b2565297a415e89f355f50fb47277fbe00196b86edff57356df550d7a7
+/content/pages/how-to/www-redirect.md,2024-07-15 22:36:07,1b6f789d53111aa32d0d406c4d170df7ece83d77e1b5ed99427c1797c09f5b68
+/content/pages/platform/limits.md,2024-07-15 22:36:07,ef1feda7011c0a8f1e5b48dbeed499363743a5a2629a3eceedbbe2d1eb11027c
+/content/pages/platform/known-issues.md,2024-07-15 22:36:17,7b4e7f3460c716ee5304ddf4931a6503c039ae86713e975c1f23800431dd6f5f

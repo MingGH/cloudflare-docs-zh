@@ -4,6 +4,6 @@ title: Platform
 weight: 9
 ---
 
-# Platform
+# 平台
 
 {{<directory-listing>}}

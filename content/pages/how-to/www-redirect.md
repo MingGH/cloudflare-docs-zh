@@ -3,49 +3,49 @@ pcx_content_type: how-to
 title: Redirecting www to domain apex
 ---
 
-# Redirecting www to domain apex
+# 将 www 重定向到domain apex
 
-Learn how to redirect a `www` subdomain to your apex domain (`example.com`).
+了解如何将 `www` 子域重定向到你的 apex 域 (`example.com`)。
 
-This setup assumes that you already have a [custom domain](/pages/configuration/custom-domains/) attached to your Pages project.
+此设置假定你已经在 Pages 项目中附加了一个 [自定义域](/pages/configuration/custom-domains/)。
 
-## Setup
+## 设置
 
-To redirect your `www` subdomain to your domain apex:
+将 `www` 子域重定向到你的domain apex：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. Go to **Bulk Redirects**.
-3. [Create a bulk redirect list](/rules/url-forwarding/bulk-redirects/create-dashboard/#1-create-a-bulk-redirect-list) modeled after the following (but replacing the values as appropriate):
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 转到**批量重定向**。
+3. [创建批量重定向列表](/rules/url-forwarding/bulk-redirects/create-dashboard/#1-create-a-bulk-redirect-list) 以下列内容为模型(但要适当替换数值)：
 
   {{<example>}}
 
-  | Source URL | Target URL  | Status | Parameters |
-  | ---- | ----- | ------------ | ------------ |
-  | `www.example.com`    | `https://example.com` | `301`  | <ul><li>Preserve query string</li><li>Subpath matching</li><li>Preserve path suffix</li><li>Include subdomains</li></ul> |
+  | 源 URL | 目标 URL | 状态 | 参数                                                                                              |
+  | ---- | ----- | ------------ |-------------------------------------------------------------------------------------------------|
+  | `www.example.com`    | `https://example.com` | `301`  | <ul><li>保留查询字符串</li><li>子路径匹配</li><li>保留路径后缀</li><li>包括子域</li></ul> |
 
   {{</example>}}
 
-4. [Create a bulk redirect rule](/rules/url-forwarding/bulk-redirects/create-dashboard/#2-create-a-bulk-redirect-rule) using the list you just created.
-5. Go to **DNS**.
-6. [Create a DNS record](/dns/manage-dns-records/how-to/create-dns-records/#create-dns-records) for the `www` subdomain using the following values:
+4. 使用刚才创建的列表 [创建批量重定向规则](/rules/url-forwarding/bulk-redirects/create-dashboard/#2-create-a-bulk-redirect-rule)。
+5. 转到 **DNS**。
+6. 使用以下值为 `www` 子域 [创建 DNS 记录](/dns/manage-dns-records/how-to/create-dns-records/#create-dns-records)：
 
   {{<example>}}
 
-  | Type | Name  | IPv4 address | Proxy status |
+  | 类型 | 名称 | IPv4 地址 | 代理状态 |
   | ---- | ----- | ------------ | ------------ |
   | `A`    | `www` | `192.0.2.1`  | Proxied      |
 
   {{</example>}}
 
-It may take a moment for this DNS change to propagate, but once complete, you can run the following command in your terminal.
+DNS 更改的传播可能需要一些时间，但一旦完成，就可以在终端运行以下命令。
 
 ```sh
 $ curl --head -i https://www.example.com/
 ```
 
-Then, inspect the output to verify that the `location` header and status code are being set as configured.
+然后，检查输出，验证 `location` 标头和状态代码是否按配置设置。
 
-## Related resources
+## 相关资源
 
-- [Redirect `*.pages.dev` to a custom domain](/pages/how-to/redirect-to-custom-domain/)
-- [Handle redirects with Bulk Redirects](/rules/url-forwarding/bulk-redirects/)
+- [将 `*.pages.dev` 重定向到自定义域](/pages/how-to/redirect-to-custom-domain/)
+- [使用批量重定向处理重定向](/rules/url-forwarding/bulk-redirects/)
