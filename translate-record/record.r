@@ -18,3 +18,4 @@
 /content/pages/migrations/migrating-jekyll-from-github-pages.md,2024-07-14 22:09:43,6f7f6d178e6df7817b025a36aa13a6e6bab623823ee1954326a636a63b3ae1f5
 /content/pages/configuration/debugging-pages.md,2024-07-15 22:23:49,21e6662d78aa221c8b2be7376b93cbc941f374cd776cc34851c999a91980459a
 /content/pages/_partials/_headers_redirects_placeholders.md,2024-07-15 22:31:07,950b19540c3699195ccb8506d757561b4bbf256650f6d5e15e0da608fc02db08
+/content/pages/migrations/migrating-from-vercel/index.md,2024-07-15 22:32:16,efce66d393b3a2ca4705074c181c44ee725e60dac922749eac2ce8ffa57b50c2
