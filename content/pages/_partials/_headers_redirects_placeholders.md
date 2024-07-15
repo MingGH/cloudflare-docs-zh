@@ -6,6 +6,6 @@ _build:
 inputParameters: type
 ---
 
-A placeholder can be defined with `:placeholder_name`. A colon (`:`) followed by a letter indicates the start of a placeholder and the placeholder name that follows must be composed of alphanumeric characters and underscores (`:[A-Za-z]\w*`). Every named placeholder can only be referenced once. Placeholders match all characters apart from the delimiter, which when part of the host, is a period (`.`) or a forward-slash (`/`) and may only be a forward-slash (`/`) when part of the path.
+可以使用 `:placeholder_name`定义占位符。冒号 (`:`)后面跟一个字母表示占位符的开始，后面的占位符名称必须由字母数字字符和下划线 (`:[A-Za-z]/w*`)组成。每个已命名的占位符只能被引用一次。占位符匹配除分隔符以外的所有字符，分隔符在作为主机的一部分时是句号 (`.`) 或正斜线 (`/`)，在作为路径的一部分时只能是正斜线 (`/`)。
 
-Similarly, the matched value can be used in the $1 values with `:placeholder_name`.
+同样，匹配的值可以通过 `:placeholder_name`在 $1 值中使用。
