@@ -3,53 +3,53 @@ pcx_content_type: concept
 title: Build caching
 ---
 
-# Build caching (beta)
+# 建立缓存(测试版)
 
-Improve Pages build times by turning on build caching to restore dependencies and build output between builds. The first build to occur after enabling build caching on your Pages project will save to cache. Every subsequent build will restore from cache unless configured otherwise.
+通过开启构建缓存，在两次构建之间恢复依赖关系和构建输出，从而缩短 Pages 的构建时间。在 Pages 项目上启用构建缓存后进行的首次构建将保存到缓存中。除非另有配置，否则之后的每次构建都将从缓存中还原。
 
-## Requirements
+## 要求
 
-Build caching requires the [V2 build system](/pages/configuration/language-support-and-tools/) or later. To update from V1, refer to the [V2 build system migration instructions](/pages/configuration/language-support-and-tools/#v2-build-system).
+构建缓存需要 [V2 构建系统](/pages/configuration/language-support-and-tools/) 或更高版本。要从 V1 升级，请参阅 [V2 构建系统迁移说明](/pages/configuration/language-support-and-tools/#v2-build-system)。
 
-## Configuration
+## 配置
 
-### Enable build caching
+### 启用构建缓存
 
-To enable build caching in the Cloudflare dashboard:
+在 Cloudflare 仪表板中启用构建缓存：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select **Workers & Pages**.
-3. In **Overview**, select your Pages project.
-4. Go to **Settings** > **Builds & deployments** > **Build cache** and select **Enable build cache**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在 "账户主页 "中，选择 "**工作者和页面**"。
+3. 在**概览**中，选择你的页面项目。
+4. 转到 **设置**> **构建和部署**> **构建缓存**，然后选择 **启用构建缓存**。
 
-### Clear cache
+### 清除缓存
 
-The build cache can be cleared for a project if needed, such as when debugging build issues. To clear the build cache:
+如有需要，例如在调试构建问题时，可清除项目的构建缓存。清除编译缓存
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select **Workers & Pages**.
-3. In **Overview**, select your Pages project.
-4. Go to **Settings** > **Builds & deployments** > **Build cache**.
-5. Select **Clear cache** to clear the build cache.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在 "账户主页 "中，选择 "**工作者和页面**"。
+3. 在**概览**中，选择你的页面项目。
+4. 转到 **设置**> **构建和部署**> **构建缓存**。
+5. 选择 **清除缓存**，清除构建缓存。
 
-## How build caching works
+## 构建缓存的工作原理
 
-When enabled, the build cache will automatically detect and cache data from each build. Refer to [Frameworks](/pages/configuration/build-caching/#frameworks) to review what directories are automatically saved and restored from the build cache.
+启用后，构建缓存将自动检测并缓存每次构建的数据。请参阅 [框架](/pages/configuration/build-caching/#frameworks)，查看哪些目录会从构建缓存中自动保存和恢复。
 
-### Package managers
+### 软件包管理器
 
-Package manager caches are automatically saved to the build cache to speed up dependency installation. Pages will cache the global cache directories of the following package managers:
+软件包管理器缓存会自动保存到构建缓存中，以加快依赖关系的安装。页面将缓存以下软件包管理器的全局缓存目录：
 
 - [yarn 1](https://yarnpkg.com/)
 - [npm](https://www.npmjs.com/)
 - [pnpm](https://pnpm.io/)
 - [bun](https://bun.sh/)
 
-### Frameworks
+### 框架
 
-Caching the build output from frameworks can speed up subsequent build times. The build cache supports the following frameworks:
+缓存框架的构建输出可加快后续构建时间。构建缓存支持以下框架：
 
-| Framework  | Directories cached                            |
+| 框架 | 缓存的目录|
 | ---------- | --------------------------------------------- |
 | Astro      | `node_modules/.astro`                         |
 | Docusaurus | `node_modules/.cache`, `.docusaurus`, `build` |
@@ -58,13 +58,13 @@ Caching the build output from frameworks can speed up subsequent build times. Th
 | Next.js    | `.next/cache`                                 |
 | Nuxt       | `node_modules/.cache/nuxt`                    |
 
-## Limits
+## 限制
 
-During this beta period, the following limits are imposed:
+在测试期间，有以下限制：
 
-- **Retention**: Cache is purged seven days after its last read date. Unread cache artifacts are purged seven days after creation.
-- **Storage**: Every project is allocated 10 GB. If the project cache exceeds this limit, the project will automatically start deleting artifacts that were read least recently.
+- **保留**：缓存在最后一次读取日期后七天被清除。未读缓存工件将在创建七天后清除。
+- **存储**：每个项目分配 10 GB。如果项目缓存超过此限制，项目将自动开始删除最近读取次数最少的工件。
 
-## Feedback
+## 反馈
 
-If there are package managers or frameworks you want to see supported, let us know in the Pages channel of the [Cloudflare Developer Discord](https://discord.com/invite/cloudflaredev).
+如果你希望看到软件包管理器或框架获得支持，请通过 [Cloudflare Developer Discord](https://discord.com/invite/cloudflaredev) 的页面频道告诉我们。

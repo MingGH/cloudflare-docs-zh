@@ -3,123 +3,123 @@ pcx_content_type: concept
 title: Git integration
 ---
 
-# Git integration
+# Git 整合
 
-Cloudflare supports connecting Cloudflare Pages to your GitHub and GitLab repositories to look for new changes to your project. Pages does not currently support self-hosted instances of GitHub or GitLab.
+Cloudflare 支持将 Cloudflare Pages 连接到 GitHub 和 GitLab 资源库，以查找项目的新更改。Pages 目前不支持 GitHub 或 GitLab 的自托管实例。
 
-## Custom branches
+## 自定义分支
 
-Suppose you have a custom Git workflow that uses specific branches to represent your project's production build. In that case, you can specify a custom branch when creating (or managing an existing) project in the Pages dashboard by going to  **Settings** > **Builds & deployments** and clicking the **Configure Production deployments** button. You can change the production branch to any other branch in the dropdown menu under **production branch**.
+假设你有一个自定义的 Git 工作流程，使用特定的分支来代表项目的生产构建。在这种情况下，你可以在 Pages 面板中创建(或管理现有)项目时指定一个自定义分支，方法是进入 **设置**> **构建和部署**，然后点击 **配置生产部署**按钮。你可以在**生产分支**下的下拉菜单中将生产分支更改为任何其他分支。
 
-You can also use [preview deployments](/pages/configuration/preview-deployments/) to preview how the new version of your project looks before merging into `production`. In addition, Pages allows you to configure which of your preview branches are built and deployed by using [branch build controls](/pages/configuration/branch-build-controls/).
+你还可以使用[预览部署](/pages/configuration/preview-deployments/)，在合并到 `production`之前预览项目新版本的外观。此外，Pages 还允许你使用[分支构建控制](/pages/configuration/branch-build-controls/)来配置构建和部署哪些预览分支。
 
-To configure this in your Pages project go to **Settings** > **Builds & deployments** > **Configure preview deployment** and select **Custom branches**. Here you can specify branches you wish to include and exclude from automatic deployments in the provided configuration fields. To learn more refer to the [branch build controls](/pages/configuration/branch-build-controls/) documentation.
+要在 Pages 项目中对此进行配置，请转到 **设置**> **构建和部署**> **配置预览部署**，然后选择 **自定义分支**。在这里，你可以在提供的配置字段中指定希望包含或排除在自动部署之外的分支。要了解更多信息，请参阅 [branch build controls](/pages/configuration/branch-build-controls/) 文档。
 
 
-## Organizational access
+## 组织访问
 
-You can deploy projects to Cloudflare Pages from your open-source team, company, or side project on both GitHub and GitLab.
+你可以将你的开源团队、公司或 GitHub 和 GitLab 上的辅助项目部署到 Cloudflare 页面。
 
 ### GitHub
 
-When authorizing Cloudflare Pages to access a GitHub account, you can specify access to your individual account or an organization that you belong to on GitHub. In order to be able to add the Cloudflare Pages installation to that organization, your user account must be an owner or have the appropriate role within the organization (that is, the GitHub Apps Manager role). More information on these roles can be seen on [GitHub's documentation](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization#github-app-managers).
+授权 Cloudflare Pages 访问 GitHub 账户时，你可以指定访问你的个人账户或你在 GitHub 上所属的组织。为了能将 Cloudflare Pages 安装添加到该组织，你的用户账户必须是该组织的所有者或具有相应的角色(即 GitHub 应用程序管理器角色)。有关这些角色的更多信息，请参阅 [GitHub 文档](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/roles-in-an-organization#github-app-managers)。
 
 {{<Aside type="warning" header="GitHub security consideration">}}
 
-A GitHub account should only point to one Cloudflare account, however, this is not enforced. If you are setting up Cloudflare with GitHub for your organization, Cloudflare recommends that you limit the scope of the application to only the repositories you intend to build with Pages at the time that you set up your project. You can modify these permissions as you build more applications.
+一个 GitHub 帐户只能指向一个 Cloudflare 帐户，但这并不强制执行。如果你要通过 GitHub 为你的组织设置 Cloudflare，Cloudflare 建议你将应用程序的范围限制在你设置项目时打算使用 Pages 构建的存储库中。你可以在构建更多应用程序时修改这些权限。
 
 {{</Aside>}}
 
 ### GitLab
 
-By authorizing Cloudflare Pages to access your GitLab account, you will automatically allow access to organizations, groups, and namespaces your GitLab account can access for use by Cloudflare Pages. Managing access to these organizations and groups is handled by GitLab.
+授权 Cloudflare Pages 访问你的 GitLab 帐户后，你将自动允许 Cloudflare Pages 访问你的 GitLab 帐户可访问的组织、组和命名空间。对这些组织和组的访问管理由 GitLab 负责。
 
-## Removing access to your GitHub account
+## 删除对 GitHub 账户的访问权限
 
-You can remove Cloudflare Pages' access to your GitHub account by viewing the [**Applications** page](https://github.com/settings/installations) on GitHub. Note that removing access to GitHub will also disable new builds, though the last build of your site will continue to be hosted via Cloudflare Pages.
+你可以通过查看 GitHub 上的[**应用程序**页面](https://github.com/settings/installations)来移除 Cloudflare Pages 对你 GitHub 账户的访问权限。请注意，移除对 GitHub 的访问权限也将禁用新的构建，但你网站的最后一次构建将继续通过 Cloudflare Pages 托管。
 
-## Removing access to your GitLab account
+## 删除对 GitLab 账户的访问权限
 
-You can remove Cloudflare Pages' access to your GitLab account by navigating to **User Settings** > **Applications** > **Authorized Applications**. Find the applications called Cloudflare Pages and select the **Revoke** button to revoke access.
+你可以通过导航至**用户设置**> **应用程序**> **授权应用程序**，取消 Cloudflare Pages 对你 GitLab 账户的访问权限。找到名为 Cloudflare Pages 的应用程序，然后选择**撤销**按钮撤销访问权限。
 
-## Skipping a specific build via a commit message
+## 通过提交信息跳过特定构建
 
-Without any configuration required, you can choose to skip a deployment on an adhoc basis. By adding the `[CI Skip]`, `[CI-Skip]`, `[Skip CI]`, `[Skip-CI]` or `[CF-Pages-Skip]` flag as a prefix in your commit message, and Pages will omit that deployment. The prefixes are case insensitive.
+无需任何配置，你可以选择临时跳过部署。在提交信息中添加`[CI Skip]`, `[CI-Skip]`, `[Skip CI]`, `[Skip-CI]`或`[CF-Pages-Skip]`标记作为前缀，Pages 就会省略该部署。前缀不区分大小写。
 
-## Reinstall a Git installation
+## 重新安装 Git
 
-When encountering Git integration related issues, one potential troubleshooting step is attempting to uninstall and reinstall the GitHub or GitLab application associated with the Cloudflare Pages installation. The process for each Git provider is provided below.
+当遇到与 Git 集成相关的问题时，一个潜在的故障排除步骤是尝试卸载和重新安装与 Cloudflare Pages 安装相关的 GitHub 或 GitLab 应用程序。各 Git 提供商的流程如下。
 
 ### GitHub
 
-1. Go to the installation settings page on GitHub:
-    1. `https://github.com/settings/installations` for individual accounts.
-    1. `https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations` for organizational accounts.
-2. If the Cloudflare Pages installation is there, click **Configure**, and click **Uninstall "Cloudflare Pages"** (if there is no "Cloudflare Pages" installation, the user doesn't need to do anything)
-3. Go back to the **Workers & Pages** overview page at `https://dash.cloudflare.com/[YOUR_ACCOUNT_ID]/workers-and-pages`. Click **Create application** > **Pages** > **Connect to Git**
-4. Click the **+ Add account** button, click the GitHub account you want to add, and then click **Install & Authorize**.
-5. You should be redirected to the create project page with your GitHub account or organization in the account list.
-6. Attempt to make a new deployment with your project which was previously broken.
+1. 访问 GitHub 上的安装设置页面：
+    1. 个人账户的 "https://github.com/settings/installations"。
+    1. 组织账户的 "https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations"。
+2. 如果已安装 Cloudflare Pages，请单击**配置**，然后单击**卸载 "Cloudflare Pages "**(如果没有安装 "Cloudflare Pages"，用户无需执行任何操作)。
+3. 返回位于 `https://dash.cloudflare.com/[YOUR_ACCOUNT_ID]/workers-and-pages` 的 **Workers & Pages**总览页面。点击 **Create application**> **Pages**> **Connect to Git**
+4. 点击 **+ 添加账户**按钮，点击要添加的 GitHub 账户，然后点击 **安装和授权**。
+5. 你应该会被重定向到创建项目页面，账户列表中会出现你的 GitHub 账户或组织。
+6. 尝试对之前已损坏的项目进行新的部署。
 
 ### GitLab
 
-1. Go to your application settings page on GitLab located here: https://gitlab.com/-/profile/applications
-2. Click the "Revoke" button on your Cloudflare Pages installation if it exists.
-3. Go back to the **Workers & Pages** overview page at `https://dash.cloudflare.com/[YOUR_ACCOUNT_ID]/workers-and-pages`. Click **Create application** > **Pages** > **Connect to Git**
-4. Select the **GitLab** tab at the top, click the **+ Add account** button, click the GitLab account you want to add, and then click **Authorize** on the modal titled "Authorize Cloudflare Pages to use your account?".
-5. You should be redirected to the create project page with your GitHub account or organization in the account list.
-6. Attempt to make a new deployment with your project which was previously broken.
+1. 访问 GitLab 上的应用程序设置页面，网址是： https://gitlab.com/-/profile/applications
+2. 点击 Cloudflare Pages 安装中的 "撤销 "按钮(如果存在)。
+3. 返回位于 `https://dash.cloudflare.com/[YOUR_ACCOUNT_ID]/workers-and-pages` 的 **Workers & Pages**总览页面。点击 **Create application**> **Pages**> **Connect to Git**
+4. 选择顶部的 "**GitLab**"选项卡，点击 "**+ 添加账户**"按钮，点击要添加的 GitLab 账户，然后在题为 "授权 Cloudflare Pages 使用你的账户？"的模式对话框中点击 "**授权**"。
+5. 你应该会被重定向到创建项目页面，账户列表中会出现你的 GitHub 账户或组织。
+6. 尝试对之前已损坏的项目进行新的部署。
 
-## Troubleshooting
+## 疑难解答
 
-### Project Creation
+### 项目创建
 
 #### `This repository is being used for a Cloudflare Pages project on a different Cloudflare account.`
 
-Using the same Github/Gitlab repository across separate Cloudflare accounts is disallowed. To use the repository for a Pages project in that Cloudflare account, you should delete any Pages projects using the repository in other Cloudflare accounts.
+禁止在不同的 Cloudflare 账户中使用同一个 Github/Gitlab 版本库。要使用该 Cloudflare 账户中 Pages 项目的版本库，应删除在其他 Cloudflare 账户中使用该版本库的任何 Pages 项目。
 
-### Deployments
+### 部署
 
-If you run into any issues related to deployments or failing, check your project dashboard to see if there are any SCM installation warnings listed as shown in the screenshot below.
+如果遇到任何与部署相关的问题或失败，请检查项目控制面板，查看是否列出了任何 SCM 安装警告，如下图所示。
 
-![Pausing a deployment in the Settings of your Pages project](/images/pages/platform/git.dashboard-error.png)
+![在页面项目的设置中暂停部署](/images/pages/platform/git.dashboard-error.png)
 
-To resolve any errors displayed in the Cloudflare Pages dashboard, follow the steps listed below.
+要解决 Cloudflare 页面控制面板中显示的任何错误，请按照以下步骤操作。
 
 #### `This project is disconnected from your Git account, this may cause deployments to fail.`
 
-To resolve this issue, follow the steps provided above in the [Reinstalling a Git installation section](/pages/configuration/git-integration/#reinstall-a-git-installation) for the applicable SCM provider. If the issue persists even after uninstalling and reinstalling, contact support.
+要解决此问题，请针对适用的 SCM 提供商，按照上述 [重新安装 Git 安装](/pages/configuration/git-integration/#reinstall-a-git-installation) 部分提供的步骤操作。如果卸载和重新安装后问题仍然存在，请联系技术支持。
 
 #### `Cloudflare Pages is not properly installed on your Git account, this may cause deployments to fail.`
 
-To resolve this issue, follow the steps provided above in the [Reinstalling a Git installation section](/pages/configuration/git-integration/#reinstall-a-git-installation) for the applicable SCM provider. If the issue persists even after uninstalling and reinstalling, contact support.
+要解决此问题，请针对适用的 SCM 提供商，按照上述 [重新安装 Git 安装](/pages/configuration/git-integration/#reinstall-a-git-installation) 部分提供的步骤操作。如果卸载和重新安装后问题仍然存在，请联系技术支持。
 
 #### `The Cloudflare Pages installation has been suspended, this may cause deployments to fail.`
 
-Go to your GitHub installation settings:
+进入 GitHub 安装设置：
 
-* `https://github.com/settings/installations` for individual accounts
-* `https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations` for organizational accounts
+* 个人账户的 "https://github.com/settings/installations
+* `https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations` 用于组织账户
 
-Click **Configure** on the Cloudflare Pages application. Scroll down to the bottom of the page and click **Unsuspend** to allow Cloudflare Pages to make future deployments.
+在 Cloudflare Pages 应用程序上单击**配置**。向下滚动到页面底部，然后单击**取消暂停**，允许 Cloudflare Pages 今后进行部署。
 
 #### `The project is linked to a repository that no longer exists, this may cause deployments to fail.`
 
-You may have deleted or transferred the repository associated with this Cloudflare Pages project. For a deleted repository, you will need to create a new Cloudflare Pages project with a repository that has not been deleted. For a transferred repository, you can either transfer the repository back to the original Git account or you will need to create a new Cloudflare Pages project with the transferred repository.
+你可能已删除或转移了与此 Cloudflare Pages 项目相关的版本库。对于已删除的版本库，你需要使用未删除的版本库创建一个新的 Cloudflare Pages 项目。对于已转移的版本库，你可以将版本库转移回原始 Git 账户，或者使用已转移的版本库创建一个新的 Cloudflare Pages 项目。
 
 #### `The repository cannot be accessed, this may cause deployments to fail.`
 
-You may have excluded this repository from your installation's repository access settings.  Go to your GitHub installation settings:
+你可能已将此版本库排除在安装的版本库访问设置之外。  转到 GitHub 安装设置：
 
-* `https://github.com/settings/installations` for individual accounts
-* `https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations` for organizational accounts
+* 个人账户的 "https://github.com/settings/installations
+* `https://github.com/organizations/<YOUR_ORGANIZATION_NAME>/settings/installations` 用于组织账户
 
-Click **Configure** on the Cloudflare Pages application. Under **Repository access**, ensure that the repository associated with your Cloudflare Pages project is included in the list.
+单击 Cloudflare Pages 应用程序上的**配置**。在**版本库访问**下，确保与 Cloudflare Pages 项目相关的版本库包含在列表中。
 
 #### `There is an internal issue with your Cloudflare Pages Git installation.`
 
-This is an internal error in the Cloudflare Pages SCM system. You can attempt to [reinstall your Git installation](/pages/configuration/git-integration/#reinstall-a-git-installation), but if the issue persists, [contact support](/support/contacting-cloudflare-support/).
+这是 Cloudflare Pages SCM 系统的内部错误。你可以尝试[重新安装 Git 安装](/pages/configuration/git-integration/#reinstall-a-git-installation)，但如果问题仍然存在，请[联系支持](/support/contacting-cloudflare-support/)。
 
-## Related resources
+## 相关资源
 
-* [Branch build controls](/pages/configuration/branch-build-controls/#production-branch-control) -  Control which environments and branches you would like to automatically deploy to.
+* [分支构建控制](/pages/configuration/branch-build-controls/#production-branch-control) - 控制要自动部署到哪些环境和分支。

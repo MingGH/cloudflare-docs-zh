@@ -5,37 +5,37 @@ title: REST API
 
 # REST API
 
-The [Pages API](/api/operations/pages-project-get-projects) empowers you to build automations and integrate Pages with your development workflow. At a high level, the API endpoints let you manage deployments and builds and configure projects. Cloudflare supports [Deploy Hooks](/pages/configuration/deploy-hooks/) for headless CMS deployments. Refer to the [API documentation](https://api.cloudflare.com/) for a full breakdown of object types and endpoints.
+[Pages API](/api/operations/pages-project-get-projects)使你能够构建自动化，并将 Pages 与你的开发工作流集成。在高层次上，API 接口可让你管理部署和构建并配置项目。Cloudflare 支持用于headless CMS 部署的 [Deploy Hooks](/pages/configuration/deploy-hooks/)。请参阅 [API 文档](https://api.cloudflare.com/) 了解对象类型和接口的完整分类。
 
-## How to use the API
+## 如何使用应用程序接口
 
-### Get an API token
+### 获取应用程序接口令牌
 
-To create an API token:
+创建 API 令牌
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com).
-2. Select the user icon on the top right of your dashboard > **My Profile**.
-3. Select [**API Tokens**](https://dash.cloudflare.com/profile/api-tokens) > **Create Token**.
-4. You can go to **Edit Cloudflare Workers** template > **Use template** or go to **Create Custom Token** > **Get started**. If you create a custom token, you will need to make sure to add the **Cloudflare Pages** permission with **Edit** access.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com)。
+2. 选择仪表板 > **我的个人资料**右上方的用户图标。
+3. 选择 [**API 令牌**](https://dash.cloudflare.com/profile/api-tokens) > **创建令牌**。
+4. 你可以转到 **编辑 Cloudflare Workers**模板 > **使用模板**或转到 **创建自定义令牌**> **开始**。如果创建自定义令牌，则需要确保添加**Cloudflare 页面**权限和**编辑**访问权限。
 
-### Make requests
+### 请求
 
-After creating your token, you can authenticate and make requests to the API using your API token in the request headers. For example, here is an API request to get all deployments in a project.
+创建令牌后，你就可以使用请求headers中的 API 令牌对 API 进行身份验证和发出请求。例如，下面是一个获取项目中所有部署的 API 请求。
 
 ```bash
 curl 'https://api.cloudflare.com/client/v4/accounts/{account_id}/pages/projects/{project_name}/deployments' \
 --header 'Authorization: Bearer <API_TOKEN>'
 ```
 
-Try it with one of your projects by replacing `{account_id}`, `{project_name}`, and `<API_TOKEN>`. Refer to [Find your account ID](/fundamentals/setup/find-account-and-zone-ids/) for more information.
+替换 `{account_id}`、`{project_name}` 和 `<API_TOKEN>`，使用你的一个项目进行尝试。更多信息请参阅 [查找账户 ID](/fundamentals/setup/find-account-and-zone-ids/)。
 
-## Examples
+## 示例
 
-The API is even more powerful when combined with Cloudflare Workers: the easiest way to deploy serverless functions on Cloudflare's global network. The following section includes three code examples on how to use the Pages API. To build and deploy these samples, refer to the [Get started guide](/workers/get-started/guide/).
+当 API 与 Cloudflare Workers(在 Cloudflare 全球网络上部署无服务器功能的最简单方法)结合使用时，功能会更加强大。以下部分包括如何使用页面 API 的三个代码示例。要构建和部署这些示例，请参阅 [入门指南](/workers/get-started/guide/)。
 
-### Triggering a new build every hour
+#### 每小时触发一次新的构建
 
-Suppose we have a CMS that pulls data from live sources to compile a static output. You can keep the static content as recent as possible by triggering new builds periodically using the API.
+假设我们有一个从实时源提取数据来编译静态输出的内容管理系统。你可以通过使用 API 定期触发新的编译，尽可能保持静态内容的最新状态。
 
 ```js
 const endpoint = "https://api.cloudflare.com/client/v4/accounts/{account_id}/pages/projects/{project_name}/deployments";
@@ -56,11 +56,11 @@ export default {
 }
 ```
 
-After you have deployed the JavaScript Worker, set a cron trigger in your Worker to run this script periodically. Refer to [Cron Triggers](/workers/configuration/cron-triggers/) for more details.
+部署 JavaScript Worker 后，在 Worker 中设置一个 cron 触发器来定期运行此脚本。详情请参阅 [Cron Triggers](/workers/configuration/cron-triggers/)。
 
-### Deleting old deployments after a week
+### 一周后删除旧部署
 
-Cloudflare Pages hosts and serves all project deployments on preview links. Suppose you want to keep your project private and prevent access to your old deployments. You can use the API to delete deployments after a month, so that they are no longer public online. The latest deployment for a branch cannot be deleted.
+Cloudflare Pages 在预览链接上托管并提供所有项目部署。假设你想保持项目的私密性，防止他人访问你的旧部署。你可以使用 API 在一个月后删除部署，使其不再在线公开。分支的最新部署无法删除。
 
 ```js
 const endpoint = "https://api.cloudflare.com/client/v4/accounts/{account_id}/pages/projects/{project_name}/deployments";
@@ -96,11 +96,11 @@ export default {
 }
 ```
 
-After you have deployed the JavaScript Worker, you can set a cron trigger in your Worker to run this script periodically. Refer to the [Cron Triggers guide](/workers/configuration/cron-triggers/) for more details.
+部署 JavaScript Worker 后，可以在 Worker 中设置一个 cron 触发器来定期运行该脚本。详情请参考 [Cron Triggers guide](/workers/configuration/cron-triggers/)。
 
-### Sharing project information
+### 共享项目信息
 
-Imagine you are working on a development team using Pages to build your websites. You would want an easy way to share deployment preview links and build status without having to share Cloudflare accounts. Using the API, you can easily share project information, including deployment status and preview links, and serve this content as HTML from a Cloudflare Worker.
+想象一下，你在一个使用 Pages 构建网站的开发团队中工作。你希望有一种简单的方式来共享部署预览链接和构建状态，而无需共享 Cloudflare 账户。使用 API，你可以轻松共享项目信息，包括部署状态和预览链接，并从 Cloudflare Worker 以 HTML 的形式提供这些内容。
 
 ```js
 const deploymentsEndpoint =
@@ -158,8 +158,8 @@ export default {
 }
 ```
 
-## Related resources
+## 相关资源
 
-- [Pages API Docs](/api/operations/pages-project-get-projects)
-- [Workers Getting Started Guide](/workers/get-started/guide/)
-- [Workers Cron Triggers](/workers/configuration/cron-triggers/)
+- [页面 API 文档](/api/operations/pages-project-get-projects)
+- [Workers入门指南](/workers/get-started/guide/)
+- [Workers的 Cron 触发器](/workers/configuration/cron-triggers/)

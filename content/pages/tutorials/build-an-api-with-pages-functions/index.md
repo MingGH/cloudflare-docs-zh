@@ -6,24 +6,24 @@ difficulty: Intermediate
 title: Build an API for your front end using Pages Functions
 ---
 
-# Build an API for your front end using Pages Functions
+# 使用Pages Functions为前端创建应用程序接口
 
 {{<tutorial-date-info>}}
 
-In this tutorial, you will build a full-stack Pages application. Your application will contain:
+在本教程中，你将构建一个全栈 Pages 应用程序。你的应用程序将包含
 
-* A front end, built using Cloudflare Pages and the [React framework](/pages/framework-guides/deploy-a-react-site/).
-* A JSON API, built with [Pages Functions](/pages/functions/get-started/), that returns blog posts that can be retrieved and rendered in your front end.
+* 使用 Cloudflare 页面和 [React 框架](/pages/framework-guides/deploy-a-react-site/)构建的前端。
+* 使用 [Pages Functions](/pages/functions/get-started/)构建的 JSON API 可返回博客文章，并可在前端进行检索和渲染。
 
-If you prefer to work with a headless CMS rather than an API to render your blog content, refer to the [headless CMS tutorial](/pages/tutorials/build-a-blog-using-nuxt-and-sanity/).
+如果你希望使用无头内容管理系统(headless CMS)而不是应用程序接口(API)来呈现博客内容，请参阅[无头内容管理系统教程](/pages/tutorials/build-a-blog-using-nuxt-and-sanity/)。
 
-## Build your front end
+## 建立你的前端
 
-To begin, create a new Pages application using the React framework.
+首先，使用 React 框架创建一个新的 Pages 应用程序。
 
-### Create a new React project
+### 创建一个新的 React 项目
 
-In your terminal, create a new React project called `blog-frontend` using the `create-react-app` command. Go into the newly created `blog-frontend` directory and start a local development server:
+在终端中使用 `create-react-app` 命令创建一个名为 `blog-frontend` 的新 React 项目。进入新创建的 `blog-frontend` 目录并启动本地开发服务器：
 
 ```sh
 ---
@@ -34,13 +34,13 @@ $ cd blog-frontend
 $ npm start
 ```
 
-### Set up your React project
+### 设置你的 React 项目
 
-To set up your React project:
+设置 React 项目
 
-1. Install the [React Router](https://reactrouter.com/en/main/start/tutorial) in the root of your `blog-frontend` directory.
+1. 在 `blog-frontend` 目录根目录下安装 [React Router](https://reactrouter.com/en/main/start/tutorial)。
 
-With `npm`:
+使用 `npm`：
 
 ```sh
 $ npm install react-router-dom@6
@@ -51,7 +51,7 @@ With `yarn`:
 $ yarn add react-router-dom@6
 ```
 
-2. Clear the contents of `src/App.js`. Copy and paste the following code to import the React Router into `App.js`, and set up a new router with two routes:
+2. 清除 `src/App.js` 中的内容。复制并粘贴以下代码，将 React 路由器导入 `App.js`，并新建一个包含两条路由的路由器：
 
 ```js
 ---
@@ -74,9 +74,9 @@ function App() {
 export default App;
 ```
 
-3. In the `src` directory, create a new folder called `components`.
-4. In the `components` directory, create two files: `posts.js`, and `post.js`. These files will load the blog posts from your API, and render them.
-5. Populate `posts.js` with the following code:
+3. 在 `src` 目录中新建一个名为 `components` 的文件夹。
+4. 在 `components` 目录中创建两个文件：`posts.js`和 `post.js`。这些文件将从 API 中加载博客文章，并对其进行渲染。
+5. 用以下代码填充 `posts.js`：
 
 ```js
 ---
@@ -115,7 +115,7 @@ const Posts = () => {
 export default Posts;
 ```
 
-6. Populate `post.js` with the following code:
+6. 用以下代码填充 `post.js`：
 
 ```js
 ---
@@ -157,18 +157,18 @@ const Post = () => {
 export default Post;
 ```
 
-## Build your API
+## 建立你的应用程序接口
 
-You will now create a Pages Functions that stores your blog content and retrieves it via a JSON API.
+现在，你将创建一个 Pages Function，用于存储博客内容并通过 JSON API 进行检索。
 
-### Write your Pages Function
+### 撰写你的Pages Function
 
-To create the Pages Function that will act as your JSON API:
+创建作为 JSON API 的Pages Function：
 
-1. Create a `functions` directory in your `blog-frontend` directory.
-2. In `functions`, create a directory named `api`.
-3. In `api`, create a `posts.js` file in the `api` directory.
-4. Populate `posts.js` with the following code:
+1. 在 `blog-frontend` 目录下创建 `functions`目录。
+2. 在 `functions` 中创建名为 `api` 的目录。
+3. 在 `api` 目录下创建一个 `posts.js` 文件。
+4. 用以下代码填充 `posts.js`：
 
 ```js
 ---
@@ -181,11 +181,11 @@ export function onRequestGet() {
 }
 ```
 
-This code gets blog data (from `data.js`, which you will make in step 8) and returns it as a JSON response from the path `/api/posts`.
+这段代码将获取博客数据(来自 `data.js`，你将在第 8 步中制作)，并从路径 `/api/posts`以 JSON 响应形式返回。
 
-5. In the `api` directory, create a directory named  `post`.
-6. In the `post` directory, create a `data.js` file.
-7. Populate `data.js` with the following code. This is where your blog content, blog title, and other information about your blog lives.
+5. 在 `api` 目录中创建名为 `post` 的目录。
+6. 在 `post` 目录中创建一个 `data.js` 文件。
+7. 用以下代码填充 `data.js`。这是你的博客内容、博客标题和其他博客信息的存放位置。
 
 ```js
 ---
@@ -208,8 +208,8 @@ const posts = [
 
 export default posts
 ```
-8. In the `post` directory, create an `[[id]].js` file.
-9. Populate `[[id]].js` with the following code:
+8. 在 `post` 目录下创建一个`[[id]].js`文件。
+9. 用以下代码填充 `[[id]].js`：
 
 ```js
 ---
@@ -234,27 +234,27 @@ export function onRequestGet(context) {
 }
 ```
 
-`[[id]].js` is a [dynamic route](/pages/functions/routing#dynamic-routes) which is used to accept a blog post `id`.
+`[[id]].js`是一个[动态路由](/pages/functions/routing#dynamic-routes)，用于接受博文`id`。
 
-## Deploy
+## 部署
 
-After you have configured your Pages application and Pages Function, deploy your project using the Wrangler or via the dashboard.
+配置好 Pages 应用程序和 Pages 功能后，使用 Wrangler 或通过仪表板部署项目。
 
-### Deploy with Wrangler
+### 使用 Wrangler 进行部署
 
-In your `blog-frontend` directory, run [`wrangler pages deploy`](/workers/wrangler/commands/#deploy-1) to deploy your project to the Cloudflare dashboard.
+在 `blog-frontend` 目录中，运行 [`wrangler pages deploy`](/workers/wrangler/commands/#deploy-1) 将项目部署到 Cloudflare 控制面板。
 
 ```sh
 $ wrangler pages deploy blog-frontend
 ```
 
-### Deploy via the dashboard
+### 通过仪表板部署
 
-To deploy via the Cloudflare dashboard, you will need to create a new Git repository for your Pages project and connect your Git repository to Cloudflare. This tutorial uses GitHub as its Git provider.
+要通过 Cloudflare 控制面板进行部署，你需要为 Pages 项目创建一个新的 Git 仓库，并将 Git 仓库连接到 Cloudflare。本教程使用 GitHub 作为 Git 提供商。
 
-#### Create a new repository
+#### 创建新的存储库
 
-Create a new GitHub repository by visiting [repo.new](https://repo.new). After creating a new repository, prepare and push your local application to GitHub by running the following commands in your terminal:
+访问 [repo.new](https://repo.new) 创建一个新的 GitHub 仓库。创建新仓库后，在终端运行以下命令，准备并向 GitHub 推送本地应用程序：
 
 ```sh
 $ git init
@@ -265,13 +265,13 @@ $ git branch -M main
 $ git push -u origin main
 ```
 
-#### Deploy with Cloudflare Pages
+#### 使用 Cloudflare 页面进行部署
 
-Deploy your application to Pages:
+将应用程序部署到 Pages：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 "**设置构建和部署**"部分提供以下信息：
 
 <div>
 
@@ -283,10 +283,10 @@ Deploy your application to Pages:
 
 </div>
 
-After configuring your site, begin your first deploy. You should see Cloudflare Pages installing `blog-frontend`, your project dependencies, and building your site.
+配置网站后，开始首次部署。你应该会看到 Cloudflare 页面正在安装 `blog-frontend`、你的项目依赖项，并正在构建你的网站。
 
-By completing this tutorial, you have created a full-stack Pages application.
+完成本教程后，你就创建了一个全栈 Pages 应用程序。
 
-## Related resources
+## 相关资源
 
-* Learn about [Pages Functions routing](/pages/functions/routing)
+* 了解[页面功能路由](/pages/functions/routing)

@@ -29,3 +29,13 @@
 /content/pages/how-to/www-redirect.md,2024-07-15 22:36:07,1b6f789d53111aa32d0d406c4d170df7ece83d77e1b5ed99427c1797c09f5b68
 /content/pages/platform/limits.md,2024-07-15 22:36:07,ef1feda7011c0a8f1e5b48dbeed499363743a5a2629a3eceedbbe2d1eb11027c
 /content/pages/platform/known-issues.md,2024-07-15 22:36:17,7b4e7f3460c716ee5304ddf4931a6503c039ae86713e975c1f23800431dd6f5f
+/content/pages/configuration/rollbacks.md,2024-07-16 20:07:50,a9cf578d6092f474c297ee8d3b77e33a90a182565f7a5dc55116812fe12b97a1
+/content/pages/configuration/api.md,2024-07-16 20:08:02,c88eb931729082856cfa99e835012d70f5ec73a7f062b94a6a4d8c19c032cbd5
+/content/pages/configuration/serving-pages.md,2024-07-16 20:08:07,5e1ea4b5fd63d9df7d96bccb85216c361ae27f0ed73a1e080826002528ecb284
+/content/pages/configuration/build-caching.md,2024-07-16 20:08:08,7b8bc9a9386859271fab69d3b2e63f63936c5aa0916cf9bdd6c6098af1031cef
+/content/pages/configuration/headers.md,2024-07-16 20:08:09,ec66011420b82a49a33c5d30a266ca830a6c332b70fbabedca97a2fa3d6bc6ad
+/content/pages/tutorials/add-an-html-form-with-formspree/index.md,2024-07-16 20:08:10,60403261ee609a5d13afa69ecfad3b984e6efcdd3653fba9caf91d7d0c6cf4a2
+/content/pages/configuration/redirects.md,2024-07-16 20:08:17,9f44842ea4dbca15f6a51b661cbd663cbe397b77be0e46db28ea3fedb4e59ed0
+/content/pages/configuration/git-integration.md,2024-07-16 20:08:18,e0bc257e476b906a37814d8716f41442eed536e6fc7b1bd2ba43b6c2f1e9b228
+/content/pages/tutorials/build-an-api-with-pages-functions/index.md,2024-07-16 20:08:20,342864dcb17892606146d0c77b4b59baceb1721ec88f730f950e5031699d02e5
+/content/pages/tutorials/forms/index.md,2024-07-16 20:08:32,8ba90594c6360916a56a3db369fdb982bab5dcef7c7b0a5f1f0e4c0bf30a03da

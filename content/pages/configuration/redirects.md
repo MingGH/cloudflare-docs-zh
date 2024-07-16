@@ -3,21 +3,21 @@ pcx_content_type: concept
 title: Redirects
 ---
 
-# Redirects
+# 重定向
 
-To use redirects on Cloudflare Pages, declare your redirects in a plain text file called `_redirects` without a file extension, in the output folder of your project. The [build output folder](/pages/configuration/build-configuration/) is project-specific, so the `_redirects` file should not always be in the root directory of the repository. Changes to redirects will be updated to your website at build time so make sure you commit and push the file to trigger a new build each time you update redirects.
+要在 Cloudflare 页面上使用重定向，请在项目输出文件夹中名为 `_redirects`(不含文件扩展名)的纯文本文件中声明重定向。[构建输出文件夹](/pages/configuration/build-configuration/) 是特定于项目的，因此 `_redirects` 文件不应总是位于版本库的根目录中。重定向的更改会在构建时更新到网站上，因此请确保每次更新重定向时都提交并推送文件，以触发新的构建。
 
 {{<Aside type="warning">}}
 
-Redirects defined in the `_redirects` file are not applied to requests served by [Functions](/pages/functions/), even if the Function route matches the URL pattern. If your Pages application uses Functions, you must migrate any behaviors from the `_redirects` file to the code in the appropriate `/functions` route, or [exclude the route from Functions](/pages/functions/routing/#create-a-_routesjson-file).
+重定向 "文件中定义的重定向不会应用于由[Functions](/pages/functions/)提供的请求，即使 Function 路由与 URL 模式相匹配。如果你的 Pages 应用程序使用 Functions，则必须将 `_redirects`文件中的任何行为迁移到相应的 `/functions`路由中的代码，或者 [从 Functions 中排除该路由](/pages/functions/routing/#create-a-_routesjson-file)。
 
 {{</Aside>}}
 
-## Structure
+## 结构
 
-### Per line
+### 每行
 
-Only one redirect can be defined per line and must follow this format, otherwise it will be ignored.
+每行只能定义一个重定向，且必须遵循此格式，否则将被忽略。
 
 ```txt
 [source] [destination] [code?]
@@ -26,35 +26,35 @@ Only one redirect can be defined per line and must follow this format, otherwise
 {{<definitions>}}
 
 - `source` {{<prop-meta>}}required{{</prop-meta>}}
-  
-  - A file path.
-  - Can include [wildcards (`*`)](#splats) and [placeholders](#placeholders).
-  - Because fragments are evaluated by your browser and not Cloudflare's network, any fragments in the source are not evaluated.
-    
+
+  - 文件路径。
+  - 可包括 [通配符 (`*`)](#splats) 和 [占位符](#placeholders)。
+  - 由于片段由浏览器而非 Cloudflare 网络进行评估，因此不会评估源中的任何片段。
+
 - `destination` {{<prop-meta>}}required{{</prop-meta>}}
-  
-  - A file path or external link. 
-  - Can include fragments, query strings, [splats](#splats), and [placeholders](#placeholders).
-    
+
+  - 文件路径或外部链接。
+  - 可包括片段、查询字符串、[splats](#splats)和[placeholders](#placeholders)。
+
 - `code` {{<prop-meta>}}default: `302`{{</prop-meta>}}
-  
-  - Optional parameter
+
+  - 可选参数
 
 {{</definitions>}}
 
-Lines starting with a `#` will be treated as comments.
+以 `#` 开头的行将被视为注释。
 
-### Per file
+### 每个文件
 
-A project is limited to 2,000 static redirects and 100 dynamic redirects, for a combined total of 2,100 redirects. Each redirect declaration has a 1,000-character limit.
+一个项目只能有 2,000 个静态重定向和 100 个动态重定向，合计 2,100 个重定向。每个重定向声明有 1000 个字符的限制。
 
-In your `_redirects` file:
+重定向 "文件中：
 
-- The order of your redirects matter. If there are multiple redirects for the same `source` path, the topmost redirect is applied.
-- Static redirects should appear before dynamic redirects.
-- Redirects are always followed, regardless of whether or not an asset matches the incoming request.
+- 重定向的顺序很重要。如果同一 "源 "路径有多个重定向，则应用最上层的重定向。
+- 静态重定向应出现在动态重定向之前。
+- 无论资产是否与接收到的请求相匹配，重定向都会被跟踪。
 
-A complete example with multiple redirects may look like the following:
+包含多个重定向的完整示例如下：
 
 ```txt
 ---
@@ -73,17 +73,17 @@ filename: _redirects
 
 {{<Aside type= "note">}}
 
-In the case of some frameworks, such as Jekyll, you may need to manually copy and paste your `_redirects` file to the build output directory. To do this:
+对于某些框架(如 Jekyll)，你可能需要手动复制并粘贴 `_redirects` 文件到构建输出目录。要做到这一点
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. Go to **Workers & Pages** > your Pages project > **Settings** > **Builds & deployments**.
-3. Go to **Build configurations** > **Edit configurations** > change the build command to `jekyll build && cp _redirects _site/_redirects` and select **Save**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 转到 **工作区和页面**> 你的页面项目 > **设置**> **构建和部署**。
+3. 转到 **构建配置**> **编辑配置**> 将构建命令改为 `jekyll build && cp _redirects _site/_redirects` 并选择 **保存**。
 
 {{</Aside>}}
 
-## Advanced redirects
+## 高级重定向
 
-Cloudflare currently offers limited support for advanced redirects. More support will be added in the future.
+Cloudflare 目前为高级重定向提供有限的支持。未来将增加更多支持。
 
 {{<table-wrap>}}
 
@@ -101,17 +101,17 @@ Cloudflare currently offers limited support for advanced redirects. More support
 
 {{</table-wrap>}}
 
-## Redirects and header matching
+## 重定向和标头匹配
 
-Redirects execute before headers, so in the case of a request matching rules in both files, the redirect will win out.
+重定向在头文件之前执行，因此如果请求同时符合两个文件中的规则，重定向将胜出。
 
 ### Splats
 
-On matching, a splat (asterisk, `*`) will greedily match all characters. You may only include a single splat in the URL.
+在匹配时，溅射符号(星号，`*`)将贪婪地匹配所有字符。你只能在 URL 中包含一个溅字符。
 
-The matched value can be used in the redirect location with `:splat`.
+匹配的值可与 `:splat` 一起用于重定向位置。
 
-### Placeholders
+### 占位符
 
 {{<render file="_headers_redirects_placeholders.md" withParameters="redirect">}}
 
@@ -122,11 +122,11 @@ filename: _redirects
 /movies/:title /media/:title
 ```
 
-### Proxying
+### 代理
 
-Proxying will only support relative URLs on your site. You cannot proxy external domains.
+代理只支持网站上的相对 URL。你不能代理外部域。
 
-Only the first redirect in your will apply. For example, in the following example, a request to `/a` will render `/b`, and a request to `/b` will render `/c`, but `/a` will not render `/c`.
+只有第一个重定向才适用。例如，在下面的示例中，向 `/a`提出的请求将呈现 `/b`，向 `/b`提出的请求将呈现 `/c`，但 `/a`不会呈现 `/c`。
 
 ```
 /a /b 200
@@ -134,9 +134,9 @@ Only the first redirect in your will apply. For example, in the following exampl
 ```
 
 {{<Aside heading="Proxying's impact on SEO">}}
-Be aware that proxying pages can have an adverse effect on search engine optimization (SEO). Search engines often penalize websites that serve duplicate content. Consider adding a `Link` HTTP header which informs search engines of the canonical source of content.
+请注意，代理网页会对搜索引擎优化(SEO)产生不利影响。搜索引擎通常会惩罚提供重复内容的网站。考虑添加一个 `Link` HTTP 标头，告知搜索引擎内容的规范来源。
 
-For example, if you have added `/about/faq/* /about/faqs 200` to your `_redirects` file, you may want to add the following to your `_headers` file:
+例如，如果在`_redirects`文件中添加了`/about/faq/* /about/faqs 200`，则可能需要在`_headers`文件中添加以下内容：
 
 ```txt
 /about/faq/*
@@ -145,20 +145,20 @@ For example, if you have added `/about/faq/* /about/faqs 200` to your `_redirect
 
 {{</Aside>}}
 
-## Surpass `_redirects` limits
+## 超过`_重定向`限制
 
-A [`_redirects`](/pages/platform/limits/#redirects) file has a maximum of 2,000 static redirects and 100 dynamic redirects, for a combined total of 2,100 redirects. Use [Bulk Redirects](/rules/url-forwarding/bulk-redirects/) to handle redirects that surpasses the 2,100 redirect rules limit set by Pages.
+一个 [`_redirects`](/pages/platform/limits/#redirects) 文件最多可包含 2,000 个静态重定向和 100 个动态重定向，合计 2,100 个重定向。使用 [Bulk Redirects](/rules/url-forwarding/bulk-redirects/)处理超过 Pages 设置的 2,100 重定向规则限制的重定向。
 
 {{<Aside type="note">}}
 
-The redirects defined in the `_redirects` file of your build folder can work together with your Bulk Redirects. In case of duplicates, Bulk Redirects will run in front of your Pages project, where your other redirects live.
+在构建文件夹的 `_redirects` 文件中定义的重定向可以与批量重定向一起工作。如果出现重复，批量重定向将在页面项目之前运行，其他重定向也在页面项目中。
 
-For example, if you have Bulk Redirects set up to direct `abc.com` to `xyz.com` but also have `_redirects` set up to direct `xyz.com` to `foo.com`, a request for `abc.com` will eventually redirect to `foo.com`.
+例如，如果你设置了批量重定向，将 `abc.com` 指向 `xyz.com`，但同时又设置了 `_redirects`，将 `xyz.com` 指向 `foo.com`，那么对 `abc.com` 的请求最终将重定向到 `foo.com`。
 
 {{</Aside>}}
 
-To use Bulk Redirects, refer to the [Bulk Redirects dashboard documentation](/rules/url-forwarding/bulk-redirects/create-dashboard/) or the [Bulk Redirects API documentation](/rules/url-forwarding/bulk-redirects/create-api/).
+要使用批量重定向，请参阅 [批量重定向仪表板文档](/rules/url-forwarding/bulk-redirects/create-dashboard/) 或 [批量重定向 API 文档](/rules/url-forwarding/bulk-redirects/create-api/)。
 
-## Related resources
+## 相关资源
 
-- [Transform Rules](/rules/transform/)
+- [转换规则](/rules/transform/)

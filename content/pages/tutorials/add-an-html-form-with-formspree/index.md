@@ -7,17 +7,17 @@ title: Add an HTML form with Formspree
 tags: [Forms]
 ---
 
-# Add an HTML form with Formspree
+# 使用 Formspree 添加 HTML 表单
 
 {{<tutorial-date-info>}}
 
-Almost every website, whether it is a simple HTML portfolio page or a complex JavaScript application, will need a form to collect user data. [Formspree](https://formspree.io) is a back-end service that handles form processing and storage, allowing developers to include forms on their website without writing server-side code or functions.
+几乎每个网站，无论是简单的 HTML 作品集页面还是复杂的 JavaScript 应用程序，都需要一个表单来收集用户数据。[Formspree](https://formspree.io)是一种处理表单处理和存储的后端服务，允许开发人员在网站上加入表单，而无需编写服务器端代码或函数。
 
-In this tutorial, you will create a `<form>` using plain HTML and CSS and add it to a static HTML website hosted on Cloudflare Pages. Refer to the [Get started guide](/pages/get-started/) to familiarize yourself with the platform. You will use Formspree to collect the submitted data and send out email notifications when new submissions arrive, without requiring any JavaScript or back-end coding.
+在本教程中，你将使用纯 HTML 和 CSS 创建一个`<form>`，并将其添加到 Cloudflare Pages 托管的静态 HTML 网站中。请参考 [入门指南](/pages/get-started/) 以熟悉该平台。你将使用 Formspree 收集提交的数据，并在有新提交时发送电子邮件通知，而不需要任何 JavaScript 或后台编码。
 
-## Setup
+## 设置
 
-To begin, create a [new GitHub repository](https://repo.new/). Then create a new local directory on your machine, initialize git, and attach the GitHub location as a remote destination:
+首先，创建一个[新 GitHub 仓库](https://repo.new/)。然后在机器上创建一个新的本地目录，初始化 git，并将 GitHub 位置附加为远程目的地：
 
 ```sh
 # create new directory
@@ -32,19 +32,19 @@ $ git remote add origin git@github.com:<username>/<repo>.git
 $ git branch -M main
 ```
 
-You may now begin working in the `new-project` directory you created.
+现在你可以在创建的 `new-project` 目录中开始工作。
 
-## The website markup
+## 网站标记
 
-You will only be using plain HTML for this example project. The home page will include a Contact Us form that accepts a name, email address, and message.
+在本示例项目中，你只需使用纯 HTML。主页将包含一个 "联系我们" 表单，可输入姓名、电子邮件地址和信息。
 
 {{<Aside type="note">}}
 
-The form code is adapted from the HTML Forms tutorial. For a more in-depth explanation of how HTML forms work and additional learning resources, refer to the [HTML Forms tutorial](/pages/tutorials/forms/).
+表单代码改编自 HTML 表单教程。如需更深入地了解 HTML 表单的工作原理和其他学习资源，请参阅 [HTML 表单教程](/pages/tutorials/forms/)。
 
 {{</Aside>}}
 
-The form code:
+表格代码：
 
 ```html
 <form method="POST" action="/">
@@ -61,17 +61,17 @@ The form code:
 </form>
 ```
 
-The `action` attribute determines where the form data is sent. You will update this later to send form data to Formspree. All `<input>` tags must have a unique `name` in order to capture the user's data. The `for` and `id` values must match in order to link the `<label>` with the corresponding `<input>` for accessibility tools like screen readers.
+`action`属性决定了表单数据的发送位置。稍后你将更新该属性，以便向 Formspree 发送表单数据。所有 `<input>` 标记都必须有一个唯一的`name`，以便捕获用户数据。`for` 和 `id` 值必须匹配，以便将`<label>`与相应的`<input>`链接起来，供屏幕阅读器等辅助工具使用。
 
 {{<Aside type="note">}}
 
-Refer to the [HTML Forms tutorial](/pages/tutorials/forms/) on how to build an HTML form.
+关于如何创建 HTML 表单，请参阅 [HTML 表单教程](/pages/tutorials/forms/)。
 
 {{</Aside>}}
 
-To add this form to your website, first, create a `public/index.html` in your project directory. The `public` directory should contain all front-end assets, and the `index.html` file will serve as the home page for the website.
+要在网站上添加此表单，首先要在项目目录中创建一个 `public/index.html`。`public`目录应包含所有前端资产，而 `index.html`  文件将作为网站的主页。
 
-Copy and paste the following content into your `public/index.html` file, which includes the above form:
+将以下内容复制并粘贴到包含上述表单的 `public/index.html` 文件中：
 
 ```html
 <html lang="en">
@@ -99,31 +99,31 @@ Copy and paste the following content into your `public/index.html` file, which i
 </html>
 ```
 
-Now you have an HTML document containing a Contact Us form with several fields for the user to fill out. However, you have not yet set the `action` attribute to a server that can handle the form data. You will do this in the next section of this tutorial.
+现在你有一个 HTML 文档，其中包含一个 "联系我们 "表单，用户可以填写多个字段。但是，你还没有将 `action` 属性设置为可以处理表单数据的服务器。你将在本教程的下一节中进行设置。
 
 {{<Aside type="note" header="GitHub Repository">}}
 
-The source code for this example is [available on GitHub](https://github.com/formspree/formspree-example-cloudflare-html). It is a live Pages application with a [live demo](https://formspree-example-cloudflare-html.pages.dev/) available, too.
+本示例的源代码[可在 GitHub 上获取](https://github.com/formspree/formspree-example-cloudflare-html)。它是一个实时 Pages 应用程序，也有 [实时演示](https://formspree-example-cloudflare-html.pages.dev/)。
 
 {{</Aside>}}
 
-## The Formspree back end
+## Formspree 后端
 
-The HTML form is complete, however, when the user submits this form, the data will be sent in a `POST` request to the `/` URL. No server exists to process the data at that URL, so it will cause an error. To fix that, create a new Formspree form, and copy its unique URL into the form's `action`.
+HTML 表单已经完成，但当用户提交该表单时，数据将以`POST`请求的形式发送到`/`URL。该 URL 上不存在处理数据的服务器，因此会导致错误。要解决这个问题，请创建一个新的 Formspree 表单，并将其唯一 URL 复制到表单的 `action` 中。
 
-To create a Formspree form, sign up for [an account on Formspree](https://formspree.io/register).
+要创建 Formspree 表格，请注册[Formspree 账户](https://formspree.io/register)。
 
-Next, create a new form with the **+ New form** button. Name it `Contact-us form` and update the recipient email to an email where you wish to receive your form submissions. Then select **Create Form**.
+接下来，使用 **+ 新表单**按钮创建一个新表单。将其命名为 `Contact-us form`，并将收件人电子邮件更新为你希望接收表单提交的电子邮件。然后选择**创建表格**。
 
 <GatsbyImage image="./new-form-dialog.png" alt="Creating a Formspree form" />
 
-![Creating a Formspree form](/images/pages/tutorials/new-form-dialog.png)
+![创建 Formspree 表单](/images/pages/tutorials/new-form-dialog.png)
 
-You will then be presented with instructions on how to integrate your new form.
+然后，你将看到如何整合新表格的说明。
 
-![Formspree endpoint](/images/pages/tutorials/form-endpoint.png)
+![Formspree端点](/images/pages/tutorials/form-endpoint.png)
 
-Copy the `Form Endpoint` URL and paste it into the `action` attribute of the form you created above.
+复制 `Form Endpoint` URL，并将其粘贴到上面创建的表单的 `action`属性中。
 
 ```html
 <form method="POST" action="https://formspree.io/f/mqldaqwx">
@@ -131,21 +131,21 @@ Copy the `Form Endpoint` URL and paste it into the `action` attribute of the for
 </form>
 ```
 
-Now when you submit your form, you should be redirected to a Thank You page. The form data will be submitted to your account on [Formspree.io](https://formspree.io/).
+现在，当你提交表单时，你应该会被重定向到一个 "谢谢 "页面。表单数据将提交到你在 [Formspree.io](https://formspree.io/) 上的账户。
 
-You can now adjust your form processing logic to change the [redirect page](https://help.formspree.io/hc/en-us/articles/360012378333--Thank-You-redirect), update the [notification email address](https://help.formspree.io/hc/en-us/articles/115008379348-Changing-a-form-email-address), or add plugins like [Google Sheets](https://help.formspree.io/hc/en-us/articles/360036563573-Use-Google-Sheets-to-send-your-submissions-to-a-spreadsheet), [Slack](https://help.formspree.io/hc/en-us/articles/360045648933-Send-Slack-notifications) and more.
+你现在可以调整表单处理逻辑，更改 [重定向页面](https://help.formspree.io/hc/en-us/articles/360012378333--Thank-You-redirect)、更新 [通知电子邮件地址](https://help.formspree.io/hc/en-us/articles/115008379348-Changing-a-form-email-address)，或添加 [Google Sheets](https://help.formspree.io/hc/en-us/articles/360036563573-Use-Google-Sheets-to-send-your-submissions-to-a-spreadsheet)、[Slack](https://help.formspree.io/hc/en-us/articles/360045648933-Send-Slack-notifications) 等插件。
 
-For more help setting up Formspree, refer to the following resources:
+有关设置 Formspree 的更多帮助，请参阅以下资源：
 
-- For general help with Formspree, refer to the [Formspree help site](https://help.formspree.io/hc/en-us).
-- For examples and inspiration for your own HTML forms, review the [Formspree form library](https://formspree.io/library).
-- For tips on integrating Formspree with popular platforms like Next.js, Gatsby and Eleventy, refer to the [Formspree guides](https://formspree.io/guides).
+- 有关 Formspree 的一般帮助，请参阅 [Formspree 帮助网站](https://help.formspree.io/hc/en-us)。
+- 如需了解自己 HTML 表单的示例和灵感，请查看 [Formspree 表单库](https://formspree.io/library)。
+- 有关将 Formspree 与 Next.js、Gatsby 和 Eleventy 等流行平台集成的技巧，请参阅 [Formspree 指南](https://formspree.io/guides)。
 
-## Deployment
+## 部署
 
-You are now ready to deploy your project.
+现在你可以部署项目了。
 
-If you have not already done so, save your progress within `git` and then push the commit(s) to the GitHub repository:
+如果你还没有这样做，请在 `git` 中保存你的进度，然后将提交推送到 GitHub 仓库：
 
 ```sh
 # Add all files
@@ -156,23 +156,23 @@ $ git commit -m "working example"
 $ git push -u origin main
 ```
 
-Your work now resides within the GitHub repository, which means that Pages is able to access it too.
+你的作品现在位于 GitHub 仓库中，这意味着 Pages 也能访问它。
 
-If this is your first Cloudflare Pages project, refer to [Get started](/pages/get-started/) for a complete setup guide. After selecting the appropriate GitHub repository, you must configure your project with the following build settings:
+如果这是你的第一个 Cloudflare Pages 项目，请参阅 [开始](/pages/get-started/) 获取完整的设置指南。选择合适的 GitHub 仓库后，你必须使用以下构建设置配置项目：
 
-- **Project name** – Your choice
-- **Production branch** – `main`
-- **Framework preset** – None
-- **Build command** – None / Empty
-- **Build output directory** – `public`
+- 项目名称**- 你的选择
+- **生产分支**- `main`
+- **框架预设**- 无
+- **构建命令**- 无/空
+- **构建输出目录**- `公共
 
-After selecting **Save and Deploy**, your Pages project will begin its first deployment. When successful, you will be presented with a unique `*.pages.dev` subdomain and a link to your live demo.
+选择**保存并部署**后，你的页面项目将开始首次部署。部署成功后，你将看到一个唯一的 `*.pages.dev` 子域和一个指向实时演示的链接。
 
-In this tutorial, you built and deployed a website using Cloudflare Pages and Formspree to handle form submissions. You created a static HTML document with a form that communicates with Formspree to process and store submission requests and send notifications.
+在本教程中，你使用 Cloudflare Pages 和 Formspree 构建并部署了一个网站，以处理表单提交。你创建了一个带有表单的静态 HTML 文档，该表单与 Formspree 通信，以处理和存储提交请求并发送通知。
 
-If you would like to review the full source code for this application, you can find it on [GitHub](https://github.com/formspree/formspree-example-cloudflare-html).
+如果你想查看此应用程序的完整源代码，请访问 [GitHub](https://github.com/formspree/formspree-example-cloudflare-html)。
 
-## Related resources
+## 相关资源
 
-- [Add a React form with Formspree](/pages/tutorials/add-a-react-form-with-formspree/)
-- [HTML Forms](/pages/tutorials/forms/)
+- [使用 Formspree 添加 React 表单](/pages/tutorials/add-a-react-form-with-formspree/)
+- [HTML 表格](/pages/tutorials/forms/)

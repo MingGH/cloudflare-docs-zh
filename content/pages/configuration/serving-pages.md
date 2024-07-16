@@ -3,57 +3,57 @@ pcx_content_type: concept
 title: Serving Pages
 ---
 
-# Serving Pages
+# 服务页面
 
-Cloudflare Pages includes a number of defaults for serving your Pages sites. This page details some of those decisions, so you can understand how Pages works, and how you might want to override some of the default behaviors.
+Cloudflare Pages 包含一系列为你的 Pages 站点提供服务的默认设置。本页将详细介绍其中的一些决定，以便你了解 Pages 的工作方式，以及你可能希望如何覆盖某些默认行为。
 
-## Route matching
+## 路线匹配
 
-If an HTML file is found with a matching path to the current route requested, Pages will serve it. Pages will also redirect HTML pages to their extension-less counterparts: for instance, `/contact.html` will be redirected to `/contact`, and `/about/index.html` will be redirected to `/about/`.
+如果找到的 HTML 文件路径与请求的当前路由相匹配，Pages 就会提供该文件。Pages 还会将 HTML 页面重定向到无扩展名的对应页面：例如，`/contact.html` 将重定向到 `/contact`，`/about/index.html` 将重定向到 `/about/`。
 
-## Not Found behavior
+## 未找到行为
 
-You can define a custom page to be displayed when Pages cannot find a requested file by creating a `404.html` file. Pages will then attempt to find the closest 404 page. If one is not found in the same directory as the route you are currently requesting, it will continue to look up the directory tree for a matching `404.html` file, ending in `/404.html`. This means that you can define custom 404 paths for situations like `/blog/404.html` and `/404.html`, and Pages will automatically render the correct one depending on the situation.
+你可以通过创建一个 `404.html` 文件来定义一个自定义页面，以便在 Pages 无法找到请求的文件时显示。然后，Pages 会尝试查找最近的 404 页面。如果在与当前请求的路径相同的目录中找不到，它将继续在目录树中查找匹配的`404.html`文件，以`/404.html`结尾。这意味着你可以为 `/blog/404.html` 和 `/404.html` 等情况定义自定义 404 路径，Pages 会根据情况自动呈现正确的路径。
 
-## Single-page application (SPA) rendering
+## 单页应用程序(SPA)渲染
 
-If your project does not include a top-level `404.html` file, Pages assumes that you are deploying a single-page application. This includes frameworks like React, Vue, and Angular. Pages' default single-page application behavior matches all incoming paths to the root (`/`), allowing you to capture URLs like `/about` or `/help` and respond to them from within your SPA.
+如果你的项目不包含顶层的 `404.html` 文件，Pages 会假定你部署的是单页面应用程序。这包括 React、Vue 和 Angular 等框架。Pages 的默认单页面应用程序行为会将所有传入路径匹配到根(`/`)，因此你可以捕获诸如`/about`或`/help`之类的 URL，并在你的 SPA 中对其做出响应。
 
-## Caching and performance
+## 缓存和性能
 
-### Recommendations
+### 建议
 
-In most situations, you should avoid setting up any custom caching on your site. Pages comes with built in caching defaults that are optimized for caching as much as possible, while providing the most up to date content. Every time you deploy an asset to Pages, the asset remains cached on the Cloudflare CDN until your next deployment.
+在大多数情况下，应避免在网站上设置任何自定义缓存。Pages 自带内置缓存默认设置，可尽可能优化缓存，同时提供最新内容。每次将资产部署到 Pages 时，该资产都会一直缓存在 Cloudflare CDN 上，直到下一次部署。
 
-Therefore, if you add caching to your [custom domain](/pages/configuration/custom-domains/), it may lead to stale assets being served after a deployment.
+因此，如果在 [自定义域](/pages/configuration/custom-domains/) 中添加缓存，可能会导致在部署后提供陈旧的资产。
 
-In addition, adding caching to your custom domain may cause issues with [Pages redirects](/pages/configuration/redirects/) or [Pages functions](/pages/functions/). These issues can occur because the cached response might get served to your end user before Pages can act on the request.
+此外，在自定义域中添加缓存可能会导致[页面重定向](/pages/configuration/redirects/) 或[页面功能](/pages/functions/) 出现问题。之所以会出现这些问题，是因为缓存的响应可能会在 Pages 对请求采取行动之前提供给最终用户。
 
-However, there are some situations where [Cache Rules](/cache/how-to/cache-rules/) on your custom domain does make sense. For example, you may have easily cacheable locations for immutable assets, such as CSS or JS files with content hashes in their file names. Custom caching can help in this case, speeding up the user experience until the file (and associated filename) changes. Just make sure that your caching does not interfere with any redirects or Functions. 
+不过，在某些情况下，自定义域上的[缓存规则](/cache/how-to/cache-rules/)确实很有意义。例如，你可以轻松缓存不可变资产的位置，如文件名中包含内容哈希值的 CSS 或 JS 文件。在这种情况下，自定义缓存可以加快用户体验，直到文件(和相关文件名)发生变化。但要确保缓存不会干扰任何重定向或功能。
 
-Please note that tiered caching is not supported for custom domains on Pages. 
+请注意，分层缓存不支持页面上的自定义域。
 
 {{<Aside type="note" header="Purging the cache">}}
 
-If you notice stale assets being served after a new deployment, go to your zone and then **Caching** > **Configuration** > [**Purge Everything**](/cache/how-to/purge-cache/purge-everything/) to ensure the latest deployment gets served.
+如果你发现新部署后提供的是过期资产，请转到你的区域，然后**缓存**> **配置**> [**清除一切**](/cache/how-to/purge-cache/purge-everything/)，以确保提供最新的部署。
 
 {{</Aside>}}
 
-### Behavior
+### 行为
 
-For browser caching, Pages always sends `Etag` headers for `200 OK` responses, which the browser then returns in an `If-None-Match` header on subsequent requests for that asset. Pages compares the `If-None-Match` header from the request with the `Etag` it's planning to send, and if they match, Pages instead responds with a `304 Not Modified` that tells the browser it's safe to use what is stored in local cache.
+为了便于浏览器缓存，Pages 会始终为 `200 OK`响应发送 `Etag`头，然后浏览器会在对该资产的后续请求中以 `If-None-Match`头返回。Pages 会将请求中的  `If-None-Match`头与计划发送的 `Etag` 头进行比较，如果两者匹配，Pages 就会响应一个 `304 Not Modified`(未修改)，告诉浏览器可以安全地使用本地缓存中存储的内容。
 
-Pages currently returns `200` responses for HTTP range requests; however, the team is working on adding spec-compliant `206` partial responses.
+目前，页面会对 HTTP 范围请求返回  `200`响应；不过，团队正在努力添加符合规范的 `206`部分响应。
 
-Pages will also serve Gzip and Brotli responses whenever possible.
+页面还将尽可能提供 Gzip 和 Brotli 响应。
 
-## Asset retention
+## 资产保留
 
-We will insert assets into the cache on a per-data center basis. Assets have a time-to-live (TTL) of one week but can also disappear at any time. If you do a new deploy, the assets could exist in that data center up to one week.
+我们将根据每个数据中心的情况将资产插入缓存。资产的存活时间 (TTL) 为一周，但也可能随时消失。如果进行新的部署，资产在该数据中心的存在时间可能长达一周。
 
-## Headers
+## header
 
-By default, Pages automatically adds several [HTTP response headers](https://developer.mozilla.org/en-US/docs/Glossary/Response_header) when serving assets, including:
+默认情况下，Pages 在提供资产时会自动添加多个 [HTTP 响应header](https://developer.mozilla.org/en-US/docs/Glossary/Response_header)，包括
 
 ```txt
 ---
@@ -70,7 +70,7 @@ Server: cloudflare
 
 {{<Aside type="note">}}
 
-The [`Cf-Ray`](/fundamentals/reference/cloudflare-ray-id/) header is unique to Cloudflare.
+Cf-Ray](/fundamentals/reference/cloudflare-ray-id/)header对 Cloudflare 来说是唯一的。
 
 {{</Aside>}}
 
@@ -90,4 +90,4 @@ Cache-Control: public, max-age=0, must-revalidate
 X-Robots-Tag: noindex
 ```
 
-To modify the headers added by Cloudflare Pages - perhaps to add [Early Hints](/pages/configuration/early-hints/) - update the [_headers file](/pages/configuration/headers/) in your project.
+要修改 Cloudflare Pages 添加的header(也许要添加 [Early Hints](/pages/configuration/early-hints/))，请更新项目中的 [_headers 文件](/pages/configuration/headers/)。
