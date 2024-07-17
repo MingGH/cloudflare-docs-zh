@@ -1,8 +1,8 @@
-baseURL = "https://developers.cloudflare.com/"
+baseURL = "https://cloudflare.002.wiki/"
 
 title = "Cloudflare Docs"
-languageCode = "en"
-DefaultContentLanguage = "en"
+languageCode = "zh"
+DefaultContentLanguage = "zh"
 disableHugoGeneratorInject = true
 enableRobotsTXT = false
 summaryLength = 30
