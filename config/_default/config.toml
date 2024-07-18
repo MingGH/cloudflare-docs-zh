@@ -1,5 +1,3 @@
-baseURL = "https://cloudflare.002.wiki/"
-relativeURLs = true
 
 title = "Cloudflare 中文文档"
 languageCode = "zh"
