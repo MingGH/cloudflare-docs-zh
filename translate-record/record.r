@@ -73,3 +73,6 @@
 /content/pages/framework-guides/deploy-anything.md,2024-07-20 17:12:59,715c2062f3f9b3190d058cd44b40e4fcae394dec2dac843e730039695b278fd8
 /content/pages/framework-guides/deploy-a-jekyll-site.md,2024-07-20 17:13:04,edcf49ddb48b55a000f14e299bc071a2ef3d1a0605d9ee18304f795c13bd735c
 /content/pages/framework-guides/deploy-a-hexo-site.md,2024-07-20 17:13:06,91ad7f9d0d874d57c753f51af0da99ec4bfc9feea817d1c8cdc9be04d5a37d34
+/content/pages/framework-guides/deploy-a-gatsby-site.md,2024-07-20 17:18:27,d8376a66f25b3a4db1a03816dd5c022fde43569a5c3805e8f20acdee162c30af
+/content/pages/framework-guides/deploy-a-blazor-site.md,2024-07-20 17:18:34,6088c961c9b8d2820e98948f3fda00744546057f8ac6c0bb56898ad901739257
+/content/pages/framework-guides/deploy-an-analog-site.md,2024-07-20 17:18:35,b4ba2db46cf5516c7cddab7f21d86a9eb109f323e3e8d4b30145c49159e5e93d

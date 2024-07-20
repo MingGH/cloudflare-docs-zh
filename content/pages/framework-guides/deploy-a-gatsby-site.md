@@ -5,19 +5,19 @@ title: Gatsby
 
 # Gatsby
 
-[Gatsby](https://www.gatsbyjs.com/) is an open-source React framework for creating websites and apps. In this guide, you will create a new Gatsby application and deploy it using Cloudflare Pages. You will be using the `gatsby` CLI to create a new Gatsby site.
+[Gatsby](https://www.gatsbyjs.com/)是一个用于创建网站和应用程序的开源 React 框架。在本指南中，你将创建一个新的 Gatsby 应用程序，并使用 Cloudflare Pages 进行部署。你将使用 `gatsby` CLI 创建一个新的 Gatsby 站点。
 
-## Install Gatsby
+## 安装Gatsby
 
-Install the `gatsby` CLI by running the following command in your terminal:
+在终端运行以下命令，安装 `gatsby` CLI：
 
 ```sh
 $ npm install -g gatsby-cli
 ```
 
-## Create a new project
+## 创建一个新项目
 
-With Gatsby installed, you can create a new project using `gatsby new`. The `new` command accepts a GitHub URL for using an existing template. As an example, use the `gatsby-starter-lumen` template by running the following command in your terminal. You can find more in [Gatsby's Starters section](https://www.gatsbyjs.com/starters/?v=2):
+安装了 Gatsby 后，你可以使用 `gatsby new` 创建一个新项目。`new `命令接受一个 GitHub URL 以使用现有模板。例如，在终端运行以下命令，使用 `gatsby-starter-lumen` 模板。你可以在 [Gatsby 的启动器部分](https://www.gatsbyjs.com/starters/?v=2) 找到更多信息：
 
 ```sh
 $ npx gatsby new my-gatsby-site https://github.com/alxshelepenok/gatsby-starter-lumen
@@ -27,32 +27,32 @@ $ npx gatsby new my-gatsby-site https://github.com/alxshelepenok/gatsby-starter-
 
 {{<render file="/_framework-guides/_create-github-repository_no_init.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
-To deploy your site to Pages:
+将网站部署到页面：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 {{<pages-build-preset framework="gatsby">}}
 
-After configuring your site, you can begin your first deploy. You should see Cloudflare Pages installing `gatsby`, your project dependencies, and building your site, before deploying it.
+配置好网站后，你就可以开始第一次部署了。在部署之前，你应该会看到 Cloudflare 页面正在安装 `gatsby`、项目依赖项并构建网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`.
-Every time you commit new code to your Gatsby site, Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev`上为你的项目收到一个唯一的子域。
+每次你向 Gatsby 站点提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还可以访问新拉取请求上的 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
-## Dynamic routes
+## 动态路由
 
-If you are using [dynamic routes](https://www.gatsbyjs.com/docs/reference/functions/routing/#dynamic-routing) in your Gatsby project, set up a [proxy redirect](/pages/configuration/redirects/#proxying) for these routes to take effect.
+如果在 Gatsby 项目中使用 [dynamic routes](https://www.gatsbyjs.com/docs/reference/functions/routing/#dynamic-routing)，请设置 [proxy redirect](/pages/configuration/redirects/#proxying)，以使这些路由生效。
 
-If you have a dynamic route, such as `/users/[id]`, create your proxy redirect by referring to the following example:
+如果你有动态路由，如 `/users/[id]`，请参照以下示例创建代理重定向：
 
 ```
 ---
