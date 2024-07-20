@@ -58,3 +58,6 @@
 /content/pages/get-started/direct-upload.md,2024-07-20 15:45:28,8a562edc9a1656f1d2ddbc7cb5e3cbc41944d55b1488cc5fddfe496234ef9485
 /content/pages/get-started/c3.md,2024-07-20 15:45:31,68fe73a6de09e5d2593d4c1cfce7d1ca913755f37ea636e0759f92ad40ecb92b
 /content/pages/get-started/_index.md,2024-07-20 15:45:56,f329bff1b99ad89d146bd2149a461574309534579e2e70077f9f54f17f37d0e8
+/content/pages/framework-guides/deploy-an-emberjs-site.md,2024-07-20 15:57:08,0fd042afa6620cf35d914a41dee51c379de9b03156e9416cc7517ddb53a6e2a2
+/content/pages/framework-guides/deploy-a-docusaurus-site.md,2024-07-20 15:57:12,1cd7f406952c49fed82e524de5e1f59d86adc659e4e7ca4cb2b12160bbf4899e
+/content/pages/framework-guides/deploy-an-angular-site.md,2024-07-20 15:57:13,d5678fb403926564b21d5b87615b16041c418769b602b4be82bf7f7929e05acc
