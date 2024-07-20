@@ -4,9 +4,9 @@ title: Pages Plugins
 weight: 9
 ---
 
-# Pages Plugins
+# 页面插件
 
-Cloudflare maintains a number of official Pages Plugins for you to use in your Pages projects:
+Cloudflare 维护了许多官方 Pages 插件，供你在 Pages 项目中使用：
 
 {{<directory-listing>}}
 
@@ -34,19 +34,19 @@ Developers can enhance their projects by mounting a Pages Plugin at a route of t
 
 ---
 
-## Static form example
+## 静态表格示例
 
-In this example, you will build a Pages Plugin and then include it in a project.
+在本例中，你将构建一个页面插件，然后将其包含在一个项目中。
 
-The first Plugin should:
+第一个插件应
 
-- intercept HTML forms.
-- store the form submission in [KV](/kv/api/).
-- respond to submissions with a developer's custom response.
+- 拦截 HTML 表格。
+- 将表单提交存储在 [KV](/kv/api/) 中。
+- 用开发人员的自定义回复来响应提交。
 
-### 1. Create a new Pages Plugin
+### 1.创建新的页面插件
 
-Create a `package.json` with the following:
+创建包含以下内容的 `package.json`：
 
 ```json
 ---
@@ -66,34 +66,34 @@ filename: package.json
 
 {{<Aside type="note">}}
 
-The `npx wrangler pages functions build` command supports a number of arguments, including:
+`npx wrangler pages functions build`命令支持许多参数，包括
 
-- `--plugin` which tells the command to build a Pages Plugin, (rather than Pages Functions as part of a Pages project)
-- `--outdir` which allows you to specify where to output the built Plugin
-- `--external` which can be used to avoid bundling external modules in the Plugin
-- `--watch` argument tells the command to watch for changes to the source files and rebuild the Plugin automatically
+- `--plugin` 表示命令要构建一个 Pages 插件(而不是作为 Pages 项目一部分的 Pages 功能)。
+- `outdir`，它允许你指定在哪里输出已构建的插件
+- `--external`，可用于避免在插件中捆绑外部模块
+- 参数 `--watch`告诉命令注意源文件的变化，并自动重建插件
 
-For more information about the available arguments, run `npx wrangler pages functions build --help`.
+有关可用参数的更多信息，请运行 `npx wrangler pages functions build --help`。
 
 {{</Aside>}}
 
-In our example, `dist/index.js` will be the entrypoint to your Plugin. This is a generated file built by Wrangler with the `npm run build` command. Add the `dist/` directory to your `.gitignore`.
+在我们的示例中，`dist/index.js` 将是插件的入口点。这是 Wrangler 使用 `npm run build` 命令生成的文件。将 `dist/` 目录添加到 `.gitignore`。
 
-Next, create a `functions` directory and start coding your Plugin. The `functions` folder will be mounted at some route by the developer, so consider how you want to structure your files. Generally:
+接下来，创建一个 `functions` 目录并开始编写插件。`functions `文件夹将被开发人员挂载到某个路径，因此请考虑如何构建你的文件。一般来说
 
-- if you want your Plugin to run on a single route of the developer's choice (for example, `/foo`), create a `functions/index.ts` file.
-- if you want your Plugin to be mounted and serve all requests beyond a certain path (for example, `/admin/login` and `/admin/dashboard`), create a `functions/[[path]].ts` file.
-- if you want your Plugin to intercept requests but fallback on either other Functions or the project's static assets, create a `functions/_middleware.ts` file.
+- 如果希望插件在开发者选择的单一路由(例如 `/foo`)上运行，则创建一个 `functions/index.ts` 文件。
+- 如果你希望你的插件被挂载并为特定路径(例如，`/admin/login` 和`/admin/dashboard`)以外的所有请求提供服务，请创建一个`functions/[[路径]].ts`文件。
+- 如果想让插件拦截请求，但在其他函数或项目的静态资产上进行回退，请创建一个 `functions/_middleware.ts` 文件。
 
 {{<Aside type="note" header="Do not include the mounted path in your Plugin">}}
 
-Your Plugin should not use the mounted path anywhere in the file structure (for example, `/foo` or `/admin`). Developers should be free to mount your Plugin wherever they choose, but you can make recommendations of how you expect this to be mounted in your `README.md`.
+你的插件不应在文件结构的任何地方使用挂载路径(例如，`/foo` 或 `/admin`)。开发人员可以自由选择挂载插件的位置，但可以在 `README.md`中建议如何挂载。
 
 {{</Aside>}}
 
-You are free to use as many different files as you need. The structure of a Plugin is exactly the same as Functions in a Pages project today, except that the handlers receive a new property of their parameter object, `pluginArgs`. This property is the initialization parameter that a developer passes when mounting a Plugin. You can use this to receive API tokens, KV/Durable Object namespaces, or anything else that your Plugin needs to work.
+你可以根据需要自由使用不同的文件。插件的结构与现在 Pages 项目中的函数完全相同，不同之处在于处理程序会收到其参数对象的一个新属性 `pluginArgs`。该属性是开发人员在安装插件时传递的初始化参数。你可以用它来接收 API 标记、KV/Durable Object 命名空间或插件运行所需的任何其他内容。
 
-Returning to your static form example, if you want to intercept requests and override the behavior of an HTML form, you need to create a `functions/_middleware.ts`. Developers could then mount your Plugin on a single route, or on their entire project.
+回到静态表单的例子，如果你想拦截请求并覆盖 HTML 表单的行为，你需要创建一个 `functions/_middleware.ts`。这样，开发人员就可以在单个路由或整个项目中安装你的插件。
 
 ```typescript
 ---
@@ -136,11 +136,11 @@ export const onRequestPost = async (context) => {
 }
 ```
 
-### 2. Type your Pages Plugin
+### 2. 输入你的页面插件
 
-To create a good developer experience, you should consider adding TypeScript typings to your Plugin. This allows developers to use their IDE features for autocompletion, and also ensure that they include all the parameters you are expecting.
+为了创造良好的开发体验，你应该考虑在插件中添加 TypeScript 类型。这样，开发人员就可以使用集成开发环境的自动完成功能，并确保包含你期望的所有参数。
 
-In the `index.d.ts`, export a function which takes your `pluginArgs` and returns a `PagesFunction`. For your static form example, you take two properties, `kv`, a KV namespace, and `respondWith`, a function which takes an object with a `formData` property (`FormData`) and returns a `Promise` of a `Response`:
+在 `index.d.ts`中，导出一个接收`pluginArgs`并返回`PagesFunction`的函数。在静态表单示例中，你需要两个属性：`kv`(一个 KV 命名空间)和`respondWith`(一个接收带有`formData`属性(`FormData`)的对象并返回`Response`的`Promise`的函数)：
 
 ```typescript
 ---
@@ -154,15 +154,15 @@ export type PluginArgs = {
 export default function (args: PluginArgs): PagesFunction;
 ```
 
-### 3. Test your Pages Plugin
+### 3. 测试页面插件
 
-We are still working on creating a great testing experience for Pages Plugins authors. Please be patient with us until all those pieces come together. In the meantime, you can create an example project and include your Plugin manually for testing.
+我们仍在努力为页面插件作者创建良好的测试体验。请耐心等待我们完成所有工作。在此期间，你可以创建一个示例项目，并手动包含你的插件进行测试。
 
-### 4. Publish your Pages Plugin
+### 4. 发布页面插件
 
-You can distribute your Plugin however you choose. Popular options include publishing on [npm](https://www.npmjs.com/), showcasing it in the #what-i-built or #pages-discussions channels in our [Developer Discord](https://discord.com/invite/cloudflaredev), and open-sourcing on [GitHub](https://github.com/).
+你可以随意发布你的插件。常用的方式包括在 [npm](https://www.npmjs.com/) 上发布，在我们的 [Developer Discord](https://discord.com/invite/cloudflaredev) 的 #what-i-built 或 #pages-discussions 频道中展示，以及在 [GitHub](https://github.com/) 上开源。
 
-Make sure you are including the generated `dist/` directory, your typings `index.d.ts`, as well as a `README.md` with instructions on how developers can use your Plugin.
+确保包含生成的 `dist/` 目录、你的类型 `index.d.ts` 以及包含开发人员如何使用插件的说明的 `README.md`。
 
 ---
 
@@ -244,9 +244,9 @@ If you experience any problems with Plugins in general, we would appreciate your
 
 ---
 
-## Chain your Plugin
+## 链接你的插件
 
-Finally, as with Pages Functions generally, it is possible to chain together Plugins in order to combine together different features. Middleware defined higher up in the filesystem will run before other handlers, and individual files can chain together Functions in an array like so:
+最后，与一般的 Pages Functions 一样，也可以将 Plugins 链接起来，以组合不同的功能。在文件系统中较高位置定义的中间件将在其他处理程序之前运行，单个文件可以像这样在数组中将多个函数串联起来：
 
 ```typescript
 ---

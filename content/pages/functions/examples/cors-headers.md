@@ -4,12 +4,12 @@ summary: A Pages Functions for appending CORS headers.
 tags:
   - CORS
 pcx_content_type: configuration
-title: Adding CORS headers
+title: 添加Adding CORS headers
 weight: 1002
 layout: example
 ---
 
-This example is a snippet from our Cloudflare Pages Template repo.
+本示例是 Cloudflare Pages模板软件仓库中的一个片段。
 
 ```ts
 ---

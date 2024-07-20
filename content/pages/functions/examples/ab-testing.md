@@ -6,7 +6,7 @@ summary: Set up an A/B test by controlling what page is served based on
 tags:
   - Originless
 pcx_content_type: configuration
-title: A/B testing with middleware
+title: 使用中间件进行 A/B 测试
 weight: 1001
 layout: example
 ---
