@@ -1,42 +1,42 @@
 ---
 pcx_content_type: how-to
-title: Use Pages Functions for A/B testing
+title: 使用Pages Functions进行 A/B 测试
 ---
 
-# Use Pages Functions for A/B testing
+# 使用Pages Functions进行 A/B 测试
 
-In this guide, you will learn how to use [Pages Functions](/pages/functions/) for A/B testing in your Pages projects. A/B testing is a user experience research methodology applied when comparing two or more versions of a web page or application. With A/B testing, you can serve two or more versions of a webpage to users and divide traffic to your site.
+在本指南中，你将学习如何在 Pages 项目中使用 [Pages Functions](/pages/functions/) 进行 A/B 测试。A/B 测试是一种用户体验研究方法，用于比较网页或应用程序的两个或多个版本。通过 A/B 测试，你可以向用户提供两个或更多版本的网页，并划分网站流量。
 
-## Overview
+## 概览
 
-Configuring different versions of your application for A/B testing will be unique to your specific use case. For all developers, A/B testing setup can be simplified into a few helpful principles.
+为 A/B 测试配置不同版本的应用程序将取决于你的具体使用情况。对于所有开发人员来说，A/B 测试设置可以简化为几个有用的原则。
 
-Depending on the number of application versions you have (this guide uses two), you can assign your users into experimental groups. The experimental groups in this guide are the base route `/` and the test route `/test`.
+根据应用程序版本的数量(本指南使用两个版本)，可以将用户分配到实验组。本指南中的实验组是基本路由 `/` 和测试路由 `/test`。
 
-To ensure that a user remains in the group you have given, you will set and store a cookie in the browser and depending on the cookie value you have set, the corresponding route will be served.
+为确保用户留在你指定的组中，你将在浏览器中设置并存储 cookie，并根据你设置的 cookie 值提供相应的路径。
 
-## Set up your Pages Function
+## 设置页面功能
 
-In your project, you can handle the logic for A/B testing using [Pages Functions](/pages/functions/). Pages Functions allows you to handle server logic from within your Pages project.
+在你的项目中，你可以使用 [Pages Functions](/pages/functions/) 处理 A/B 测试的逻辑。Pages Functions 允许你在 Pages 项目中处理服务器逻辑。
 
-To begin:
+开始
 
- 1. Go to your Pages project directory on your local machine.
- 2. Create a `/functions` directory. Your application server logic will live in the `/functions` directory.
+1. 进入本地计算机上的 Pages 项目目录。
+2. 创建一个 `/functions` 目录。应用服务器逻辑将位于`/functions`目录中。
 
-## Add middleware logic
+## 添加中间件逻辑
 
-Pages Functions have utility functions that can reuse chunks of logic which are executed before and/or after route handlers. These are called [middleware](/pages/functions/middleware/). Following this guide, middleware will allow you to intercept requests to your Pages project before they reach your site.
+页面函数(Pages Functions)具有实用功能，可以重复使用在路由处理程序之前和/或之后执行的逻辑块。这些函数称为 [中间件](/pages/functions/middleware/)。根据本指南，中间件可以让你在 Pages 项目的请求到达网站之前拦截它们。
 
-In your `/functions` directory, create a `_middleware.js` file.
+在`/functions`目录下创建一个`_middleware.js`文件。
 
 {{<Aside type="note">}}
 
-When you create your `_middleware.js` file at the base of your `/functions` folder, the middleware will run for all routes on your project. Learn more about [middleware routing](/pages/functions/middleware/).
+在`/functions`文件夹下创建`_middleware.js`文件后，中间件将在项目的所有路由中运行。了解有关[中间件路由](/pages/functions/middleware/)的更多信息。
 
 {{</Aside>}}
 
-Following the Functions naming convention, the `_middleware.js` file exports a single async `onRequest` function that accepts a `request`, `env` and `next` as an argument.
+按照函数命名约定，`_middleware.js` 文件导出了一个单独的异步 `onRequest` 函数，该函数接受 `request`、`env` 和 `next` 作为参数。
 
 ```js
 ---
@@ -53,7 +53,7 @@ const abTest = async ({request, next, env}) => {
 export const onRequest = [abTest]
 ```
 
-To set the cookie, create the `cookieName` variable and assign any value. Then create the `newHomepagePathName` variable and assign it `/test`:
+要设置 cookie，请创建 `cookieName` 变量并赋值。然后创建 `newHomepagePathName` 变量并将其赋值为 `/test`：
 
 ```js
 ---
@@ -74,9 +74,9 @@ const abTest = async ({request, next, env}) => {
 export const onRequest = [abTest]
 ```
 
-## Set up conditional logic
+## 设置条件逻辑
 
-Based on the URL pathname, check that the cookie value is equal to `new`. If the value is `new`, then `newHomepagePathName` will be served.
+根据 URL 路径名，检查 cookie 值是否等于`new`。如果值为  `new`，则将提供 `newHomepagePathName`。
 
 ```js
 ---
@@ -110,15 +110,15 @@ const abTest = async ({request, next, env}) => {
 export const onRequest = [abTest]
 ```
 
-If the cookie value is not present, you will have to assign one. Generate a percentage (from 0-99) by using: `Math.floor(Math.random() * 100)`. Your default cookie version is given a value of `current`.
+如果没有 cookie 值，则必须指定一个。使用以下方法生成一个百分比(从 0 到 99)：`Math.floor(Math.random() * 100)`。你的默认 cookie 版本值为 `current`。
 
-If the percentage of the number generated is lower than `50`, you will assign the cookie version to `new`. Based on the percentage randomly generated, you will set the cookie and serve the assets. After the conditional block, pass the request to `next()`. This will pass the request to Pages. This will result in 50% of users getting the `/test` homepage.
+如果生成数字的百分比低于 `50`，则将 cookie 版本指定为 `new`。根据随机生成的百分比，设置 cookie 并提供资产。在条件块之后，将请求传递给 `next()`。这将把请求传递给 Pages。这将导致 50% 的用户获得 `/test`主页。
 
-The `env.ASSETS.fetch()` function will allow you to send the user to a modified path which is defined through the `url` parameter. `env` is the object that contains your environment variables and bindings. `ASSETS` is a default Function binding that allows communication between your Function and Pages' asset serving resource. `fetch()` calls to the Pages asset-serving resource and returns the asset (`/test` homepage) to your website's visitor.
+通过 `env.ASSETS.fetch()` 函数，你可以将用户发送到通过 `url` 参数定义的修改路径。`env` 是包含环境变量和绑定的对象。`ASSETS` 是默认的函数绑定，允许在函数和 Pages 的资产服务资源之间进行通信。`fetch()`调用 Pages 的资产服务资源，并向网站访问者返回资产(`/test` 主页)。
 
 {{<Aside type="note" header="Binding">}}
 
-A Function is a Worker that executes on your Pages project to add dynamic functionality. A binding is how your Function (Worker) interacts with external resources. A binding is a runtime variable that the Workers runtime provides to your code.
+函数是在页面项目中执行的 Worker，用于添加动态功能。绑定是函数(Worker)与外部资源交互的方式。绑定是 Worker 运行时向代码提供的运行时变量。
 
 {{</Aside>}}
 
@@ -164,12 +164,12 @@ const abTest = async (context) => {
 export const onRequest = [abTest];
 ```
 
-## Deploy to Cloudflare Pages
+## 部署到 Cloudflare Pages
 
-After you have set up your `functions/_middleware.js` file in your project you are ready to deploy with Pages. Push your project changes to GitHub/GitLab.
+在项目中设置好 `functions/_middleware.js` 文件后，就可以使用 Pages 进行部署了。将项目变更推送到 GitHub/GitLab。
 
-After you have deployed your application, review your middleware Function:
+部署应用程序后，请检查中间件功能：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select **Workers & Pages**.
-3. In **Overview**, select your Pages project > **Settings** > **Functions** > **Configuration**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在 "账户主页 "中，选择 "**工作者和页面**"。
+3. 在**概览**中，选择页面项目 > **设置**> **功能**> **配置**。

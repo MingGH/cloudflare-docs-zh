@@ -1,66 +1,66 @@
 ---
 pcx_content_type: how-to
-title: Use Direct Upload with continuous integration
+title: 使用直接上传和持续集成
 ---
 
-# Use Direct Upload with continuous integration
+# 使用直接上传和持续集成
 
-Cloudflare Pages supports directly uploading prebuilt assets, allowing you to use custom build steps for your applications and deploy to Pages with [Wrangler](/workers/wrangler/install-and-update/). This guide will teach you how to deploy your application to Pages, using continuous integration.
+Cloudflare Pages 支持直接上传预构建资产，允许你为应用程序使用自定义构建步骤，并使用 [Wrangler](/workers/wrangler/install-and-update/) 部署到 Pages。本指南将教你如何使用持续集成将应用程序部署到 Pages。
 
-## Deploy with Wrangler
+## 使用 Wrangler 进行部署
 
-In your project directory, install [Wrangler](/workers/wrangler/install-and-update/) so you can deploy a folder of prebuilt assets by running the following command:
+在项目目录下安装 [Wrangler](/workers/wrangler/install-and-update/)，这样就可以通过运行以下命令来部署预构建资产文件夹：
 
 ```sh
 # Publish created project
 $ CLOUDFLARE_ACCOUNT_ID=<ACCOUNT_ID> npx wrangler pages deploy <DIRECTORY> --project-name=<PROJECT_NAME>
 ```
 
-## Get credentials from Cloudflare
+## 从 Cloudflare 获取证书
 
-### Generate an API Token
+### 生成 API 令牌
 
-To generate an API token:
+生成 API 令牌：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/profile/api-tokens).
-2. Select **My Profile** from the dropdown menu of your user icon on the top right of your dashboard.
-3. Select **API Tokens** > **Create Token**.
-4. Under **Custom Token**, select **Get started**.
-5. Name your API Token in the **Token name** field.
-6. Under **Permissions**, select _Account_, _Cloudflare Pages_ and _Edit_:
-7. Select **Continue to summary** > **Create Token**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/profile/api-tokens)。
+2. 从仪表板右上角用户图标的下拉菜单中选择 **我的个人资料**。
+3. 选择 **API 令牌**> **创建令牌**。
+4. 在**自定义令牌**下，选择**开始**。
+5. 在**令牌名称**字段中为 API 令牌命名。
+6. 在 **Permissions**下，选择 _Account_、_Cloudflare Pages_ 和 _Edit_：
+7. 选择 **继续到摘要**> **创建令牌**。
 
-![Follow the instructions above to create an API token for Cloudflare Pages](/images/pages/how-to/select-api-token-for-pages.png)
+![按照上述说明为 Cloudflare 页面创建 API 令牌](/images/pages/how-to/select-api-token-for-pages.png)
 
-Now that you have created your API token, you can use it to push your project from continuous integration platforms.
+现在你已经创建了 API 令牌，可以使用它从持续集成平台推送你的项目。
 
-### Get project account ID
+### 获取项目账户 ID
 
-To find your account ID, log in to the Cloudflare dashboard > select your zone in **Account Home** > find your account ID in **Overview** under **API** on the right-side menu. If you have not added a zone, add one by selecting **Add site**. You can purchase a domain from [Cloudflare's registrar](/registrar/).
+要找到你的帐户 ID，请登录 Cloudflare 面板 > 在 **Account Home**中选择你的区域 > 在右侧菜单 **API**下的 **Overview**中找到你的帐户 ID。如果尚未添加区域，请选择**添加站点**添加区域。你可以从 [Cloudflare 的注册商](/registrar/) 处购买域名。
 
-## Use GitHub Actions
+## 使用 GitHub 操作
 
-[GitHub Actions](https://docs.github.com/en/actions) is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline when using GitHub. You can create workflows that build and test every pull request to your repository or deploy merged pull requests to production.
+[GitHub Actions](https://docs.github.com/en/actions)是一个持续集成和持续交付(CI/CD)平台，可让你在使用 GitHub 时自动执行构建、测试和部署管道。你可以创建工作流来构建和测试仓库中的每个拉取请求，或将合并后的拉取请求部署到生产中。
 
-After setting up your project, you can set up a GitHub Action to automate your subsequent deployments with Wrangler.
+完成项目设置后，你可以设置一个 GitHub 操作，以便使用 Wrangler 自动执行后续部署。
 
-### Add Cloudflare credentials to GitHub secrets
+### 将 Cloudflare 认证添加到 GitHub 秘密中
 
-In the GitHub Action you have set up, environment variables are needed to push your project up to Cloudflare Pages. To add the values of these environment variables in your project's GitHub repository:
+在你设置的 GitHub 操作中，需要使用环境变量将项目推送到 Cloudflare Pages。要在项目的 GitHub 仓库中添加这些环境变量的值，请执行以下操作
 
-1.  Go to your project's repository in GitHub.
-2.  Under your repository's name, select **Settings**.
-3.  Select **Secrets** > **Actions** > **New repository secret**.
-4.  Create one secret and put **CLOUDFLARE_ACCOUNT_ID** as the name with the value being your Cloudflare account ID.
-5.  Create another secret and put **CLOUDFLARE_API_TOKEN** as the name with the value being your Cloudflare API token.
+1.  访问 GitHub 上的项目仓库。
+2.  在版本库名称下，选择 **设置**。
+3.  选择 **秘密**> **操作**> **新存储库秘密**。
+4.  创建一个秘密，将 **CLOUDFLARE_ACCOUNT_ID**作为名称，值为你的 Cloudflare 帐户 ID。
+5.  创建另一个秘密，将 **CLOUDFLARE_API_TOKEN**作为名称，值为你的 Cloudflare API 令牌。
 
-Add the value of your Cloudflare account ID and Cloudflare API token as `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`, respectively. This will ensure that these secrets are secure, and each time your Action runs, it will access these secrets.
+将 Cloudflare 帐户 ID 和 Cloudflare API 令牌的值分别添加为 `CLOUDFLARE_ACCOUNT_ID` 和 `CLOUDFLARE_API_TOKEN`。这将确保这些机密是安全的，每次运行 Action 时都会访问这些机密。
 
-### Set up a workflow
+#### 设置工作流程
 
-Create a `.github/workflows/pages-deployment.yaml` file at the root of your project. The `.github/workflows/pages-deployment.yaml` file will contain the jobs you specify on the request, that is: `on: [push]` in this case. It can also be on a pull request. For a detailed explanation of GitHub Actions syntax, refer to the [official documentation](https://docs.github.com/en/actions).
+在项目根目录下创建一个 `.github/workflows/pages-deployment.yaml` 文件。该`.github/workflows/pages-deployment.yaml`文件将包含你在请求中指定的作业，即`on: [push]`。也可以是拉取请求。有关 GitHub Actions 语法的详细解释，请参阅[官方文档](https://docs.github.com/en/actions)。
 
-In your `pages-deployment.yaml` file, copy the following content:
+在 `pages-deployment.yaml` 文件中，复制以下内容：
 
 ```yaml
 ---
@@ -90,39 +90,39 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-In the above code block, you have set up an Action that runs when you push code to the repository. Replace `YOUR_PROJECT_NAME` with your Cloudflare Pages project name and `YOUR_DIRECTORY_OF_STATIC_ASSETS` with your project's output directory, respectively.
+在上述代码块中，你设置了一个 Action，当你将代码推送到版本库时运行该 Action。将 `YOUR_PROJECT_NAME` 替换为 Cloudflare Pages 项目名称，将 `YOUR_DIRECTORY_OF_STATIC_ASSETS` 替换为项目的输出目录。
 
-The `${{ secrets.GITHUB_TOKEN }}` will be automatically provided by GitHub Actions with the `contents: read` and `deployments: write` permission. This will enable our Cloudflare Pages action to create a Deployment on your behalf.
+GitHub Actions 将自动提供 `${{ secrets.GITHUB_TOKEN }}` 和 `contents: read` 和 `deployments: write` 权限。这将使我们的 Cloudflare Pages 操作能够代表你创建部署。
 
 {{<Aside type="note">}}
 
-This workflow automatically triggers on the current git branch, unless you add a `branch` option to the `with` section.
+除非在 `with` 部分添加了 `branch` 选项，否则此工作流程会自动在当前的 git 分支上触发。
 
 {{</Aside>}}
 
-## Using CircleCI for CI/CD
+## 使用 CircleCI 进行 CI/CD
 
-[CircleCI](https://circleci.com/) is another continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline. It can be configured to efficiently run complex pipelines with caching, docker layer caching, and resource classes.
+[CircleCI](https://circleci.com/)是另一个持续集成和持续交付(CI/CD)平台，可以让你的构建、测试和部署管道自动化。它可以通过缓存、docker 层缓存和资源类进行配置，以高效运行复杂的管道。
 
-Similar to GitHub Actions, CircleCI can use Wrangler to continuously deploy your projects each time to push to your code.
+与 GitHub Actions 类似，CircleCI 可以使用 Wrangler 在每次推送代码时持续部署项目。
 
-### Add Cloudflare credentials to CircleCI
+### 将 Cloudflare 证书添加到 CircleCI
 
-After you have generated your Cloudflare API token and found your account ID in the dashboard, you will need to add them to your CircleCI dashboard to use your environment variables in your project.
+生成 Cloudflare API 标记并在仪表板中找到账户 ID 后，你需要将其添加到 CircleCI 仪表板，以便在项目中使用环境变量。
 
-To add environment variables, in the CircleCI web application:
+在 CircleCI 网络应用程序中添加环境变量：
 
-1. Go to your Pages project > **Settings**.
-2. Select **Projects** in the side menu.
-3. Select the ellipsis (...) button in the project's row. You will see the option to add environment variables.
-4. Select **Environment Variables** > **Add Environment Variable**.
-5. Enter the name and value of the new environment variable, which is your Cloudflare credentials (`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`).
+1. 进入页面项目 > **设置**。
+2. 在侧菜单中选择 **项目**。
+3. 选择项目行中的省略号(...)按钮。你将看到添加环境变量的选项。
+4. 选择 **环境变量**> **添加环境变量**。
+5. 输入新环境变量的名称和值，即 Cloudflare 凭据(`CLOUDFLARE_ACCOUNT_ID` 和`CLOUDFLARE_API_TOKEN`)。
 
-![Follow the instructions above to add environment variables to your CircleCI settings](/images/pages/how-to/project-settings-env-var-v2.png)
+![按照上述说明在 CircleCI 设置中添加环境变量](/images/pages/how-to/project-settings-env-var-v2.png)
 
-### Set up a workflow
+#### 设置工作流程
 
-Create a `.circleci/config.yml` file at the root of your project. This file contains the jobs that will be executed based on the order of your workflow. In your `config.yml` file, copy the following content:
+在项目根目录下创建一个 `.circleci/config.yml` 文件。该文件包含根据工作流程顺序执行的作业。在 `config.yml` 文件中，复制以下内容：
 
 ```yaml
 ---
@@ -147,31 +147,31 @@ workflows:
      - Publish-to-Pages
 ```
 
-Your continuous integration workflow is broken down into jobs when using CircleCI. From the code block above, you can see that you first define a list of jobs that run on each commit. For example, your repository will run on a prebuilt docker image `cimg/node:18.7.0`. It first checks out the repository with the Node version specified in the image.
+使用 CircleCI 时，你的持续集成工作流程会被分解成多个作业。从上面的代码块中，你可以看到你首先定义了在每次提交时运行的工作列表。例如，你的版本库将运行在预构建的 docker 镜像 `cimg/node:18.7.0`上。它首先用映像中指定的 Node 版本来检查版本库。
 
 {{<Aside type="note" header="Note">}}
 
-Wrangler requires a Node version of at least `16.17.0`. You must upgrade your Node.js version if your version is lower than `16.17.0`.
+Wrangler 要求 Node 版本至少为 `16.17.0`。如果你的 Node.js 版本低于 `16.17.0`，则必须升级。
 
 {{</Aside>}}
 
-You can modify the Wrangler command with any [`wrangler pages deploy` options](/workers/wrangler/commands/#deploy-1).
+你可以使用任何 [`wrangler页面部署`选项](/workers/wrangler/commands/#deploy-1) 来修改 Wrangler 命令。
 
-After all the specified steps, define a `workflow` at the end of your file. You can learn more about creating a custom process with CircleCI from the [official documentation](https://circleci.com/docs/2.0/concepts/).
+完成所有指定步骤后，在文件末尾定义 "工作流"。有关使用 CircleCI 创建自定义流程的更多信息，请参阅 [官方文档](https://circleci.com/docs/2.0/concepts/)。
 
-## Travis CI for CI/CD
+## CI/CD 的 Travis CI
 
-Travis CI is an open-source continuous integration tool that handles specific tasks, such as pull requests and code pushes for your project workflow. Travis CI can be integrated into your GitHub projects, databases, and other preinstalled services enabled in your build configuration. To use Travis CI, you should have A GitHub, Bitbucket, GitLab or Assembla account.
+Travis CI 是一款开源持续集成工具，可处理项目工作流程中的特定任务，如拉取请求和代码推送。Travis CI 可以集成到 GitHub 项目、数据库和其他在构建配置中启用的预装服务中。要使用 Travis CI，你必须拥有一个 GitHub、Bitbucket、GitLab 或 Assembla 账户。
 
-### Add Cloudflare credentials to TravisCI
+### 将 Cloudflare 证书添加到 TravisCI
 
-In your Travis project, add the Cloudflare credentials you have generated from the Cloudflare dashboard to access them in your `travis.yml` file. Go to your Travis CI dashboard and select your current project > **More options** > **Settings** > **Environment Variables**.
+在你的 Travis 项目中，添加从 Cloudflare 面板生成的 Cloudflare 凭据，以便在你的 `travis.yml` 文件中访问它们。进入 Travis CI 面板，选择当前项目 > **更多选项**> **设置**> **环境变量**。
 
-Set the environment variable's name and value and the branch you want it to be attached to. You can also set the privacy of the value.
+设置环境变量的名称和值，以及希望它连接的分支。还可以设置值的隐私性。
 
-### Setup
+### 设置
 
-Go to [Travis-ci.com](https://Travis-ci.com) and enable your repository by login in with your preferred provider. This guide uses GitHub. Next, create a `.travis.yml` file and copy the following into the file:
+访问 [Travis-ci.com](https://Travis-ci.com)，使用首选提供商登录启用你的版本库。本指南使用 GitHub。然后，创建一个 `.travis.yml` 文件，并将以下内容复制到该文件中：
 
 ```yaml
 ---
@@ -195,6 +195,6 @@ env:
   - CLOUDFLARE_API_TOKEN: { $CLOUDFLARE_API_TOKEN }
 ```
 
-In the code block above you have specified the language as `node_js` and listed the value as `18.0.0` because Wrangler v2 depends on this Node version or higher. You have also set branches you want your continuous integration to run on. Finally, input your `PROJECT NAME` in the script section and your CI process should work as expected.
+在上面的代码块中，你将语言指定为 `node_js`，并将值列为 `18.0.0`，因为 Wrangler v2 依赖于此 Node 版本或更高版本。你还设置了希望持续集成运行的分支。最后，在脚本部分输入 `PROJECT NAME`，你的 CI 进程就会如期运行。
 
-You can also modify the Wrangler command with any [`wrangler pages deploy` options](/workers/wrangler/commands/#deploy-1).
+你也可以使用任何 [`wrangler页面部署`选项](/workers/wrangler/commands/#deploy-1)修改 Wrangler 命令。

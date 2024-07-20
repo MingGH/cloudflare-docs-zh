@@ -1,12 +1,12 @@
 ---
 pcx_content_type: reference
-title: Routing
+title: 功能路由
 weight: 2
 ---
 
-# Functions routing
+# 功能路由[Functions routing]
 
-Functions utilize file-based routing. Your `/functions` directory structure determines the designated routes that your Functions will run on. You can create a `/functions` directory with as many levels as needed for your project's use case. Review the following directory:
+函数使用基于文件的路由。你的 `/functions` 目录结构决定了你的函数将运行的指定路由。你可以根据项目用例的需要创建不同层级的 `/functions`目录。请查看以下目录：
 
 ```
 |---- …
@@ -20,7 +20,7 @@ Functions utilize file-based routing. Your `/functions` directory structure dete
             |___ banana.js
 ```
 
-The following routes will be generated based on the above file structure. These routes map the URL pattern to the `/functions` file that will be invoked when a visitor goes to the URL:
+将根据上述文件结构生成以下路由。这些路由将 URL 模式映射到`/functions`文件，当访问者访问该 URL 时，将调用该文件：
 
 | File path                   | Route                     |
 |-----------------------------|---------------------------|
@@ -33,19 +33,19 @@ The following routes will be generated based on the above file structure. These 
 
 {{<Aside type="note" header="Trailing slash">}}
 
-Trailing slash is optional. Both `/foo` and `/foo/` will be routed to `/functions/foo.js` or `/functions/foo/index.js`. If your project has both a `/functions/foo.js` and `/functions/foo/index.js` file, `/foo` and `/foo/` would route to `/functions/foo/index.js`.
+尾部斜线为可选项。`/foo` 和 `/foo/` 都将被路由到 `/functions/foo.js` 或 `/functions/foo/index.js`。如果你的项目同时有 `/functions/foo.js` 和 `/functions/foo/index.js` 文件，则 `/foo` 和 `/foo/` 将路由到 `/functions/foo/index.js`。
 
 {{</Aside>}}
 
-If no Function is matched, it will fall back to a static asset if there is one. Otherwise, the Function will fall back to the [default routing behavior](/pages/configuration/serving-pages/) for Pages' static assets.
+如果没有匹配到 Function，则会返回到静态资产(如果有的话)。否则，Function 将返回到页面静态资产的[默认路由行为](/pages/configuration/serving-pages/)。
 
-## Dynamic routes
+## 动态路由
 
-Dynamic routes allow you to match URLs with parameterized segments. This can be useful if you are building dynamic applications. You can accept dynamic values which map to a single path by changing your filename.
+通过动态路由，你可以将 URL 与参数化网段进行匹配。这对于构建动态应用程序非常有用。你可以通过更改文件名来接受映射到单一路径的动态值。
 
-### Single path segments
+### 单一路径分段
 
-To create a dynamic route, place one set of brackets around your filename – for example, `/users/[user].js`. By doing this, you are creating a placeholder for a single path segment:
+要创建动态路由，请在文件名前后加上一组括号，例如 `/users/[user].js`。这样做的目的是为单个路径段创建一个占位符：
 
 | Path               | Matches? |
 |--------------------|----------|
@@ -55,9 +55,9 @@ To create a dynamic route, place one set of brackets around your filename – fo
 | /users/nevi/foobar | No       |
 | /nevi              | No       |
 
-### Multipath segments
+### 多路径段
 
-By placing two sets of brackets around your filename – for example, `/users/[[user]].js` – you are matching any depth of route after `/users/`:
+通过在文件名周围放置两组括号--例如，`/users/[[user]].js`--就可以匹配`/users/`之后的任何路由深度：
 
 | Path                  | Matches? |
 |-----------------------|----------|
@@ -70,13 +70,13 @@ By placing two sets of brackets around your filename – for example, `/users/[[
 
 {{<Aside type="note" header="Route specificity">}}
 
-More specific routes (routes with fewer wildcards) take precedence over less specific routes.
+较具体的路由(通配符较少的路由)优先于较不具体的路由。
 
 {{</Aside>}}
 
-#### Dynamic route examples
+#### 动态路由示例
 
-Review the following `/functions/` directory structure:
+查看以下 `/functions/` 目录结构：
 
 ```
 |---- …
@@ -88,7 +88,7 @@ Review the following `/functions/` directory structure:
             |___ [[catchall]].js
 ```
 
-The following requests will match the following files:
+以下请求将匹配以下文件：
 
 | Request               | File                                             |
 |-----------------------|--------------------------------------------------|
@@ -100,9 +100,9 @@ The following requests will match the following files:
 | /users/daniel/xyz/123 | /users/[[catchall]].js                           |
 
 
-The URL segment(s) that match the placeholder (`[user]`) will be available in the request [`context`](/pages/functions/api-reference/#eventcontext) object. The [`context.params`](/pages/functions/api-reference/#params) object can be used to find the matched value for a given filename placeholder.
+与占位符 (`[user]`)匹配的 URL 段将出现在请求 [`context`](/pages/functions/api-reference/#eventcontext)对象中。可使用 [`context.params`](/pages/functions/api-reference/#params)对象查找与给定文件名占位符匹配的值。
 
-For files which match a single URL segment (use a single set of brackets), the values are returned as a string:
+对于匹配单个 URL 段(使用单组括号)的文件，其值将以字符串形式返回：
 
 ```js
 ---
@@ -113,10 +113,10 @@ export function onRequest(context) {
 }
 ```
 
-The above logic will return `daniel` for requests to `/users/daniel`.
+对于向 `/users/daniel` 提出的请求，上述逻辑将返回 `daniel`。
 
 
-For files which match against multiple URL segments (use a double set of brackets), the values are returned as an array:
+对于与多个 URL 段(使用双组括号)匹配的文件，其值将以数组形式返回：
 
 ```js
 ---
@@ -127,37 +127,37 @@ export function onRequest(context) {
 }
 ```
 
-The above logic will return `["daniel", "xyz", "123"]` for requests to `/users/daniel/xyz/123`.
+对于向 `/users/daniel/xyz/123` 的请求，上述逻辑将返回 `["daniel", "xyz", "123"]`。
 
-## Functions invocation routes
+## 函数调用路线
 
-On a purely static project, Pages offers unlimited free requests. However, once you add Functions on a Pages project, all requests by default will invoke your Function. To continue receiving unlimited free static requests, exclude your project's static routes by creating a `_routes.json` file. This file will be automatically generated if a `functions` directory is detected in your project when you publish your project with Pages CI or Wrangler.
-
-{{<Aside type="note">}}
-
-Some frameworks (such as Remix, SvelteKit) will also automatically generate a `_routes.json` file. However, if your preferred framework does not, create an issue on their framework repository with a link to this page or let us know on [Discord](https://discord.cloudflare.com). Refer to the [Framework guide](/pages/framework-guides/) for more information on full-stack frameworks.
-
-{{</Aside>}}
-
-### Create a `_routes.json` file
-
-Create a `_routes.json` file to control when your Function is invoked. It should be placed in the output directory of your project.
-
-This file will include three different properties:
-
-* **version**: Defines the version of the schema. Currently there is only one version of the schema (version 1), however, we may add more in the future and aim to be backwards compatible.
-* **include**: Defines routes that will be invoked by Functions. Accepts wildcard behavior.
-* **exclude**: Defines routes that will not be invoked by Functions. Accepts wildcard behavior. `exclude` always take priority over `include`.
+在纯静态项目中，Pages 提供无限制的免费请求。但是，一旦在 Pages 项目中添加了函数，所有请求都将默认调用你的函数。要继续接收无限制的免费静态请求，请通过创建一个 `_routes.json` 文件来排除项目的静态路由。使用 Pages CI 或 Wrangler 发布项目时，如果在项目中检测到 `functions` 目录，该文件就会自动生成。
 
 {{<Aside type="note">}}
 
-Wildcards match any number of path segments (slashes). For example, `/users/*` will match everything after the`/users/` path.
+有些框架(如 Remix、SvelteKit)还会自动生成一个 `_routes.json` 文件。不过，如果你喜欢的框架不会这样做，请在它们的框架仓库中创建一个问题，并链接到本页面，或者在 [Discord](https://discord.cloudflare.com) 上告诉我们。有关全栈框架的更多信息，请参阅[框架指南](/pages/framework-guides/)。
 
 {{</Aside>}}
 
-#### Example configuration
+### 创建一个 `_routes.json` 文件
 
-Below is an example of a `_routes.json`.
+创建一个 `_routes.json`文件，以控制函数何时被调用。该文件应放在项目的输出目录中。
+
+该文件将包括三个不同的属性：
+
+* **version**：定义模式的版本。目前模式只有一个版本(版本 1)，但我们可能会在未来添加更多版本，并力求向后兼容。
+* **include**：定义函数将调用的路由。接受通配符行为。
+* **exclude**：定义函数不会调用的路由。接受通配符行为。`exclude`总是比 `include`优先。
+
+{{<Aside type="note">}}
+
+通配符可匹配任意数量的路径段(斜线)。例如，`/users/*`将匹配`/users/`路径之后的所有内容。
+
+{{</Aside>}}
+
+#### 配置示例
+
+下面是 `_routes.json`的示例。
 
 ```json
 ---
@@ -170,9 +170,9 @@ filename: _routes.json
 }
 ```
 
-This `_routes.json` will invoke your Functions on all routes.
+该 `_routes.json`将在所有路由上调用你的 Functions。
 
-Below is another example of a `_routes.json` file. Any route inside the `/build` directory will not invoke the Function and will not incur a Functions invocation charge.
+下面是另一个 `_routes.json` 文件示例。任何位于 `/build` 目录内的路由都不会调用函数，也不会产生函数调用费用。
 
 ```json
 ---
@@ -185,10 +185,10 @@ filename: _routes.json
 }
 ```
 
-### Limits
+#### 限制
 
-Functions invocation routes have the following limits:
+函数调用路由有以下限制：
 
-* You must have at least one include rule.
-* You may have no more than 100 include/exclude rules combined.
-* Each rule may have no more than 100 characters.
+* 必须至少有一条包含规则。
+* 包含/排除规则合计不得超过 100 条。
+* 每条规则不得超过 100 个字符。

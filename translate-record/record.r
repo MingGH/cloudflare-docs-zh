@@ -39,3 +39,13 @@
 /content/pages/configuration/git-integration.md,2024-07-16 20:08:18,e0bc257e476b906a37814d8716f41442eed536e6fc7b1bd2ba43b6c2f1e9b228
 /content/pages/tutorials/build-an-api-with-pages-functions/index.md,2024-07-16 20:08:20,342864dcb17892606146d0c77b4b59baceb1721ec88f730f950e5031699d02e5
 /content/pages/tutorials/forms/index.md,2024-07-16 20:08:32,8ba90594c6360916a56a3db369fdb982bab5dcef7c7b0a5f1f0e4c0bf30a03da
+/content/pages/_partials/_deploy-via-c3.md,2024-07-17 19:45:06,6c6ef822110e63ad69e92e4e65ada2708e22fbb9bdeb979c06e5b1c7521884b3
+/content/pages/framework-guides/deploy-a-vue-site.md,2024-07-17 19:45:20,6c26ac2c38d28e2b124b67281662fd7ca61340eaefb4c879f7ec38e5655f26ef
+/content/pages/how-to/preview-with-cloudflare-tunnel.md,2024-07-17 19:45:20,adafa48cb0034fef749c1d3fec131f0cf63de853523d31d1732252d066087894
+/content/pages/how-to/custom-branch-aliases.md,2024-07-17 19:45:22,3d871aac4fd2ac5a76a9197f9270db39de926f21fe331a07f8006c2eed94e313
+/content/pages/how-to/add-custom-http-headers.md,2024-07-17 19:45:22,bbe62e36ac3656589a300cc50c7af3209f26fd8299557d65bf7ee4712b48d8f3
+/content/pages/how-to/use-worker-for-ab-testing-in-pages.md,2024-07-17 19:45:25,f1709e65f4c103d3dac735de8f94de8c5616fd88ce3641cc388952d96e0730f2
+/content/pages/how-to/refactor-a-worker-to-pages-functions.md,2024-07-17 19:45:26,88cb8c7d0f8dd60bb5a08d1d5a3d916fc1a7350446633512a0447a23ba7c85a3
+/content/pages/functions/debugging-and-logging.md,2024-07-17 19:45:27,623cc85de9509cb62b5f04881a983c9b6d95e0ed58942e6fd9f8e2cc26f57042
+/content/pages/how-to/use-direct-upload-with-continuous-integration.md,2024-07-17 19:45:35,c2930a874c30307fb5f4ae5599afc887c93d4b38cdecfcb2bf4b4ba4821ad1ae
+/content/pages/functions/routing.md,2024-07-17 19:45:36,4e7211871755b6eb68d0f875bca09524e9f753a040b9612fc71f186dedb1ca20

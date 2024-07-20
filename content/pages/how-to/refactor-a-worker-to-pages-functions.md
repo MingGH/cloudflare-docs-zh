@@ -1,52 +1,52 @@
 ---
 pcx_content_type: how-to
-title: Refactor a Worker to a Pages Function
+title: 将 Worker 重构为 Pages Function
 ---
 
-# Refactor a Worker to a Pages Function
+# 将 Worker 重构为 Pages Function
 
-In this guide, you will learn how to refactor a Worker made to intake form submissions to a Pages Function that can be hosted on your Cloudflare Pages application. [Pages Functions](/pages/functions/) is a serverless function that lives within the same project directory as your application and is deployed with Cloudflare Pages. It enables you to run server-side code that adds dynamic functionality without running a dedicated server. You may want to refactor a Worker to a Pages Function for one of these reasons:
+在本指南中，你将学习如何将用于接收表单提交的 Worker 重构为可托管在 Cloudflare Pages 应用程序上的 Pages 函数。[页面功能](/pages/functions/)是一种无服务器功能，与你的应用程序位于同一项目目录中，并与 Cloudflare Pages 一起部署。它使你能够运行添加动态功能的服务器端代码，而无需运行专用服务器。出于以下原因之一，你可能希望将 Worker 重构为 Pages Function：
 
-1. If you manage a serverless function that your Pages application depends on and wish to ship the logic without managing a Worker as a separate service.
-2. If you are migrating your Worker to Pages Functions and want to use the routing and middleware capabilities of Pages Functions.
+1. 如果你要管理 Pages 应用程序所依赖的无服务器功能，并希望在不将 Worker 作为单独服务管理的情况下发送逻辑。
+2. 如果你要将 Worker 迁移到 Pages Functions，并希望使用 Pages Functions 的路由和中间件功能。
 
 {{<Aside type= "note">}}
 
-You can import your Worker to a Pages project without using Functions by creating a `_worker.js` file in the output directory of your Pages project. This [Advanced mode](/pages/functions/advanced-mode/) requires writing your Worker with [Module syntax](/workers/reference/migrate-to-module-workers/).
+你可以在 Pages 项目的输出目录中创建一个 `_worker.js` 文件，将 Worker 导入 Pages 项目，而无需使用 Functions。这种[高级模式](/pages/functions/advanced-mode/)要求使用[模块语法](/workers/reference/migrate-to-module-workers/)编写 Worker。
 
-However, when using the `_worker.js` file in Pages, the entire `/functions` directory is ignored – including its routing and middleware characteristics.
+但是，在 Pages 中使用 `_worker.js` 文件时，整个 `/functions` 目录都会被忽略，包括其路由和中间件特性。
 
 {{</Aside>}}
 
-## General refactoring steps
+## 一般重构步骤
 
-1. Remove the `addEventListener()` method and its event response and replace it with the appropriate `OnRequest` method. Refer to [Functions](/pages/functions/get-started/) to select the appropriate method for your Function.
-2. Pass the `context` object as an argument to your new `OnRequest` method to access the properties of the context parameter: `request`,`env`,`params` and `next`.
-3. Use middleware to handle logic that must be executed before or after route handlers. Learn more about [using Middleware](/pages/functions/middleware/) in the Functions documentation.
+1. 删除 `addEventListener()` 方法及其事件响应，代之以适当的 `OnRequest` 方法。请参阅 [函数](/pages/functions/get-started/) 为你的函数选择合适的方法。
+2. 将 `context` 对象作为参数传递给新的 `OnRequest` 方法，以访问上下文参数的属性：`request`、`env`、`params` 和 `next`。
+3. 使用中间件处理必须在路由处理程序之前或之后执行的逻辑。有关 [使用中间件](/pages/functions/middleware/) 的更多信息，请参阅函数文档。
 
-## Background
+## 背景
 
-To explain the process of refactoring, this guide uses a simple form submission example.
+为了解释重构过程，本指南使用了一个简单的表单提交示例。
 
-Form submissions can be handled by Workers but can also be a good use case for Pages Functions, since forms are most times specific to a particular application.
+表单提交可以由 Worker 处理，但也可以是页面函数的一个很好的用例，因为表单在大多数情况下是特定于某个应用程序的。
 
-Assuming you are already using a Worker to handle your form, you would have deployed this Worker and then added the URL to your form action attribute in your HTML form. This means that when you change how the Worker handles your submissions, you must make changes to the Worker script. If the logic in your Worker is used by more than one application, Pages Functions would not be a good use case.
+假设你已经使用 Worker 来处理表单，那么你应该已经部署了 Worker，然后将 URL 添加到 HTML 表单的表单操作属性中。这意味着，当你更改 Worker 处理提交的方式时，必须对 Worker 脚本进行更改。如果 Worker 中的逻辑被多个应用程序使用，那么页面功能就不是一个好的用例。
 
-However, it can be beneficial to use a [Pages Function](/pages/functions/) when you would like to organize your function logic in the same project directory as your application.
+不过，当你希望在与应用程序相同的项目目录中组织函数逻辑时，使用 [Pages Function](/pages/functions/)可能会有所帮助。
 
-Building your application using Pages Functions can help you manage your client and serverless logic from the same place and make it easier to write and debug your code.
+使用 Pages Functions 构建应用程序可以帮助你从同一个地方管理客户端和无服务器逻辑，并使代码的编写和调试更加轻松。
 
-## Handle form entries with Airtable and Workers
+## 使用 Airtable 和 Workers 处理表单条目
 
-An [Airtable](https://airtable.com/) is a low-code platform for building collaborative applications. It helps customize your workflow, collaborate, and handle form submissions. For this example, you will utilize Airtable's form submission feature.
+[Airtable](https://airtable.com/)是一个用于构建协作应用程序的低代码平台。它有助于自定义工作流程、协作和处理表单提交。在本例中，你将使用 Airtable 的表单提交功能。
 
-[Airtable](https://airtable.com/) can be used to store entries of information in different tables for the same account. When creating a Worker for handling the submission logic, the first step is to use [Wrangler](/workers/wrangler/install-and-update/) to initialize a new Worker within a specific folder or at the root of your application.
+[Airtable](https://airtable.com/) 可用于在同一账户的不同表格中存储信息条目。创建用于处理提交逻辑的 Worker 时，第一步是使用 [Wrangler](/workers/wrangler/install-and-update/)，在特定文件夹或应用程序根目录下初始化一个新 Worker。
 
-This step creates the boilerplate to write your Airtable submission Worker. After writing your Worker, you can deploy it to Cloudflare's global network after you [configure your project for deployment](/workers/wrangler/configuration/). Refer to the Workers documentation for a full tutorial on how to [handle form submission with Workers](/workers/tutorials/handle-form-submissions-with-airtable/).
+本步骤创建模板，用于编写 Airtable 提交 Worker。编写 Worker 后，你可以在 [配置项目以便部署](/workers/wrangler/configuration/) 之后将其部署到 Cloudflare 的全球网络。有关如何 [使用 Worker 处理表单提交](/workers/tutorials/handle-form-submissions-with-airtable/) 的完整教程，请参阅 Worker 文档。
 
-The following code block shows an example of a Worker that handles Airtable form submission.
+以下代码块显示了一个 Worker 的示例，该 Worker 可处理 Airtable 表单提交。
 
-Every Worker will have the default response to a `fetch` action with a `request` handler. The `submitHandler` async function is called if the pathname of the work is `/submit`. This function checks that the request method is a `POST` request and then proceeds to parse and post the form entries to Airtable using your credentials, which you can store using [Wrangler `secret`](/workers/wrangler/commands/#secret).
+每个 Worker 都会对带有 `request` 处理程序的 `fetch` 操作做出默认响应。如果工作的路径名是 `/submit`，则会调用 `submitHandler` 异步函数。该函数会检查请求方法是否为 `POST` 请求，然后使用你的凭据(可使用 [Wrangler `secret`](/workers/wrangler/commands/#secret) 存储)解析表单条目并将其发布到 Airtable。
 
 ```js
 ---
@@ -110,11 +110,11 @@ const HandleAirtableData = (body) => {
 ```
 
 
-### Refactor your Worker
+#### 重构你的 Worker
 
-To refactor the above Worker, go to your Pages project directory and create a `/functions` folder. In `/functions`, create a `form.js` file. This file will handle form submissions.
+要重构上述 Worker，请进入 Pages 项目目录并创建一个 `/functions` 文件夹。在 `/functions`中，创建一个 `form.js` 文件。该文件将处理表单提交。
 
-Then, in the `form.js` file, export a single `onRequestPost`:
+然后，在 `form.js` 文件中导出一个 `onRequestPost`：
 
 ```js
 ---
@@ -126,11 +126,11 @@ export async function onRequestPost(context) {
 
 ```
 
-Every Worker has an `addEventListener` to listen for `fetch` events, but you will not need this in a Pages Function. Instead, you will `export` a single `onRequest` function, and depending on the HTTPS request it handles, you will name it accordingly. Refer to [Function documentation](/pages/functions/get-started/) to select the appropriate method for your function.
+每个 Worker 都有一个 `addEventListener` 用于监听 `fetch` 事件，但在页面函数中并不需要。取而代之的是，你将 `export`一个单独的 `onRequest`函数，并根据其处理的 HTTPS 请求为其命名。请参考 [函数文档](/pages/functions/get-started/) 为你的函数选择合适的方法。
 
-The above code takes a `request` and `env` as arguments which pass these properties down to the `submitHandler` function, which remains unchanged from the [original Worker](#handle-form-entries-with-airtable-and-workers). However, because Functions allow you to specify the HTTPS request type, you can remove the `request.method` check in your Worker. This is now handled by Pages Functions by naming the `onRequest` handler.
+上述代码将 `request` 和 `env` 作为参数，并将这些属性传递给 `submitHandler` 函数，该函数与 [原始 Worker](#handle-form-entries-with-airtable-and-workers) 保持不变。不过，由于函数允许你指定 HTTPS 请求类型，你可以删除 Worker 中的 `request.method` 检查。现在，页面函数会通过命名 `onRequest` 处理程序来处理此问题。
 
-Now, you will introduce the `submitHandler` function and pass the `env` parameter as a property. This will allow you to access `env` in the `HandleAirtableData` function below. This function does a `POST` request to Airtable using your Airtable credentials:
+现在，你将引入 `submitHandler` 函数，并将 `env` 参数作为属性传递。这将允许你在下面的 `HandleAirtableData` 函数中访问 `env`。该函数使用 Airtable 凭据向 Airtable 发送 `POST` 请求：
 
 ```js
 ---
@@ -162,7 +162,7 @@ async function submitHandler(context) {
 }
 ```
 
-Finally, create a `HandleAirtableData` function. This function will send a `fetch` request to Airtable with your Airtable credentials and the body of your request:
+最后，创建一个 `HandleAirtableData` 函数。该函数将使用 Airtable 凭据和请求正文向 Airtable 发送 `fetch `请求：
 
 ```js
 ---
@@ -187,11 +187,10 @@ const HandleAirtableData = async function onRequest({ body, env }) {
 };
 ```
 
-You can test your Function [locally using Wrangler](/pages/functions/local-development/). By completing this guide, you have successfully refactored your form submission Worker to a form submission Pages Function.
+你可以 [在本地使用 Wrangler](/pages/functions/local-development/) 测试你的函数。完成本指南后，你就成功地将表单提交 Worker 重构为表单提交页面函数。
 
-## Related resources
+## 相关资源
 
-- [HTML forms](/pages/tutorials/forms/)
-- [Plugins documentation](/pages/functions/plugins/)
-- [Functions documentation](/pages/functions/)
-
+- [HTML 表格](/pages/tutorials/forms/)
+- [插件文档](/pages/functions/plugins/)
+- [函数文档](/pages/functions/)

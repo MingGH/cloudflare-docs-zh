@@ -1,32 +1,32 @@
 ---
 pcx_content_type: how-to
-title: Preview Local Projects with Cloudflare Tunnel
+title: 利用 Cloudflare Tunnel 隧道预览本地项目
 ---
 
-# Preview local projects with Cloudflare Tunnel
+# 利用 Cloudflare 隧道预览本地项目
 
-[Cloudflare Tunnel](/cloudflare-one/connections/connect-networks/) runs a lightweight daemon (`cloudflared`) in your infrastructure that establishes outbound connections (Tunnels) between your origin web server and the Cloudflare global network. In practical terms, you can use Cloudflare Tunnel to allow remote access to services running on your local machine. It is an alternative to popular tools like [Ngrok](https://ngrok.com), and provides free, long-running tunnels via the [TryCloudflare](/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/) service.
+[Cloudflare Tunnel](/cloudflare-one/connections/connect-networks/)在你的基础架构中运行一个轻量级守护进程(`cloudflared`)，在你的源 Web 服务器和 Cloudflare 全球网络之间建立出站连接(隧道)。在实际应用中，你可以使用 Cloudflare Tunnel 允许远程访问本地计算机上运行的服务。它是 [Ngrok](https://ngrok.com)等流行工具的替代品，并通过 [TryCloudflare](/cloudflare-one/connections/connect-networks/do-more-with-tunnels/trycloudflare/) 服务提供免费、长期运行的隧道。
 
-While Cloudflare Pages provides unique [deploy preview URLs](/pages/configuration/preview-deployments/) for new branches and commits on your projects, Cloudflare Tunnel can be used to provide access to locally running applications and servers during the development process. In this guide, you will install Cloudflare Tunnel, and create a new tunnel to provide access to a locally running application. You will need a Cloudflare account to begin using Cloudflare Tunnel.
+Cloudflare Pages 可为项目的新分支和提交提供唯一的[部署预览 URL](/pages/configuration/preview-deployments/)，而 Cloudflare Tunnel 可用于在开发过程中提供对本地运行的应用程序和服务器的访问。在本指南中，你将安装 Cloudflare Tunnel 并创建一个新隧道，以提供对本地运行应用程序的访问。开始使用 Cloudflare Tunnel 时，你需要一个 Cloudflare 账户。
 
-## Installing Cloudflare Tunnel
+## 安装 Cloudflare Tunnel 隧道
 
-Cloudflare Tunnel can be installed on Windows, Linux, and macOS. To learn about installing Cloudflare Tunnel, refer to the [Install cloudflared](/cloudflare-one/connections/connect-networks/downloads/) page in the Cloudflare for Teams documentation.
+Cloudflare Tunnel 可安装在 Windows、Linux 和 macOS 上。要了解如何安装 Cloudflare Tunnel，请参阅 Cloudflare for Teams 文档中的 [Install cloudflared](/cloudflare-one/connections/connect-networks/downloads/) 页面。
 
-Confirm that `cloudflared` is installed correctly by running `cloudflared --version` in your command line:
+在命令行中运行 `cloudflared --version` 确认 `cloudflared` 已正确安装：
 
 ```sh
 $ cloudflared --version
 cloudflared version 2021.5.9 (built 2021-05-21-1541 UTC)
 ```
 
-## Run a local service
+## 运行本地服务
 
-The easiest way to get up and running with Cloudflare Tunnel is to have an application running locally, such as a [React](/pages/framework-guides/deploy-a-react-site/) or [Svelte](/pages/framework-guides/deploy-a-svelte-site/) site. When you are developing an application with these frameworks, they will often make use of a `npm run develop` script, or something similar, which mounts the application and runs it on a `localhost` port. For example, the popular `create-react-app` tool runs your in-development React application on port `3000`, making it accessible at the `http://localhost:3000` address.
+使用 Cloudflare Tunnel 启动和运行的最简单方法是在本地运行应用程序，例如 [React](/pages/framework-guides/deploy-a-react-site/) 或 [Svelte](/pages/framework-guides/deploy-a-svelte-site/) 网站。在使用这些框架开发应用程序时，它们通常会使用 "npm run develop "脚本或类似的脚本，挂载应用程序并在 "localhost "端口上运行。例如，流行的 `create-react-app` 工具会在端口 `3000` 上运行正在开发的 React 应用程序，使其可以通过 `http://localhost:3000` 地址访问。
 
-## Start a Cloudflare Tunnel
+## 启动 Cloudflare 隧道
 
-With a local development server running, a new Cloudflare Tunnel can be instantiated by running `cloudflared tunnel` in a new command line window, passing in the `--url` flag with your `localhost` URL and port. `cloudflared` will output logs to your command line, including a banner with a tunnel URL:
+在运行本地开发服务器的情况下，在新的命令行窗口中运行 `cloudflared tunnel` 即可实例化一个新的 Cloudflare 隧道，同时在 `--url` 标志中传递你的 `localhost` URL 和端口。`cloudflared` 将向命令行输出日志，包括带有隧道 URL 的横幅：
 
 ```sh
 $ cloudflared tunnel --url http://localhost:3000
@@ -46,12 +46,12 @@ $ cloudflared tunnel --url http://localhost:3000
 2021-07-15T20:11:32Z INF +-------------------------------------------------------------+
 ```
 
-In this example, the randomly-generated URL `https://seasonal-deck-organisms-sf.trycloudflare.com` has been created and assigned to your tunnel instance. Visiting this URL in a browser will show the application running, with requests being securely forwarded through Cloudflare's global network, through the tunnel running on your machine, to `localhost:3000`:
+在此示例中，随机生成的 URL `https://seasonal-deck-organisms-sf.trycloudflare.com` 已创建并分配给你的隧道实例。在浏览器中访问此 URL 将显示应用程序正在运行，请求通过 Cloudflare 的全球网络，通过你机器上运行的隧道，安全地转发到 `localhost:3000`：
 
-![Cloudflare Tunnel example rendering a randomly-generated URL](/images/pages/how-to/tunnel.png)
+![Cloudflare 隧道渲染随机生成 URL 的示例](/images/pages/how-to/tunnel.png)
 
-## Next Steps
+## 接下来的步骤
 
-Cloudflare Tunnel can be configured in a variety of ways and can be used beyond providing access to your in-development applications. For example, you can provide `cloudflared` with a [configuration file](/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/configuration-file/) to add more complex routing and tunnel setups that go beyond a simple `--url` flag. You can also [attach a Cloudflare DNS record](/cloudflare-one/connections/connect-networks/routing-to-tunnel/dns/) to a domain or subdomain for an easily accessible, long-lived tunnel to your local machine.
+Cloudflare Tunnel 可通过多种方式进行配置，除了提供对正在开发的应用程序的访问外，还可用于其他用途。例如，你可以向 `cloudflared` 提供[配置文件](/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/configuration-file/)，以添加更复杂的路由和隧道设置，而不仅仅是简单的`--url`标志。你还可以[附加 Cloudflare DNS 记录](/cloudflare-one/connections/connect-networks/routing-to-tunnel/dns/)到域或子域，以方便访问你本地计算机的长期隧道。
 
-Finally, by incorporating Cloudflare Access, you can provide [secure access to your tunnels](/cloudflare-one/applications/configure-apps/self-hosted-apps/) without exposing your entire server, or compromising on security. Refer to the [Cloudflare for Teams documentation](/cloudflare-one/) to learn more about what you can do with Cloudflare's entire suite of Zero Trust tools.
+最后，通过结合 Cloudflare Access，你可以提供[对你的隧道的安全访问](/cloudflare-one/applications/configure-apps/self-hosted-apps/)，而不会暴露你的整个服务器，也不会影响安全性。请参阅 [Cloudflare for Teams 文档](/cloudflare-one/) 了解更多有关 Cloudflare 整套零信任工具的信息。

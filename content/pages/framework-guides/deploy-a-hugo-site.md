@@ -119,7 +119,7 @@ $ hugo -b $CF_PAGES_URL
 
 {{</Aside>}}
 
-部署网站后，你将在 `*.pages.dev``上收到一个唯一的项目子域。
+部署网站后，你将在 `*.pages.dev` 上收到一个唯一的项目子域。
 每次你向 Hugo 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还可以在新的拉取请求中访问 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
 ## 使用特定或更新的Hugo版本

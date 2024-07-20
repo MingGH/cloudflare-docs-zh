@@ -1,43 +1,43 @@
 ---
 pcx_content_type: how-to
-title: Add a custom domain to a branch
+title: 为分支添加自定义域
 ---
 
-# Add a custom domain to a branch
+# 为分支添加自定义域
 
-In this guide, you will learn how to add a custom domain (`staging.example.com`) that will point to a specific branch (`staging`) on your Pages project.
+在本指南中，你将学习如何在 Pages 项目中添加一个指向特定分支 (`staging`)的自定义域 (`staging.example.com`)。
 
-This will allow you to have a custom domain that will always show the latest build for a specific branch on your Pages project.
+这样，你就可以拥有一个自定义域，该域将始终显示 Pages 项目中特定分支的最新版本。
 
 {{<Aside type= "note">}}
 
-Currently, this setup is only supported when using Cloudflare DNS.
+目前，只有使用 Cloudflare DNS 时才支持这种设置。
 
-If you attempt to follow this guide using an external DNS provider, your custom alias will be sent to the production branch of your Pages project.
+如果你尝试使用外部 DNS 提供商来执行本指南，你的自定义别名将被发送到 Pages 项目的生产分支。
 
 {{</Aside>}}
 
-First, make sure that you have a successful deployment on the branch you would like to set up a custom domain for.
+首先，确保要为其设置自定义域的分支已成功部署。
 
-Next, add a custom domain under your Pages project for your desired custom domain, for example, `staging.example.com`.
+然后，在页面项目下为所需的自定义域添加一个自定义域，例如 `staging.example.com`。
 
-![Follow the instructions below to access the custom domains overview in the Pages dashboard.](/images/pages/how-to//pages_custom_domain-1.png)
+![按照以下说明访问页面控制面板中的自定义域概览](/images/pages/how-to//pages_custom_domain-1.png)
 
-To do this:
+要做到这一点
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/login).
-2. In Account Home, go to **Workers & Pages**.
-3. Select your Pages project.
-4. Select **Custom domains** > **Setup a custom domain**.
-5. Input the domain you would like to use, such as `staging.example.com`
-6. Select **Continue** > **Activate domain**
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/login)。
+2. 在 "账户主页 "中，转到 "**工作者和页面**"。
+3. 选择页面项目。
+4. 选择 **自定义域**> **设置自定义域**。
+5. 输入要使用的域名，如 `staging.example.com`.
+6. 选择 **继续**> **激活域**
 
-![After selecting your custom domain, you will be asked to activate it.](/images/pages/how-to//pages_custom_domain-2.png)
+![选择自定义域名后，系统会要求你激活它。](/images/pages/how-to//pages_custom_domain-2.png)
 
-After activating your custom domain, go to [DNS](https://dash.cloudflare.com/?to=/:account/:zone/dns) for the `example.com` zone and find the `CNAME` record with the name `staging` and change the target to include your branch alias.
+激活自定义域后，访问 `example.com` 区域的 [DNS](https://dash.cloudflare.com/?to=/:account/:zone/dns)，找到名称为 `staging` 的 `CNAME` 记录，并更改目标，使其包括分支别名。
 
-In this instance, change `your-project.pages.dev` to `staging.your-project.pages.dev`.
+在这种情况下，将 `your-project.pages.dev` 更改为 `staging.your-project.pages.dev`。
 
-![After activating your custom domain, change the CNAME target to include your branch name.](/images/pages/how-to//pages_custom_domain-3.png)
+![激活自定义域名后，更改 CNAME 目标，使其包含你的分支名称。](/images/pages/how-to//pages_custom_domain-3.png)
 
-Now the `staging` branch of your Pages project will be available on `staging.example.com`.
+现在，Pages 项目的 `staging` 分支将在 `staging.example.com` 上可用。

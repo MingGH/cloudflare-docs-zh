@@ -1,33 +1,33 @@
 ---
 pcx_content_type: how-to
-title: Debugging and logging
+title: 调试和日志记录
 weight: 12
 ---
 
-# Debugging and logging
+# 调试和日志记录
 
-Access your Functions logs by using the Cloudflare dashboard or the [Wrangler CLI](/workers/wrangler/commands/#deployment-tail).
+使用 Cloudflare 仪表板或 [Wrangler CLI](/workers/wrangler/commands/#deployment-tail)访问功能日志。
 
-Logs are a powerful debugging tool that can help you test and monitor the behavior of your Pages Functions once they have been deployed. Logs are available for every deployment of your Pages project.
+日志是一种功能强大的调试工具，可帮助你在部署 Pages 函数后对其行为进行测试和监控。Pages 项目的每次部署都有日志。
 
-Logs provide detailed information about events and can give insight into:
+日志提供有关事件的详细信息，并能让人深入了解：
 
-* Successful or failed requests to your Functions.
-* Uncaught exceptions thrown by your Functions.
-* Custom `console.log`s declared within your Functions.
-* Production issues that cannot be easily reproduced.
-* Real-time view of incoming requests to your application.
+* 你的功能请求成功或失败。
+* 函数抛出的未捕获异常。
+* 在函数中声明自定义 `console.log`s 。
+* 不容易复制的生产问题。
+* 实时查看传入应用程序的请求。
 
-There are two ways to start a logging session:
+启动记录会话有两种方法：
 
-1. Run `wrangler pages deployment tail` [in your terminal](/pages/functions/debugging-and-logging/#view-logs-with-wrangler).
-2. Use the [Cloudflare dashboard](/pages/functions/debugging-and-logging/#view-logs-in-the-cloudflare-dashboard).
+1. [在终端](/pages/functions/debugging-and-logging/#view-logs-with-wrangler)运行 `wrangler pages deployment tail`。
+2. 使用 [Cloudflare dashboard](/pages/functions/debugging-and-logging/#view-logs-in-the-cloudflare-dashboard)。
 
-## Add custom logs
+## 添加自定义日志
 
-Custom logs are `console.log()` statements that you can add yourself inside your Functions. When streaming logs for deployments that contain these Functions, the statements will appear in both `wrangler pages deployment tail` and dashboard outputs.
+自定义日志是你自己添加到函数中的 `console.log()` 语句。在为包含这些 Functions 的部署生成流式日志时，这些语句将同时出现在 `wrangler pages deployment tail` 和仪表板输出中。
 
-Below is an example of a custom `console.log` statement  inside a Pages Function:
+下面是在页面函数中自定义 `console.log` 语句的示例：
 
 ```js
 ---
@@ -40,21 +40,21 @@ export async function onRequest(context) {
 }
 ```
 
-After you deploy the code above, run `wrangler pages deployment tail` in your terminal. Then access the route at which your Function lives. Your terminal will display:
+部署完上述代码后，在终端运行 `wrangler pages deployment tail`。然后访问 Function 所在的路由。终端将显示
 
-![Run `wrangler pages deployment tail`](/images/pages/platform/functions/wrangler-custom-logs.png)
+![运行 `wrangler 页面部署 tail`](/images/pages/platform/functions/wrangler-custom-logs.png)
 
-Your dashboard will display:
+仪表板将显示
 
-![Follow the above steps to access custom logs in the dashboard](/images/pages/platform/functions/dash-custom-logs.png)
+![按照上述步骤访问仪表板中的自定义日志](/images/pages/platform/functions/dash-custom-logs.png)
 
-## View logs with Wrangler
+## 使用 Wrangler 查看日志
 
-`wrangler pages deployment tail` enables developers to livestream logs for a specific project and deployment.
+`wrangler pages deployment tail` 使开发人员能够对特定项目和部署的日志进行直播。
 
-To get started, run `wrangler pages deployment tail` in your Pages project directory. This will log any incoming requests to your application in your local terminal.
+要开始使用，请在 Pages 项目目录下运行 `wrangler pages deployment tail`。这将在本地终端中记录任何传入应用程序的请求。
 
-The output of each `wrangler pages deployment tail` log is a structured JSON object:
+每个 `wrangler 页面部署 tail` 日志的输出都是一个结构化的 JSON 对象：
 
 ```js
 {
@@ -85,35 +85,35 @@ The output of each `wrangler pages deployment tail` log is a structured JSON obj
 }
 ```
 
-`wrangler pages deployment tail` allows you to customize a logging session to better suit your needs. Refer to the [`wrangler pages deployment tail` documentation](/workers/wrangler/commands/#deployment-tail) for available configuration options.
+`wrangler pages deployment tail` 允许你自定义日志会话，以更好地满足你的需求。有关可用的配置选项，请参阅[`wrangler pages deployment tail` 文档](/workers/wrangler/commands/#deployment-tail)。
 
-## View logs in the Cloudflare Dashboard
+## 在 Cloudflare 控制面板中查看日志
 
-To view logs for your `production` or `preview` environments associated with any deployment:
+要查看与任何部署相关的 "生产 "或 "预览 "环境的日志：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In **Account Home**, select **Workers & Pages**.
-3. Select your Pages project, go to the deployment you want to view logs for and select **View details** > **Functions**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在**账户主页**，选择**工作者和页面**。
+3. 选择页面项目，转到要查看日志的部署，然后选择 **查看详情**> **功能**。
 
-Logging is available for all customers (Free, Paid, Enterprise).
+记录功能适用于所有客户(免费、付费、企业)。
 
 ## Limits
 
-The following limits apply to Functions logs:
+以下限制适用于功能日志：
 
-* Logs are not stored. You can start and stop the stream at any time to view them, but they do not persist.
-* Logs will not display if the Function’s requests per second are over 100 for the last five minutes.
-* Logs from any [Durable Objects](/pages/functions/bindings/#durable-objects) your Functions bind to will show up in the Cloudflare dashboard.
-* A maximum of 10 clients can view a deployment’s logs at one time. This can be a combination of either dashboard sessions or `wrangler pages deployment tail` calls.
+* 日志不存储。你可以随时启动和停止数据流以查看它们，但它们不会持久存在。
+* 如果在过去 5 分钟内，功能的每秒请求数超过 100，日志将不会显示。
+* 你的函数绑定的任何 [持久对象](/pages/functions/bindings/#durable-objects) 的日志都将显示在 Cloudflare 仪表板中。
+* 一次最多可有 10 个客户端查看部署日志。这可以是仪表板会话或 `wrangler pages deployment tail`调用的组合。
 
 ## Sourcemaps
 
-If you're debugging an uncaught exception, you might find that the [stack traces](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/stack) in your logs contain line numbers to generated JavaScript files. Using Pages' support for [source maps](https://web.dev/articles/source-maps) you can get stack traces that match with the line numbers and symbols of your original source code.
+如果你正在调试未捕获的异常，你可能会发现日志中的[堆栈跟踪](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/stack)包含生成的 JavaScript 文件的行号。使用 Pages 对 [source maps](https://web.dev/articles/source-maps)的支持，你可以获得与原始源代码的行号和符号相匹配的堆栈跟踪。
 
 {{<Aside type="note">}}
 
-When developing fullstack applications, many build tools (including wrangler for Pages Functions and most fullstack frameworks) will generate source maps for both the client and server, ensure your build step is configured to only emit server sourcemaps or use an additional build step to remove the client source maps. Public source maps might expose the source code of your application to the user.
+在开发全栈应用程序时，许多构建工具(包括用于 Pages Functions 的 wrangler 和大多数全栈框架)都会为客户端和服务器端生成源映射，请确保将你的构建步骤配置为仅生成服务器端源映射，或使用额外的构建步骤删除客户端源映射。公开源映射可能会向用户暴露应用程序的源代码。
 
 {{</Aside>}}
 
-Refer to [Source maps and stack traces](/pages/functions/source-maps/) for an in-depth explanation.
+请参阅 [源映射和堆栈跟踪](/pages/functions/source-maps/) 以获取更深入的解释。
