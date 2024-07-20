@@ -99,3 +99,6 @@
 /content/pages/configuration/build-configuration.md,2024-07-20 23:01:06,5ec351226d5d9fee15ddee9738ec9be58a2f23beb581ad8b9ddbb2afcd79d903
 /content/pages/configuration/deploy-hooks.md,2024-07-20 23:01:18,872bed03e7206f62b72b80a3abd3e156363523644c8f351dbf2fc40d2f71e041
 /content/pages/configuration/monorepos.md,2024-07-20 23:12:43,38c541a47dcce884f93e651038cfaa211ec8176f353ffc8045e66bfa0946f9ce
+/content/pages/functions/smart-placement.md,2024-07-20 23:14:24,13a09edaf8f576e9287e85be5e427f3c698205d9be53187d4dcb7f604c66a14b
+/content/pages/functions/local-development.md,2024-07-20 23:14:24,068c10436bb90ba079ec0a4cfa35775cb08ceabb9dc265a4f492605faa7c2daf
+/content/pages/functions/bindings.md,2024-07-20 23:15:17,46186732452fecb539017fe39b589a91564410a7d5fd45f31390c688fe6558a2

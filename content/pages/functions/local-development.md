@@ -1,47 +1,47 @@
 ---
 pcx_content_type: how-to
-title: Local development
+title: 本地开发
 weight: 6
 ---
 
-# Local development
+# 本地开发
 
-Run your Pages application locally with our Wrangler Command Line Interface (CLI).
+使用我们的 Wrangler 命令行界面 (CLI) 在本地运行你的 Pages 应用程序。
 
-## Install Wrangler
+## 安装Wrangler
 
-To get started with Wrangler, refer to the [Install/Update Wrangler](/workers/wrangler/install-and-update/).
+要开始使用 Wrangler，请参阅 [Install/Update Wrangler](/workers/wrangler/install-and-update/)。
 
-## Run your Pages project locally
+## 在本地运行页面项目
 
-The main command for local development on Pages is `wrangler pages dev`. This will let you run your Pages application locally, which includes serving static assets and running your Functions.
+在 Pages 上进行本地开发的主要命令是 `wrangler pages dev`。它可以让你本地运行 Pages 应用程序，包括提供静态资产和运行函数。
 
-With your folder of static assets set up, run the following command to start local development:
+设置好静态资产文件夹后，运行以下命令开始本地开发：
 
 ```sh
 $ npx wrangler pages dev <DIRECTORY-OF-ASSETS>
 ```
 
-This will then start serving your Pages project. You can press `b` to open the browser on your local site, (available, by default, on [http://localhost:8788](http://localhost:8788)).
+这将开始为你的 Pages 项目提供服务。你可以按 `b` 键在本地站点上打开浏览器(默认情况下可在 [http://localhost:8788](http://localhost:8788) 上打开)。
 
 {{<Aside type="note">}}
 
-If you have a [`wrangler.toml`](/pages/functions/wrangler-configuration/) file configured for your Pages project, you can run [`wrangler pages dev`](/workers/wrangler/commands/#dev-1) without specifying a directory. 
+如果为 Pages 项目配置了 [`wrangler.toml`](/pages/functions/wrangler-configuration/) 文件，就可以运行 [`wrangler pages dev`](/workers/wrangler/commands/#dev-1) 而无需指定目录。
 
 {{</Aside>}}
 
-### HTTPS support
+### HTTPS 支持
 
-To serve your local development server over HTTPS with a self-signed certificate, you can [set `local_protocol` via `wrangler.toml`](/pages/functions/wrangler-configuration/#local-development-settings) or you can pass the `--local-protocol=https` argument to [`wrangler pages dev`](/workers/wrangler/commands/#dev-1):
+要使用自签名证书通过 HTTPS 为本地开发服务器提供服务，可以 [通过 `wrangler.toml` 设置 `local_protocol`](/pages/functions/wrangler-configuration/#local-development-settings) 或向 [`wrangler pages dev`](/workers/wrangler/commands/#dev-1) 传递 `--local-protocol=https` 参数：
 
 ```sh
 $ npx wrangler pages dev --local-protocol=https <DIRECTORY-OF-ASSETS>
 ```
 
-## Attach bindings to local development
+## 将绑定附加到本地开发
 
-To attach a binding to local development, refer to [Bindings](/pages/functions/bindings/) and find the Cloudflare Developer Platform resource you would like to work with.
+要将绑定附加到本地开发，请参阅 [绑定](/pages/functions/bindings/) 并找到你想使用的 Cloudflare 开发人员平台资源。
 
-## Additional configuration via `wrangler.toml`
+## 通过 `wrangler.toml` 进行额外配置
 
-If you are using a `wrangler.toml` configuration file in your project, you can set up dev server values like: `port`, `local protocol`, `ip`, and `port`. For more information, read about [configuring local development settings](/pages/functions/wrangler-configuration/#local-development-settings).
+如果在项目中使用 `wrangler.toml` 配置文件，则可以设置 dev 服务器的值，如端口`、`本地协议`、`IP `和 `端口`。更多信息，请阅读 [配置本地开发设置](/pages/functions/wrangler-configuration/#local-development-settings)。

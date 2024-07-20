@@ -1,47 +1,47 @@
 ---
 pcx_content_type: concept
-title: Smart Placement (beta)
+title: 智能放置（测试版）
 ---
 
 {{<heading-pill style="beta">}}Smart Placement{{</heading-pill>}}
 
-By default, [Workers](/workers/) and [Pages Functions](/pages/functions/) are invoked in a data center closest to where the request was received. If you are running back-end logic in a Pages Function, it may be more performant to run that Pages Function closer to your back-end infrastructure rather than the end user. Smart Placement (beta) automatically places your workloads in an optimal location that minimizes latency and speeds up your applications.
+默认情况下，[Workers](/workers/) 和 [Pages Functions](/pages/functions/) 会在最靠近接收请求的数据中心调用。如果你在页面功能中运行后端逻辑，那么在更靠近后端基础架构而非终端用户的地方运行页面功能可能会更高效。智能放置(测试版)可自动将工作负载放置在最佳位置，从而最大限度地减少延迟并加快应用程序的运行速度。
 
-You may benefit from Smart Placement if you are making multiple round trips to a centralized database, API or origin server in a Pages Function.
+如果你在页面功能中多次往返于集中式数据库、应用程序接口或源服务器，你可能会受益于智能放置功能。
 
-## Background
+## 背景
 
-Smart Placement applies to Pages Functions and middleware. Normally, assets are always served globally and closest to your users. 
+智能放置适用于页面功能和中间件。通常情况下，资产总是在全局和最靠近用户的位置提供服务。
 
-Smart Placement on Pages currently has some caveats. While assets are always meant to be served from a location closest to the user, there are two exceptions to this behavior:
+页面上的智能放置目前有一些注意事项。虽然资产总是从最靠近用户的位置提供，但这一行为有两个例外：
 
-1. If using middleware for every request (`functions/_middleware.js`) when Smart Placement is enabled, all assets will be served from a location closest to your back-end infrastructure. This may result in an unexpected increase in latency as a result. 
+1. 启用智能放置后，如果每个请求都使用中间件(`functions/_middleware.js`)，所有资产都将从最靠近后端基础架构的位置提供。这可能会导致延迟意外增加。
 
-2. When using [`env.ASSETS.fetch`](https://developers.cloudflare.com/pages/functions/advanced-mode/), assets served via the `ASSETS` fetcher from your Pages Function are served from the same location as your Function. This could be the location closest to your back-end infrastructure and not the user. 
+2. 使用 [`env.ASSETS.fetch`](https://developers.cloudflare.com/pages/functions/advanced-mode/)时，通过页面函数的 `ASSETS` 抓取器提供的资产会从与函数相同的位置提供。这可能是最靠近你的后端基础设施而非用户的位置。
 
 
 {{<Aside type= "note">}}
 
-To understand how Smart Placement works, refer to [Smart Placement](/workers/configuration/smart-placement/).
+要了解智能布局的工作原理，请参阅 [智能布局](/workers/configuration/smart-placement/)。
 
 {{</Aside>}}
 
-## Enable Smart Placement (beta)
+## 启用智能放置(测试版)
 
-Smart Placement is available on all plans. 
+所有计划均提供智能投放功能。
 
-### Enable Smart Placement via the dashboard
+### 通过仪表板启用智能放置功能
 
-To enable Smart Placement via the dashboard:
+通过仪表板启用智能放置：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select **Workers & Pages**.
-3. In **Overview**, select your Pages project.
-4. Select **Settings** > **Functions**.
-5. Under **Placement**, choose **Smart**.
-6. Send some initial traffic (approximately 20-30 requests) to your Pages Functions. It takes a few minutes after you have sent traffic to your Pages Function for Smart Placement to take effect.
-7. View your Pages Function's [request duration metrics](/workers/observability/metrics-and-analytics/) under Functions Metrics.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在 `账户主页 `中，选择 `**工作者和页面**`。
+3. 在**概览**中，选择你的页面项目。
+4. 选择 **设置**> **功能**。
+5. 在**位置**下，选择**智能**。
+6. 向页面功能发送一些初始流量(约 20-30 个请求)。向页面功能发送流量几分钟后，智能布局功能才会生效。
+7. 在功能指标下查看页面功能的 [请求持续时间指标](/workers/observability/metrics-and-analytics/)。
 
-## Give feedback on Smart Placement
+## 对智能投放提出反馈意见
 
-Smart Placement is in beta. To share your thoughts and experience with Smart Placement, join the [Cloudflare Developer Discord](https://discord.cloudflare.com).
+Smart Placement 处于测试阶段。要分享你对智能放置的想法和体验，请加入 [Cloudflare 开发人员讨论区](https://discord.cloudflare.com)。
