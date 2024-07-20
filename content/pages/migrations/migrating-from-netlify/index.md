@@ -2,58 +2,58 @@
 updated: 2022-07-26
 difficulty: Beginner
 pcx_content_type: tutorial
-title: Migrating from Netlify to Pages
+title: 从 Netlify 迁移到 Pages
 ---
 
-# Migrating from Netlify to Pages
+# 从 Netlify 迁移到 Pages
 
-In this tutorial, you will learn how to migrate your Netlify application to Cloudflare Pages.
+在本教程中，你将学习如何将 Netlify 应用程序迁移到 Cloudflare Pages。
 
-## Finding your build command and build directory
+## 查找构建命令和构建目录
 
-To move your application to Cloudflare Pages, find your build command and build directory. Cloudflare Pages will use this information to build and deploy your application.
+要将你的应用程序移至 Cloudflare Pages，请查找你的构建命令和构建目录。Cloudflare Pages 将使用这些信息来构建和部署你的应用程序。
 
-In your Netlify Dashboard, find the project that you want to deploy. It should be configured to deploy from a GitHub repository.
+在 Netlify 控制面板中，找到要部署的项目。它应配置为从 GitHub 仓库部署。
 
-![Selecting a site in the Netlify Dashboard](/images/pages/migrations/netlify-deploy-1.png)
+![在 Netlify 控制面板中选择站点](/images/pages/migrations/netlify-deploy-1.png)
 
-Inside of your site dashboard, select **Site Settings**, and then **Build & Deploy**.
+在网站仪表板内，选择**网站设置**，然后选择**构建和部署**。
 
-![Selecting Site Settings in site dashboard](/images/pages/migrations/netlify-deploy-2.png)
+![在站点仪表板中选择站点设置](/images/pages/migrations/netlify-deploy-2.png)
 
-![Selecting Build and Deploy in sidebar](//images/pages/migrations/netlify-deploy-3.png)
+![在侧边栏中选择 `构建和部署`](//images/pages/migrations/netlify-deploy-3.png)
 
-In the **Build & Deploy** tab, find the **Build settings** panel, which will have the **Build command** and **Publish directory** fields. Save these for deploying to Cloudflare Pages. In the below image, **Build command** is `yarn build`, and **Publish directory** is `build/`.
+在 `构建和部署 `**选项卡中，找到 `构建设置 `**面板，其中有 `构建命令 `**和 `发布目录 `**字段。保存这些字段，以便部署到 Cloudflare 页面。在下图中，**构建命令**为 `yarn build`，**发布目录**为 `build/`。
 
-![Finding the Build command and Publish directory fields](/images/pages/migrations/netlify-deploy-4.png)
+![查找构建命令和发布目录字段](/images/pages/migrations/netlify-deploy-4.png)
 
-## Migrating redirects and headers
+## 迁移重定向和header
 
-If your site includes a `_redirects` file in your publish directory, you can use the same file in Cloudflare Pages and your redirects will execute successfully. If your redirects are in your `netlify.toml` file, you will need to add them to the `_redirects` folder. Cloudflare Pages currently offers limited [supports for advanced redirects](/pages/configuration/redirects/). In the case where you have over 2000 static and/or 100 dynamic redirects rules, it is recommended to use [Bulk Redirects](/rules/url-forwarding/bulk-redirects/create-dashboard/).
+如果你的网站在发布目录中包含一个 `_redirects` 文件，你可以在 Cloudflare Pages 中使用相同的文件，重定向将成功执行。如果你的重定向位于 `netlify.toml` 文件中，则需要将其添加到 `_redirects` 文件夹中。Cloudflare Pages 目前提供有限的 [高级重定向支持](/pages/configuration/redirects/)。如果你有超过 2000 个静态和/或 100 个动态重定向规则，建议使用 [批量重定向](/rules/url-forwarding/bulk-redirects/create-dashboard/)。
 
-Your header files can also be moved into a `_headers` folder in your publish directory. It is important to note that custom headers defined in the `_headers` file are not currently applied to responses from functions, even if the function route matches the URL pattern. To learn more about how to [handle headers, refer to Headers](/pages/configuration/headers/).
+你也可以将头文件移入发布目录中的 `_headers` 文件夹。需要注意的是，在 `_headers`文件中定义的自定义页眉目前并不适用于函数的响应，即使函数路由与 URL 模式相匹配也是如此。要了解有关如何 [处理标题](/pages/configuration/headers/)的更多信息，请参阅 [标题](/pages/configuration/headers/)。
 
 {{<Aside type="note">}}
 
-Redirects execute before headers. In the case of a request matching rules in both files, the redirect will take precedence.
+重定向先于headers执行。如果请求同时符合两个文件中的规则，则重定向优先。
 
 {{</Aside>}}
 
-## Forms
+## 表格
 
-In your form component, remove the `data-netlify = "true"` attribute or the Netlify attribute from the `<form>` tag. You can now put your form logic as a Pages Function and collect the entries to a database or an Airtable. Refer to the [handling form submissions with Pages Functions](/pages/tutorials/forms/) tutorial for more information.
+在表单组件中，删除 `data-netlify = "true"` 属性或 `<form>` 标记中的 Netlify 属性。现在，你可以将表单逻辑作为 Pages 函数，并将条目收集到数据库或 Airtable 中。更多信息，请参阅 [使用 Pages 函数处理表单提交](/pages/tutorials/forms/) 教程。
 
-## Serverless functions
+## 无服务器功能
 
-Netlify functions and Pages Functions share the same filesystem convention using a `functions` directory in the base of your project to handle your serverless functions. However, the syntax and how the functions are deployed differs. Pages Functions run on Cloudflare Workers, which by default operate on the Cloudflare global network, and do not require any additional code or configuration for deployment.
+Netlify 函数和 Pages 函数共享相同的文件系统惯例，即在项目基础中使用 `functions `目录来处理无服务器函数。不过，语法和部署函数的方式有所不同。页面功能在 Cloudflare Worker 上运行，默认情况下在 Cloudflare 全球网络上运行，部署时不需要任何额外的代码或配置。
 
-Cloudflare Pages Functions also provides middleware that can handle any logic you need to run before and/or after your function route handler.
+Cloudflare Pages Functions 还提供中间件，可处理你需要在函数路由处理程序之前和/或之后运行的任何逻辑。
 
-### Functions syntax
+### 函数语法
 
-Netlify functions export an async event handler that accepts an event and a context as arguments. In the case of Pages Functions, you will have to export a single `onRequest` function that accepts a `context` object. The `context` object contains all the information for the request such as `request`, `env`, `params`, and returns a new Response. Learn more about [writing your first function](/pages/functions/get-started/)
+Netlify 函数导出一个异步事件处理程序，接受事件和上下文作为参数。在页面函数的情况下，你必须导出一个接受 `context` 对象的 `onRequest` 函数。`context `对象包含请求的所有信息，如 `request`、`env `和 `params`，并返回一个新的 Response。了解有关 [编写第一个函数](/pages/functions/get-started/) 的更多信息
 
-Hello World with Netlify functions:
+使用 Netlify 函数的 Hello World：
 
 ```js
 exports.handler = async function (event, context) {
@@ -65,7 +65,7 @@ exports.handler = async function (event, context) {
 
 ```
 
-Hello World with Pages Functions:
+使用页面函数的 Hello World
 
 ```js
 export async function onRequestPost(request) {
@@ -73,27 +73,27 @@ export async function onRequestPost(request) {
 }
 ```
 
-## Other Netlify configurations
+## 其他 Netlify 配置
 
-Your `netlify.toml` file might have other configurations that are supported by Pages, such as, preview deployment, specifying publish directory, and plugins. You can delete the file after migrating your configurations.
+你的 `netlify.toml` 文件可能包含 Pages 支持的其他配置，如预览部署、指定发布目录和插件。迁移配置后，你可以删除该文件。
 
 
-## Access management
+## 访问管理
 
-You can migrate your access management to [Cloudflare Zero Trust](/cloudflare-one/) which allows you to manage user authentication for your applications, event logging and requests.
+你可以将访问管理迁移到 [Cloudflare Zero Trust](/cloudflare-one/)，它允许你管理应用程序、事件日志和请求的用户身份验证。
 
-## Creating a new Pages project
+## 创建一个新的 Pages 项目
 
-Once you have found your build directory and build command, you can move your project to Cloudflare Pages.
+找到构建目录和构建命令后，就可以将项目移动到 Cloudflare 页面。
 
-The [Get started guide](/pages/get-started/) will instruct you how to add your GitHub project to Cloudflare Pages.
+[入门指南](/pages/get-started/) 将指导你如何将 GitHub 项目添加到 Cloudflare Pages。
 
-If you choose to use a custom domain for your Pages, you can set it to the same custom domain as your currently deployed Netlify application. To assign a custom domain to your Pages project, refer to [Custom Domains](/pages/configuration/custom-domains/).
+如果你选择为你的 Pages 使用自定义域，你可以将其设置为与你当前部署的 Netlify 应用程序相同的自定义域。要为 Pages 项目分配自定义域，请参阅 [自定义域](/pages/configuration/custom-domains/)。
 
-## Cleaning up your old application and assigning the domain
+## 清理旧应用程序并分配域名
 
-In the Cloudflare dashboard, go to **DNS** > **Records** and review that you have updated the CNAME record for your domain from Netlify to Cloudflare Pages. With your DNS record updated, requests will go to your Pages application.
+在 Cloudflare 控制面板中，转到 **DNS**> **Records**，查看你是否已将域名的 CNAME 记录从 Netlify 更新到 Cloudflare Pages。更新 DNS 记录后，请求将转到你的 Pages 应用程序。
 
-In **DNS**, your record's **Content** should be your `<SUBDOMAIN>.pages.dev` subdomain.
+在**DNS**中，你的记录的**内容**应该是你的`<SUBDOMAIN>.pages.dev `子域。
 
-With the above steps completed, you have successfully migrated your Netlify project to Cloudflare Pages.
+完成上述步骤后，你已成功将 Netlify 项目迁移到 Cloudflare Pages。

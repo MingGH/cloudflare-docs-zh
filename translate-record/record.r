@@ -52,3 +52,5 @@
 /content/pages/migrations/_index.md,2024-07-20 15:26:47,75c6f1ee5fb2d2f5d0e8f82ac124e9aaad835589f118bd9a6b138b99416b08bb
 /content/pages/migrations/migrating-from-firebase.md,2024-07-20 15:26:51,869108815ab820a82949d2e4993fb28d80b5b0500b05e3b7f4b3b9674095e2cb
 /content/pages/migrations/migrating-from-workers/index.md,2024-07-20 15:26:57,ced6331293c88e2bead596ee7f098da731b2b56fb247dde788f5d5630bb8f2bc
+/content/pages/migrations/migrating-from-netlify/index.md,2024-07-20 15:31:54,40c0cecc8f65a2f4fcd3f37211aa14ce5b679174d96b6e93963901bd1331f6ca
+/content/pages/tutorials/add-a-react-form-with-formspree/index.md,2024-07-20 15:32:06,30c7b6df361b4954e2f01478e13e71a27d4dd97f6509192bb9395f90fde9bcfa

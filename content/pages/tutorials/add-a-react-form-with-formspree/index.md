@@ -3,23 +3,23 @@ updated: 2021-11-30
 difficulty: Beginner
 content_type: 📝 Tutorial
 pcx_content_type: tutorial
-title: Add a React form with Formspree
+title: 使用 Formspree 添加 React 表单
 tags: [Forms]
 ---
 
-# Add a React form with Formspree
+# 使用 Formspree 添加 React 表单
 
 {{<tutorial-date-info>}}
 
-Almost every React website needs a form to collect user data. [Formspree](https://formspree.io/) is a back-end service that handles form processing and storage, allowing developers to include forms on their website without writing server-side code or functions.
+几乎每个 React 网站都需要表单来收集用户数据。[Formspree](https://formspree.io/)是一种处理表单处理和存储的后端服务，允许开发人员在网站上包含表单，而无需编写服务器端代码或函数。
 
-In this tutorial, you will create a `<form>` component using React and add it to a single page application built with `create-react-app`. Though you are using `create-react-app` (CRA), the concepts will apply to any React framework including Next.js, Gatsby, and more. You will use Formspree to collect the submitted data and send out email notifications when new submissions arrive, without requiring any server-side coding.
+在本教程中，你将使用 React 创建一个`<form>`组件，并将其添加到使用 `create-react-app `构建的单页应用程序中。虽然你使用的是 `create-react-app` (CRA)，但其概念适用于任何 React 框架，包括 Next.js、Gatsby 等。你将使用 Formspree 收集提交的数据，并在有新的提交到达时发送电子邮件通知，而不需要任何服务器端编码。
 
-You will deploy your site to Cloudflare Pages. Refer to the [Get started guide](/pages/get-started/) to familiarize yourself with the platform.
+你将把网站部署到 Cloudflare 页面。请参阅 [入门指南](/pages/get-started/) 以熟悉该平台。
 
-## Setup
+## 设置
 
-To begin, create a new React project on your local machine with `create-react-app`. Then create a [new GitHub repository](https://repo.new/), and attach the GitHub location as a remote destination:
+首先，在本地计算机上使用 `create-react-app` 创建一个新的 React 项目。然后创建一个 [new GitHub repository](https://repo.new/)，并将 GitHub 位置附加为远程目的地：
 
 ```sh
 # create new project with create-react-app
@@ -32,13 +32,13 @@ $ git remote add origin git@github.com:<username>/<repo>.git
 $ git branch -M main
 ```
 
-You may now modify the React application in the `new-app` directory you created.
+现在，你可以修改你创建的 `new-app` 目录中的 React 应用程序。
 
-## The front-end code
+## 前端代码
 
-The starting point for `create-react-app` includes a simple Hello World website. You will be adding a Contact Us form that accepts a name, email address, and message. The form code is adapted from the HTML Forms tutorial. For a more in-depth explanation of how HTML forms work and additional learning resources, refer to the [HTML Forms tutorial](/pages/tutorials/forms/).
+`create-react-app` 的起点包括一个简单的 Hello World 网站。你将添加一个 `联系我们 `表单，该表单接受姓名、电子邮件地址和信息。表单代码改编自 HTML 表单教程。有关 HTML 表单工作原理的更深入解释和其他学习资源，请参阅 [HTML 表单教程](/pages/tutorials/forms/)。
 
-First, create a new react component called `ContactForm.js` and place it in the `src` folder alongside `App.js`.
+首先，创建名为 `ContactForm.js `的新 react 组件，并将其与 `App.js `一起放在 `src `文件夹中。
 
     project-root/
     ├─ package.json
@@ -47,15 +47,15 @@ First, create a new react component called `ContactForm.js` and place it in the 
        ├─ App.js
        └─ ...
 
-Next, you will build the form component using a helper library from Formspree, [`@formspree/react`](https://github.com/formspree/formspree-react). This library contains a `useForm` hook to simplify the process of handling form submission events and managing form state.
+接下来，你将使用 Formspree 的辅助库 [`@formspree/react`](https://github.com/formspree/formspree-react) 来构建表单组件。该库包含一个 `useForm` 钩子，用于简化处理表单提交事件和管理表单状态的过程。
 
-Install it with:
+用以下工具安装
 
 ```sh
 $ npm install --save @formspree/react
 ```
 
-Then paste the following code snippet into the `ContactForm.js` file:
+然后将以下代码段粘贴到 `ContactForm.js` 文件中：
 
 ```jsx
 import { useForm, ValidationError } from '@formspree/react';
@@ -90,31 +90,31 @@ export default function ContactForm() {
 }
 ```
 
-Currently, the form contains a placeholder `YOUR_FORM_ID`. You replace this with your own form endpoint later in this tutorial.
+目前，表单包含一个占位符 `YOUR_FORM_ID`。你可以在本教程稍后部分用自己的表单端点替换它。
 
-The `useForm` hook returns a `state` object and a `handleSubmit` function which you pass to the `onSubmit` form attribute. Combined, these provide a way to submit the form data via AJAX and update form state depending on the response received.
+`useForm`钩子会返回一个 `state `对象和一个 `handleSubmit `函数，并将其传递给 `onSubmit `表单属性。两者结合，就能通过 AJAX 提交表单数据，并根据收到的响应更新表单状态。
 
-For clarity, this form does not include any styling, but in the GitHub project (<https://github.com/formspree/formspree-example-cloudflare-react>) you can review an example of how to apply styles to the form.
+为清晰起见，该表单不包含任何样式，但在 GitHub 项目 (<https://github.com/formspree/formspree-example-cloudflare-react>) 中，你可以查看如何在表单中应用样式的示例。
 
 {{<Aside type="note">}}
 
-`ValidationError` components are helpers that display error messages for field errors, or general form errors (if no `field` attribute is provided). For more information on validation, refer to the [Formspree React documentation](https://help.formspree.io/hc/en-us/articles/360055613373-The-Formspree-React-library#validation).
+`ValidationError `组件是显示字段错误或一般表单错误(如果未提供 `field`属性)的错误信息的助手。有关验证的更多信息，请参阅 [Formspree React 文档](https://help.formspree.io/hc/en-us/articles/360055613373-The-Formspree-React-library#validation)。
 
 {{</Aside>}}
 
-To add this form to your website, import the component:
+要在网站上添加该表单，请导入该组件：
 
 ```jsx
 import ContactForm from './ContactForm';
 ```
 
-Then insert the form into the page as a react component:
+然后将表单作为react组件插入页面：
 
 ```jsx
 <ContactForm />
 ```
 
-For example, you can update your `src/App.js` file to add the form:
+例如，你可以更新 `src/App.js` 文件以添加表单：
 
 ```jsx
 import ContactForm from './ContactForm'; // <-- import the form component
@@ -148,27 +148,27 @@ function App() {
 export default App;
 ```
 
-Now you have a single-page application containing a Contact Us form with several fields for the user to fill out. However, you have not set up the form to submit to a valid form endpoint yet. You will do that in the [next section](#the-formspree-back-end).
+现在，你有一个单页面应用程序，其中包含一个 "联系我们" 表单，用户可以填写多个字段。但是，你还没有设置表单提交到有效的表单端点。你将在 [下一节](#the-formspree-back-end)中进行设置。
 
 {{<Aside type="note" header="GitHub repository">}}
 
-The source code for this example is [available on GitHub](https://github.com/formspree/formspree-example-cloudflare-react). It is a live Pages application with a [live demo](https://formspree-example-cloudflare-react.pages.dev/) available, too.
+此示例的源代码[可在 GitHub 上获取](https://github.com/formspree/formspree-example-cloudflare-react)。它是一个实时 Pages 应用程序，还提供了 [实时演示](https://formspree-example-cloudflare-react.pages.dev/)。
 
 {{</Aside>}}
 
-## The Formspree back end
+## Formspree 后端
 
-The React form is complete, however, when the user submits this form, they will get a `Form not found` error. To fix this, create a new Formspree form, and copy its unique ID into the form's `useForm` invocation.
+React 表单已经完成，但是当用户提交该表单时，会出现 `Form not found`的错误。要解决这个问题，请创建一个新的 Formspree 表单，并将其唯一 ID 复制到表单的 `useForm` 调用中。
 
-To create a Formspree form, sign up for [an account on Formspree](https://formspree.io/register). Then create a new form with the **+ New form** button. Name your new form `Contact-us form` and update the recipient email to an email where you wish to receive your form submissions. Finally, select **Create Form**.
+要创建Formspree表单，请注册[Formspree账户](https://formspree.io/register)。然后使用 **+ New form**按钮创建新表单。将新表单命名为 `Contact-us form`，并将收件人电子邮件更新为你希望接收表单提交的电子邮件。最后，选择**创建表格**。
 
-![Creating a Formspree form](/images/pages/tutorials/react-new-form-dialog.png)
+创建 Formspree 表单](/images/pages/tutorials/react-new-form-dialog.png)
 
-You will be presented with instructions on how to integrate your new form. Copy the form’s `hashid` (the last 8 alphanumeric characters from the URL) and paste it into the `useForm` function in the `ContactForm` component you created above.
+你将看到如何集成新表单的说明。复制表单的 `hashid`(URL 中最后 8 个字母数字字符)并将其粘贴到上文创建的 `ContactForm` 组件中的 `useForm` 函数中。
 
-![Newly generated form endpoint that you can copy to use in the ContactForm component](/images/pages/tutorials/react-form-endpoint.png)
+![新生成的表单端点，可复制到 ContactForm 组件中使用](/images/pages/tutorials/react-form-endpoint.png)
 
-Your component should now have a line like this:
+现在你的组件中应该有这样一行：
 
 ```jsx
 const [state, handleSubmit] = useForm('mqldaqwx');
@@ -176,21 +176,21 @@ const [state, handleSubmit] = useForm('mqldaqwx');
 /* replace the random-like string above with your own form's ID */
 ```
 
-Now when you submit your form, you should be shown a Thank You message. The form data will be submitted to your account on [Formspree.io](https://formspree.io/).
+现在，当你提交表单时，你将看到一条 "谢谢"信息。表单数据将提交到你在 [Formspree.io](https://formspree.io/) 上的账户。
 
-From here you can adjust your form processing logic to update the [notification email address](https://help.formspree.io/hc/en-us/articles/115008379348-Changing-a-form-email-address), or add plugins like [Google Sheets](https://help.formspree.io/hc/en-us/articles/360036563573-Use-Google-Sheets-to-send-your-submissions-to-a-spreadsheet), [Slack](https://help.formspree.io/hc/en-us/articles/360045648933-Send-Slack-notifications), and more.
+在这里，你可以调整表单处理逻辑，更新[通知电子邮件地址](https://help.formspree.io/hc/en-us/articles/115008379348-Changing-a-form-email-address)，或添加[Google Sheets](https://help.formspree.io/hc/en-us/articles/360036563573-Use-Google-Sheets-to-send-your-submissions-to-a-spreadsheet)、[Slack](https://help.formspree.io/hc/en-us/articles/360045648933-Send-Slack-notifications)等插件。
 
-For more help setting up Formspree, refer to the following resources:
+有关设置 Formspree 的更多帮助，请参阅以下资源：
 
-- For general help with Formspree, refer to the [Formspree help site](https://help.formspree.io/hc/en-us).
-- For more help creating forms in React, refer to the [formspree-react documentation](https://help.formspree.io/hc/en-us/articles/360055613373-The-Formspree-React-library)
-- For tips on integrating Formspree with popular platforms like Next.js, Gatsby and Eleventy, refer to the [Formspree guides](https://formspree.io/guides).
+- 有关 Formspree 的一般帮助，请参阅 [Formspree 帮助网站](https://help.formspree.io/hc/en-us)。
+- 有关在 React 中创建表格的更多帮助，请参阅 [formspree-react 文档](https://help.formspree.io/hc/en-us/articles/360055613373-The-Formspree-React-library)
+- 有关将 Formspree 与 Next.js、Gatsby 和 Eleventy 等流行平台集成的技巧，请参阅 [Formspree 指南](https://formspree.io/guides)。
 
-## Deployment
+## 部署
 
-You are now ready to deploy your project.
+现在你可以部署项目了。
 
-If you have not already done so, save your progress within `git` and then push the commit(s) to the GitHub repository:
+如果你还没有这样做，请在 `git` 中保存你的进度，然后将提交推送到 GitHub 仓库：
 
 ```sh
 # Add all files
@@ -201,47 +201,47 @@ $ git commit -m "working example"
 $ git push -u origin main
 ```
 
-Your work now resides within the GitHub repository, which means that Pages is able to access it too.
+你的作品现在位于 GitHub 仓库中，这意味着 Pages 也能访问它。
 
-If this is your first Cloudflare Pages project, refer to the [Get started guide](/pages/get-started/) for a complete walkthrough. After selecting the appropriate GitHub repository, you must configure your project with the following build settings:
+如果这是你的第一个 Cloudflare Pages 项目，请参阅[入门指南](/pages/get-started/)以了解完整的操作步骤。选择合适的 GitHub 仓库后，你必须使用以下构建设置配置项目：
 
-- **Project name** – Your choice
-- **Production branch** – `main`
-- **Framework preset** – Create React App
-- **Build command** – `npm run build`
-- **Build output directory** – `build`
+- 项目名称**- 你的选择
+- **生产分支**- `main`
+- 框架预设**- 创建 React 应用程序
+- 构建命令**- `npm run build`.
+- **构建输出目录**- `build`.
 
-After selecting **Save and Deploy**, your Pages project will begin its first deployment. When successful, you will be presented with a unique `*.pages.dev` subdomain and a link to your live demo.
+选择**保存并部署**后，你的页面项目将开始首次部署。部署成功后，你将看到一个唯一的 `*.pages.dev` 子域和一个指向实时演示的链接。
 
-## Using environment variables with forms
+## 使用表单环境变量
 
-Sometimes it is helpful to set up two forms, one for development, and one for production. That way you can develop and test your form without corrupting your production dataset, or sending test notifications to clients.
+有时，设置两个表单会很有帮助，一个用于开发，一个用于生产。这样，你就可以在不破坏生产数据集或向客户发送测试通知的情况下开发和测试表单。
 
-To set up production and development forms first create a second form in Formspree. Name this form Contact Us Testing, and note the form's [`hashid`](https://help.formspree.io/hc/en-us/articles/360015130174-Getting-your-form-s-hashid-).
+要设置生产和开发表单，首先要在 Formspree 中创建第二个表单。将此表单命名为 `联系我们测试`，并注明表单的 [`hashid`](https://help.formspree.io/hc/en-us/articles/360015130174-Getting-your-form-s-hashid-)。
 
-Then change the `useForm` hook in your `ContactForm.js` file so that it is initialized with an environment variable, rather than a string:
+然后更改 `ContactForm.js` 文件中的 `useForm` 钩子，使其使用环境变量而不是字符串初始化：
 
 ```jsx
 const [state, handleSubmit] = useForm(process.env.REACT_APP_FORM_ID);
 ```
 
-In your Cloudflare Pages project settings, add the `REACT_APP_FORM_ID` environment variable to both the Production and Preview environments. Use your original form's `hashid` for Production, and the new test form's `hashid` for the Preview environment:
+在 Cloudflare Pages 项目设置中，为生产环境和预览环境添加 `REACT_APP_FORM_ID` 环境变量。在生产环境中使用原始表单的 `hashid`，在预览环境中使用新测试表单的 `hashid`：
 
-![Edit option for environment variables in your Production and Preview environments](/images/pages/tutorials/env-vars.png)
+![编辑生产环境和预览环境中的环境变量选项](/images/pages/tutorials/env-vars.png)
 
-Now, when you commit and push changes to a branch of your git repository, a new preview app will be created with a form that submits to the test form URL. However, your production website will continue to submit to the original form URL.
+现在，当你将更改提交并推送到 git 仓库的某个分支时，将创建一个新的预览应用程序，其中的表单将提交到测试表单 URL。不过，你的生产网站将继续提交到原始表单 URL。
 
-{{<Aside type="note">}}
+{{<Aside type="note">}}w
 
-Create React App uses the prefix `REACT_APP_` to designate environment variables that are accessible to front-end JavaScript code. A different framework will use a different prefix to expose environment variables. For example, in the case of Next.js, the prefix is `NEXT_PUBLIC_`. Consult the documentation of your front-end framework to determine how to access environment variables from your React code.
+Create React App 使用前缀 `REACT_APP_` 来指定前端 JavaScript 代码可访问的环境变量。不同的框架会使用不同的前缀来公开环境变量。例如，在 Next.js 中，前缀是 `NEXT_PUBLIC_`。请查阅前端框架的文档，以确定如何从 React 代码中访问环境变量。
 
 {{</Aside>}}
 
-In this tutorial, you built and deployed a website using Cloudflare Pages and Formspree to handle form submissions. You created a React application with a form that communicates with Formspree to process and store submission requests and send notifications.
+在本教程中，你使用 Cloudflare Pages 和 Formspree 构建并部署了一个网站，以处理表单提交。你创建了一个带有表单的 React 应用程序，该表单与 Formspree 通信，以处理和存储提交请求并发送通知。
 
-If you would like to review the full source code for this application, you can find it on [GitHub](https://github.com/formspree/formspree-example-cloudflare-react).
+如果你想查看此应用程序的完整源代码，请访问 [GitHub](https://github.com/formspree/formspree-example-cloudflare-react)。
 
-## Related resources
+## 相关资源
 
-- [Add an HTML form with Formspree](/pages/tutorials/add-an-html-form-with-formspree/)
-- [HTML Forms](/pages/tutorials/forms/)
+- 使用 Formspree 添加 HTML 表单](/pages/tutorials/add-an-html-form-with-formspree/)
+- HTML 表格](/pages/tutorials/forms/)
