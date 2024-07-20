@@ -1,11 +1,11 @@
 ---
-title: Migration guides
+title: 迁移指南
 pcx_content_type: overview
 weight: 1
 layout: overview
 ---
- 
-# Migration guides
+
+# 迁移指南
 
 {{<description>}}
 Content designed to help you migrate from another provider to Cloudflare.
@@ -14,11 +14,11 @@ This section is still in work. Expect more guides soon.
 {{</description>}}
 
 ---
- 
+
 ## More resources
 
 {{<resource-group>}}
- 
+
 {{<resource header="Reference architectures" href="/reference-architecture/" icon="learning-center-book">}}
 High-level overviews of Cloudflare's network and platform.
 {{</resource>}}
@@ -30,5 +30,5 @@ Read articles and announcements about the latest Cloudflare products and feature
 {{<resource header="Learning Paths" href="/learning-paths/" icon="learning-center-book">}}
 Module-based guidance on Cloudflare product workflows.
 {{</resource>}}
- 
+
 {{</resource-group>}}

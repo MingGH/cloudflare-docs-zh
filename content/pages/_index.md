@@ -78,7 +78,7 @@ D1 是 Cloudflare 的原生无服务器数据库。通过导入数据或定义�
 
 {{<resource header="Limits" href="/pages/platform/limits/" icon="documentation-clipboard">}}了解适用于您的 Pages 项目的限制（免费计划每月 500 次部署）。{{</resource>}}
 
-{{<resource header="Migration guides" href="/pages/migrations/" icon="reference-architecture">}}从现有托管提供商迁移到 Pages。{{</resource>}}
+{{<resource header="迁移指南" href="/pages/migrations/" icon="reference-architecture">}}从现有托管提供商迁移到 Pages。{{</resource>}}
 
 {{<resource header="Framework guides" href="/pages/framework-guides/" icon="learning-center-book">}}在 Pages 上部署 React、Hugo 和 Next.js 等流行框架。{{</resource>}}
 

@@ -1,10 +1,10 @@
 ---
-title: Migration guides
+title: 迁移指南
 pcx_content_type: navigation
 weight: 6
 ---
 
-# Migration guides
+# 迁移指南
 
 These guides walk you through the migration processes associated with various changes in Cloudflare's SSL/TLS infrastructure.
 

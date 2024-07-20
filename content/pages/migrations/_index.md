@@ -1,7 +1,7 @@
 ---
 type: overview
 pcx_content_type: navigation
-title: Migration guides
+title: 迁移指南
 weight: 4
 ---
 

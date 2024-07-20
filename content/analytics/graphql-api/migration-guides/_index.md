@@ -1,10 +1,10 @@
 ---
 pcx_content_type: navigation
-title: Migration guides
+title: 迁移指南
 weight: 61
 ---
 
-# Migration guides
+# 迁移指南
 
 ## GraphQL migrations
 
