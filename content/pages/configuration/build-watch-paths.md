@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Build watch paths
+title: 建立监听路径
 ---
 
 # 建立监听路径
