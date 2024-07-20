@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Rollbacks
+title: 回滚
 ---
 
 # 回滚

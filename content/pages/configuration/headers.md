@@ -5,7 +5,7 @@ title: Headers
 
 # Headers
 
-## Attach a header
+## 附加Headers
 
 要将headers附加到 Cloudflare Pages 响应，请在项目的输出文件夹中创建一个 `_headers` 纯文本文件。该文件夹通常包含部署就绪的 HTML 文件和由构建生成的资产(如 favicons)。对头文件的修改会在构建时更新到网站上。确保每次更新headers时都提交并推送文件，以触发新的构建。
 

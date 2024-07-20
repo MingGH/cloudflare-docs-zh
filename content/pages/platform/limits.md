@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Limits
+title: 限制
 weight: 1
 ---
 

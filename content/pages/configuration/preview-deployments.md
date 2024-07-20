@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Preview deployments
+title: 预览部署
 ---
 
 # 预览部署

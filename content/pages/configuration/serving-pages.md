@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Serving Pages
+title: 服务页面
 ---
 
 # 服务页面

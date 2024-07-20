@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Redirects
+title: 重定向
 ---
 
 # 重定向

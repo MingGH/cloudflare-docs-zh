@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Deploy Hooks
+title: 部署钩子
 ---
 
 # 部署钩子

@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Git integration
+title: Git 整合
 ---
 
 # Git 整合
