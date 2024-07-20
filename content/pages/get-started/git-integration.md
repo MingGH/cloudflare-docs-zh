@@ -1,5 +1,5 @@
 ---
-title: Git integration
+title: Git 集成
 pcx_content_type: get-started
 meta:
   title: Git integration guide

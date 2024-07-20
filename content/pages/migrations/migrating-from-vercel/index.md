@@ -2,7 +2,7 @@
 updated: 2020-09-23
 difficulty: Beginner
 pcx_content_type: tutorial
-title: Migrating from Vercel to Pages[从 Vercel 迁移到 Pages]
+title: 从 Vercel 迁移到 Pages
 ---
 
 # 从 Vercel 迁移到 Pages
