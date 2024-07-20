@@ -1,3 +1,4 @@
+relativeURLs = true
 
 title = "Cloudflare 中文文档"
 languageCode = "zh"

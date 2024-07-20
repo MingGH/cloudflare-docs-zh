@@ -10,11 +10,15 @@
     {{- partial "head.meta" (dict "Context" . "Product" .Section) -}}
 
     {{- if hugo.IsProduction -}}
-      <link rel="preload" href="/style.css" as="style" />
-      <link rel="preload" href="/codeBlock.css" as="style" />
+    <!-- 在生产环境中，预加载并实际应用样式表 -->
+    <link rel="preload" href="/style.css" as="style" />
+    <link rel="preload" href="/codeBlock.css" as="style" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/codeBlock.css" />
     {{- else -}}
-      <link rel="stylesheet preconnect" href="/style.css" />
-      <link rel="stylesheet preconnect" href="/codeBlock.css" />
+    <!-- 在非生产环境中，直接应用样式表 -->
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/codeBlock.css" />
     {{- end -}}
 
     <link rel="preload" href="{{$littlefootCSS}}" as="style">
