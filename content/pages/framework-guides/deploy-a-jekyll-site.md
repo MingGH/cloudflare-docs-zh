@@ -3,7 +3,7 @@ pcx_content_type: how-to
 title: Jekyll
 ---
 
-# 杰基尔
+# Jekyll
 
 [Jekyll](https://jekyllrb.com/)是一个用于创建网站的开源框架，以 Markdown 和 Liquid 模板为基础。在本指南中，你将创建一个新的 Jekyll 应用程序，并使用 Cloudflare Pages 进行部署。你将使用 `jekyll` CLI 创建一个新的 Jekyll 网站。
 

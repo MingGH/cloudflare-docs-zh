@@ -89,3 +89,4 @@
 /content/pages/framework-guides/deploy-a-zola-site.md,2024-07-20 17:23:05,483e4c71397140c3e244f1b1204f4e94ce7dfcf026d5f2f8e58e8797afd57160
 /content/pages/framework-guides/deploy-a-svelte-site.md,2024-07-20 17:23:06,4063d93c68fe7c05aec0d3e93372f2b7844def4374b93ee26b8bdf3824679b97
 /content/pages/framework-guides/nextjs/deploy-a-nextjs-site.md,2024-07-20 17:23:24,cda71c61bf2dd8c8cbf2a68fa5988fc604aef68cedc724c7b5a2f8d83acc280e
+/content/pages/framework-guides/_index.md,2024-07-20 19:03:43,c7a7bb421c03237ea04b6ec94fb6050c6813c5c2c52e882e5ab08c8d7b44069c
