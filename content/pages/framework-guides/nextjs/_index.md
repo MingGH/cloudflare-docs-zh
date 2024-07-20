@@ -8,6 +8,6 @@ meta:
 
 # Next.js
 
-[Next.js](https://nextjs.org) is an open-source React framework for creating websites and applications.
+[Next.js](https://nextjs.org)是一个开源的 React 框架，用于创建网站和应用程序。
 
 {{<directory-listing showDescriptions="true">}}

@@ -76,3 +76,16 @@
 /content/pages/framework-guides/deploy-a-gatsby-site.md,2024-07-20 17:18:27,d8376a66f25b3a4db1a03816dd5c022fde43569a5c3805e8f20acdee162c30af
 /content/pages/framework-guides/deploy-a-blazor-site.md,2024-07-20 17:18:34,6088c961c9b8d2820e98948f3fda00744546057f8ac6c0bb56898ad901739257
 /content/pages/framework-guides/deploy-an-analog-site.md,2024-07-20 17:18:35,b4ba2db46cf5516c7cddab7f21d86a9eb109f323e3e8d4b30145c49159e5e93d
+/content/pages/framework-guides/deploy-a-qwik-site.md,2024-07-20 17:22:26,6853a5b1ac3f58cb0b5d225955eb1d4f75196708abcf8aee5011fe08167a33e0
+/content/pages/framework-guides/deploy-a-vitepress-site.md,2024-07-20 17:22:27,cdd14c33eccc7437df3171a891a4fd2fb242ea6184a1500b51e53a352eeef0c6
+/content/pages/framework-guides/deploy-a-sphinx-site.md,2024-07-20 17:22:43,c184a1d777cb52974dc6dd47a32c7fbec6b176c64ef2d49f69b430931bf8513a
+/content/pages/framework-guides/nextjs/_index.md,2024-07-20 17:22:51,6201ac54ef50b5f6634a801199bc47c0a3e43248ec01cd8a317033592c753e1c
+/content/pages/framework-guides/deploy-a-brunch-site.md,2024-07-20 17:22:56,2a67e6ecb1ad76f450d26fe392bbb396265015df5223058cca2f42d8ed0bf4ad
+/content/pages/framework-guides/deploy-a-react-site.md,2024-07-20 17:22:58,390e96a66f9762af54c671bd5b07f9ef38d652ef453981883694fa6ace9eee84
+/content/pages/framework-guides/deploy-a-vite3-project.md,2024-07-20 17:22:59,23b0fcaabff6e87e33e6ee75894cf220f548270d6b26674e46ce4bdcbd834bff
+/content/pages/framework-guides/deploy-a-preact-site.md,2024-07-20 17:23:02,8b1606cecbcc94a4a82f9f5a245a1f737576ec0f3d35eecaeccdbf6f88135658
+/content/pages/framework-guides/deploy-a-solid-site.md,2024-07-20 17:23:03,ab5058d1512b38def40f4ca98a44622ee197f57c0509c6201e822bae585ba8c2
+/content/pages/framework-guides/deploy-an-astro-site.md,2024-07-20 17:23:05,4ab96d6053ca8bd10aa4713c159127b1ec65341dd2771dc82c97548261ee551e
+/content/pages/framework-guides/deploy-a-zola-site.md,2024-07-20 17:23:05,483e4c71397140c3e244f1b1204f4e94ce7dfcf026d5f2f8e58e8797afd57160
+/content/pages/framework-guides/deploy-a-svelte-site.md,2024-07-20 17:23:06,4063d93c68fe7c05aec0d3e93372f2b7844def4374b93ee26b8bdf3824679b97
+/content/pages/framework-guides/nextjs/deploy-a-nextjs-site.md,2024-07-20 17:23:24,cda71c61bf2dd8c8cbf2a68fa5988fc604aef68cedc724c7b5a2f8d83acc280e

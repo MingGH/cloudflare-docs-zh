@@ -7,23 +7,23 @@ meta:
 
 # Next.js
 
-[Next.js](https://nextjs.org) is an open-source React framework for creating websites and applications. In this guide, you will create a new Next.js application and deploy it using Cloudflare Pages.
+[Next.js](https://nextjs.org)是一个用于创建网站和应用程序的开源 React 框架。在本指南中，你将创建一个新的 Next.js 应用程序，并使用 Cloudflare Pages 进行部署。
 
-This guide will instruct you how to deploy a full-stack Next.js project which uses the [Edge Runtime](https://nextjs.org/docs/app/api-reference/edge), via the [`next-on-pages`](https://github.com/cloudflare/next-on-pages/tree/main/packages/next-on-pages/docs) adapter.
+本指南将指导你如何通过 [`next-on-pages`](https://github.com/cloudflare/next-on-pages/tree/main/packages/next-on-pages/docs) 适配器部署使用 [Edge Runtime](https://nextjs.org/docs/app/api-reference/edge) 的全栈 Next.js 项目。
 
-## Create a new project using the `create-cloudflare` CLI (C3)
+## 使用 `create-cloudflare` CLI(C3)创建新项目
 
-The [`create-cloudflare` CLI (C3)](/pages/get-started/c3/) will configure your Next.js site for Cloudflare Pages. Run the following command in your terminal to create a new Next.js site:
+`create-cloudflare` CLI (C3)](/pages/get-started/c3/) 将为 Cloudflare 页面配置 Next.js 网站。在终端中运行以下命令创建新的 Next.js 网站：
 
 ```sh
 $ npm create cloudflare@latest my-next-app -- --framework=next
 ```
 
-C3 will ask you a series of setup questions. C3 will also install necessary dependencies, including the [Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI and the `@cloudflare/next-on-pages` adapter.
+C3 会询问一系列设置问题。C3 还将安装必要的依赖项，包括 [Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI 和 `@cloudflare/next-on-pages` 适配器。
 
-After creating your project, C3 will generate a new `my-next-app` directory using the default Next.js template, updated to be fully compatible with Cloudflare Pages.
+创建项目后，C3 将使用默认 Next.js 模板生成一个新的 `my-next-app` 目录，该模板已更新为与 Cloudflare Pages 完全兼容。
 
-When creating your new project, C3 will give you the option of deploying an initial version of your application via [Direct Upload](/pages/how-to/use-direct-upload-with-continuous-integration/). You can redeploy your application at any time by running following command inside your project directory:
+创建新项目时，C3 会让你选择通过 [Direct Upload](/pages/how-to/use-direct-upload-with-continuous-integration/)部署应用程序的初始版本。你可以在项目目录下运行以下命令，随时重新部署应用程序：
 
 ```sh
 $ npm run deploy
@@ -31,17 +31,17 @@ $ npm run deploy
 
 {{<Aside type="note" header="Git integration">}}
 
-The initial deployment created via C3 is referred to as a [Direct Upload](/pages/get-started/direct-upload/). To set up a deployment via the Pages Git integration, refer to the [Git Integration](#git-integration) section below.
+通过 C3 创建的初始部署称为 [Direct Upload](/pages/get-started/direct-upload/)。要通过 Pages Git 集成设置部署，请参阅下面的 [Git 集成](#git-integration) 部分。
 
 {{</Aside>}}
 
-## Configure and deploy a project without C3
+## 配置和部署不带 C3 的项目
 
-If you already have a Next.js project or wish to manually create and deploy one without using C3, Cloudflare recommends that you use `@cloudflare/next-on-pages` and refer to its [README](https://github.com/cloudflare/next-on-pages/tree/main/packages/next-on-pages) for instructions and additional information to help you develop and deploy your project.
+如果你已经有一个 Next.js 项目，或希望不使用 C3 而手动创建和部署一个项目，Cloudflare 建议你使用 `@cloudflare/next-on-pages`，并参考其 [README](https://github.com/cloudflare/next-on-pages/tree/main/packages/next-on-pages)，以获取帮助你开发和部署项目的说明和其他信息。
 
 {{<render file="/_framework-guides/_git-integration.md">}}
 
-### Create a new GitHub repository
+### 创建一个新的 GitHub 仓库
 
 {{<render file="/_framework-guides/_create-gh-repo.md">}}
 
@@ -56,40 +56,40 @@ $ git branch -M main
 $ git remote add origin https://github.com/<your-gh-username>/<repository-name>
 $ git push -u origin main
 ```
-### Connect your application to the GitHub repository via the Cloudflare dashboard
+### 通过 Cloudflare 面板将你的应用程序连接到 GitHub 仓库
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
 
-You will be asked to authorize access to your GitHub account if you have not already done so. Cloudflare needs this so that it can monitor and deploy your projects from the source. You may narrow access to specific repositories if you prefer. However, you will have to manually update this list [within your GitHub settings](https://github.com/settings/installations) when you want to add more repositories to Cloudflare Pages.
+如果你尚未授权访问你的 GitHub 帐户，系统将要求你进行授权。Cloudflare 需要这样才能从源代码监控和部署你的项目。如果你愿意，可以缩小对特定存储库的访问范围。不过，当你想在 Cloudflare 页面添加更多版本库时，你必须手动更新此列表[在你的 GitHub 设置中](https://github.com/settings/installations)。
 
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 {{<pages-build-preset framework="next-js">}}
 
-Optionally, you can customize the **Project name** field. It defaults to the GitHub repository's name, but it does not need to match. The **Project name** value is assigned as your `*.pages.dev` subdomain.
+你可以选择自定义**项目名称**字段。它默认为 GitHub 仓库的名称，但不必与之匹配。项目名称**值将被指定为`*.pages.dev`子域。
 
-4. After completing configuration, select **Save and Deploy**.
+4. 完成配置后，选择**保存并部署**。
 
-You will be able to review your first deploy pipeline in progress. Pages installs all dependencies and builds the project as specified. Cloudflare Pages will automatically rebuild your project and deploy it on every new pushed commit.
+你可以查看正在进行的首次部署管道。Pages 会按照指定安装所有依赖项并构建项目。Cloudflare Pages 会自动重建项目，并在每次推送新提交时进行部署。
 
-Additionally, you will have access to [preview deployments](/pages/configuration/preview-deployments/), which repeat the build-and-deploy process for pull requests. With these, you can preview changes to your project with a real URL before deploying your changes to production.
+此外，你还可以访问 [预览部署](/pages/configuration/preview-deployments/)，它可以重复拉取请求的构建和部署过程。有了它们，你就可以在将更改部署到生产环境之前，用一个真实的 URL 来预览对项目所做的更改。
 
-## Use bindings in your Next.js application
+## 在 Next.js 应用程序中使用绑定
 
 {{<render file="/_framework-guides/_bindings_definition.md">}}
 
-### Set up bindings for local development
+### 为本地开发设置绑定
 
 {{<Aside type="note">}}
 
-Projects created with C3 have bindings for local development set up by default.
+使用 C3 创建的项目默认设置了本地开发绑定。
 
 {{</Aside>}}
 
-To set up bindings for use in local development, you will use the `setupDevPlatform` function provided by [`@cloudflare/next-on-pages/next-dev`](https://github.com/cloudflare/next-on-pages/tree/main/internal-packages/next-dev). `setupDevPlatform` sets up a platform emulation based on your project's [`wrangler.toml`](/workers/wrangler/configuration/) file that your Next.js application can make use of locally.
+要设置用于本地开发的绑定，你需要使用 [`@cloudflare/next-on-pages/next-dev`](https://github.com/cloudflare/next-on-pages/tree/main/internal-packages/next-dev) 提供的 `setupDevPlatform` 函数。`setupDevPlatform `根据项目的 [`wrangler.toml`](/workers/wrangler/configuration/)文件设置平台模拟，以便 Next.js 应用程序在本地使用。
 
-For example, to work with a KV binding locally, open the Next.js configuration file and add:
+例如，要在本地使用 KV 绑定，请打开 Next.js 配置文件并添加
 
 {{<tabs labels="next.config.mjs | next.config.(js|cjs)">}}
 {{<tab label="next.config.mjs">}}
@@ -137,7 +137,7 @@ module.exports = nextConfig
 {{</tab>}}
 {{</tabs>}}
 
-Make sure to have a `wrangler.toml` file at the root of your project with a declaration for a KV binding named `MY_KV`:
+确保在项目根目录下有一个 `wrangler.toml` 文件，其中包含名为 `MY_KV` 的 KV 绑定声明：
 
 ```toml
 ---
@@ -153,23 +153,23 @@ binding = "MY_KV"
 id = "<YOUR_KV_NAMESPACE_ID>"
 ```
 
-### Set up bindings for a deployed application
+### 为已部署的应用程序设置绑定
 
-To access bindings in a deployed application, you will need to [configure](/pages/functions/bindings/) any necessary bindings and connect them to your project via your project's settings page in the Cloudflare dashboard.
+要访问已部署应用程序中的绑定，你需要 [配置](/pages/functions/bindings/) 任何必要的绑定，并通过 Cloudflare 面板中的项目设置页面将它们连接到你的项目。
 
-### Add bindings to Typescript projects
+### 为 Typescript 项目添加绑定
 
-If your project is using TypeScript, you will want to set up proper type support so you can access your bindings in a type-safe and convenient manner.
+如果你的项目使用的是 TypeScript，你需要设置适当的类型支持，以便以类型安全和方便的方式访问绑定。
 
-To get proper type support, you need to create a new `env.d.ts` file in your project and extend the `CloudflareEnv` (used by `getRequestContext`) interface with your [bindings](/pages/functions/bindings/).
+要获得适当的类型支持，你需要在项目中创建一个新的 `env.d.ts` 文件，并使用你的 [bindings](/pages/functions/bindings/) 扩展 `CloudflareEnv`(由 `getRequestContext`使用)接口。
 
 {{<Aside type="note">}}
 
-Projects created with C3 have a default `env.d.ts` file.
+使用 C3 创建的项目有一个默认的 `env.d.ts` 文件。
 
 {{</Aside>}}
 
-The following is an example of how to add a `KVNamespace` binding:
+下面是一个如何添加 `KVNamespace` 绑定的示例：
 
 ```ts
 ---
@@ -186,9 +186,9 @@ interface CloudflareEnv {
 }
 ```
 
-### Access bindings in the application
+### 应用程序中的访问绑定
 
-Local and remote bindings can be accessed using the [`getRequestContext` function](https://github.com/cloudflare/next-on-pages/blob/3846730c4a0d12/packages/next-on-pages/README.md#cloudflare-platform-integration) exposed by `@cloudflare/next-on-pages`. The following code example shows how to access them in a `hello` API route of an App Router application.
+可使用 `@cloudflare/next-on-pages` 公开的 [`getRequestContext`]函数(https://github.com/cloudflare/next-on-pages/blob/3846730c4a0d12/packages/next-on-pages/README.md#cloudflare-platform-integration)访问本地和远程绑定。下面的代码示例展示了如何在 App Router 应用程序的 `hello` API 路由中访问它们。
 
 {{<tabs labels="js | ts">}}
 {{<tab label="js" default="true">}}
@@ -244,41 +244,41 @@ export async function GET(request: NextRequest) {
 {{</tab>}}
 {{</tabs>}}
 
-## `Image` component
+## `Image`组件
 
-The Cloudflare network does not provide the same image optimization support as the Vercel network does. Because of this, the Next.js' `<Image />` component behaves differently from how it would in the Vercel network.
+Cloudflare 网络不提供与 Vercel 网络相同的图像优化支持。因此，Next.js 的 `<Image />` 组件与在 Vercel 网络中的行为不同。
 
-- If you build your application as a static site, the `<Image />` component will not serve any images.
+- 如果将应用程序作为静态网站构建，`<Image />` 组件将不提供任何图像。
 
-- If you build your application using `@cloudflare/next-on-pages`, the component will work but it will not perform any image optimization (regardless of the [props](https://react.dev/learn/passing-props-to-a-component) you pass to it).
+- 如果使用`@cloudflare/next-on-pages`构建应用程序，该组件将正常工作，但不会执行任何图像优化(无论你向其传递的[props](https://react.dev/learn/passing-props-to-a-component)是什么)。
 
-Both cases can be improved by setting up proper [loaders](https://nextjs.org/docs/pages/api-reference/components/image#loader) for the `<Image />` component, which allow you to use any image optimization service you want. To use [Cloudflare Images](/images/), refer to [resize with Cloudflare Workers](/images/transform-images/transform-via-workers/).
+这两种情况都可以通过为`<image />`组件设置适当的[loaders](https://nextjs.org/docs/pages/api-reference/components/image#loader)来改善，你可以使用任何你想要的图像优化服务。要使用 [Cloudflare Images](/images/)，请参阅 [resize with Cloudflare Workers](/images/transform-images/transform-via-workers/)。
 
-## Recommended development workflow
+## 建议的开发工作流程
 
-When developing a `next-on-pages` application, this is the development workflow that Cloudflare recommends:
+在开发 `next-on-pages` 应用程序时，这是 Cloudflare 推荐的开发工作流程：
 
-### Develop using the standard Next.js dev server
+### 使用标准 Next.js 开发服务器进行开发
 
-The [standard development server provided by Next.js](https://nextjs.org/docs/getting-started/installation#run-the-development-server) is the best available option for a fast and polished development experience. The `next-dev` submodule (as described in the [local bindings](#set-up-bindings-for-local-development) section) makes it possible to use Next.js' standard development server while still having access to your Cloudflare bindings.
+Next.js提供的[标准开发服务器](https://nextjs.org/docs/getting-started/installation#run-the-development-server)是获得快速、完美开发体验的最佳选择。`next-dev `子模块(如[本地绑定](#set-up-bindings-for-local-development)部分所述)使你可以使用 Next.js 的标准开发服务器，同时仍可访问你的 Cloudflare 绑定。
 
-### Build and preview your application locally
+### 在本地构建并预览应用程序
 
-To ensure that your application is being built in a manner that is fully compatible with Cloudflare Pages, before deploying it, or whenever you are comfortable checking the correctness of the application during your development process, you will want to build and preview it locally using Cloudflare's `workerd` JavaScript runtime.
+为确保你的应用程序以完全兼容 Cloudflare Pages 的方式构建，在部署之前，或在开发过程中检查应用程序的正确性时，你需要使用 Cloudflare 的 `workerd` JavaScript 运行时在本地构建和预览应用程序。
 
-If you have created your project with C3, do this by running:
+如果你使用 C3 创建了项目，请运行
 
 ```sh
 $ npm run preview
 ```
 
-If you have created your project without C3, run:
+如果创建的项目没有 C3，请运行：
 
 ```sh
 $ npx @cloudflare/next-on-pages@1
 ```
 
-And preview your project by running:
+然后运行
 
 ```sh
 $ npx wrangler pages dev .vercel/output/static
@@ -286,44 +286,44 @@ $ npx wrangler pages dev .vercel/output/static
 
 {{<Aside type="note">}}
 
-The [`wrangler pages dev`](/workers/wrangler/commands/#dev-1) command needs to run the application using the [`nodejs_compat`](/workers/configuration/compatibility-dates/#nodejs-compatibility-flag) compatibility flag. The `nodejs_compat` flag can be specified in either your project's `wrangler.toml` file or provided to the command as an inline argument: `--compatibility-flag=nodejs_compat`.
+[`wrangler pages dev`](/workers/wrangler/commands/#dev-1)命令需要使用[`nodejs_compat`](/workers/configuration/compatibility-dates/#nodejs-compatibility-flag)兼容性标志运行应用程序。`nodejs_compat `标志可在项目的 `wrangler.toml `文件中指定，或作为内联参数提供给命令：`--compatibility-flag=nodejs_compat`。
 
 {{</Aside>}}
 
 
-### Deploy your application and iterate
+### 部署应用程序并迭代
 
-After you have previewed your application locally, you can deploy it to Cloudflare Pages (both via [Direct Uploads](/pages/get-started/direct-upload/) or [Git integration](/pages/configuration/git-integration/)) and iterate over the process to make new changes.
+在本地预览应用程序后，你可以将其部署到 Cloudflare 页面(可通过 [Direct Uploads](/pages/get-started/direct-upload/) 或 [Git integration](/pages/configuration/git-integration/) 两种方式)，并在此过程中反复进行新的更改。
 
-## Troubleshooting
-Review common mistakes and issues that you might encounter when developing a Next.js application using `next-on-pages`.
+## 疑难解答
+回顾使用 `next-on-pages `开发 Next.js 应用程序时可能遇到的常见错误和问题。
 
 {{<Aside type="note" header="Tip">}}
 
-Using the official [next-on-pages ESLint plugin](https://www.npmjs.com/package/eslint-plugin-next-on-pages) (especially with the `recommended` rules)
-helps you avoid issues like the ones presented in this section, giving you helpful and actionable feedback directly in your IDE.
+使用官方[next-on-pages ESLint 插件](https://www.npmjs.com/package/eslint-plugin-next-on-pages)(尤其是 `recommended `规则)
+可以帮助你避免类似本节所述的问题，直接在你的集成开发环境中提供有用和可操作的反馈。
 
 {{</Aside>}}
 
 
-### Edge runtime
+### 边缘计算时间
 
-All server-side routes in your Next.js project must be configured as Edge runtime routes when running on Cloudflare Pages. You must add `export const runtime = 'edge'` to each individual server-side route.
+在 Cloudflare 页面上运行时，Next.js 项目中的所有服务器端路由必须配置为 Edge 运行时路由。你必须在每个服务器端路由中添加 `export const runtime = 'edge'`。
 
 
 {{<Aside type="note">}}
 
-If you are using the Pages router, for page routes, you need to use `'experimental-edge'` instead of `'edge'`.
+如果你使用的是页面路由器，对于页面路由，你需要使用`'experimental-edge'`而不是`'edge'`。
 
 {{</Aside>}}
 
-### App router
+### App 路由器
 
 #### Not found
 
-Next.js generates a `not-found` route for your application under the hood during the build process. In some circumstances, Next.js can detect that the route requires server-side logic (particularly if computation is being performed in the root layout component) and Next.js might create a Node.js serverless function (which, as such, is incompatible with `@cloudflare/next-on-pages`).
+在构建过程中，Next.js 会为你的应用程序生成一个 `not-found`路由。在某些情况下，Next.js 会检测到路由需要服务器端逻辑(尤其是在根布局组件中执行计算时)，Next.js 可能会创建一个 Node.js 无服务器函数(因此与 `@cloudflare/next-on-pages`不兼容)。
 
-To prevent this incompatibility, Cloudflare recommends to always provide a custom `not-found` route which explicitly opts in the edge runtime:
+为防止出现这种不兼容性，Cloudflare 建议始终提供一个自定义的 `not-found`路由，明确选择边缘运行时：
 
 ```ts
 ---
@@ -342,17 +342,17 @@ export default async function NotFound() {
 
 {{<Aside type="note">}}
 
-Projects created with C3 have a default custom `not-found` page already created for them.
+使用 C3 创建的项目已经创建了默认的自定义 `not-found`页面。
 
 {{</Aside>}}
 
-#### `generateStaticParams`
+#### `generateStaticParams` `生成静态参数
 
-When doing static site generation (SSG) in the [`/app` directory](https://nextjs.org/docs/getting-started/project-structure) and using the [`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params) function, Next.js by default tries to handle requests for non statically generated routes on-demand via Node.js serverless functions which, as such, are incompatible with `@cloudflare/next-on-pages`.
+在 [`/app`目录](https://nextjs.org/docs/getting-started/project-structure) 中进行静态网站生成 (SSG) 并使用 [`generateStaticParams`](https://nextjs.org/docs/app/api-reference/functions/generate-static-params)函数时，Next.js 默认会尝试通过 Node.js 无服务器函数按需处理非静态生成路由的请求，因此这些函数与 `@cloudflare/next-on-pages` 不兼容。
 
-To avoid such problem make sure to have your route opted in the edge runtime as mentioned [above](#edge-runtime) (which however nullifies SSG since currently Next.js does not support SSG with the edge runtime).
+为避免此类问题，请确保按照 [上文](#edge-runtime)所述，在边缘运行时选择路由(但这会使 SSG 失效，因为目前 Next.js 在边缘运行时不支持 SSG)。
 
-Or alternatively you can opt out of the dynamic routes handling by specifying a `false` [`dynamicParams`](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams):
+或者，也可以通过指定 `false` [`dynamicParams`](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams) 来退出动态路由处理：
 
 ```diff
 ---
@@ -363,13 +363,13 @@ filename: app/my-example-page/[slug]/page.jsx
 // ...
 ```
 
-#### Top-level `getRequestContext`
+#### 顶级`getRequestContext`(获取请求上下文
 
-The `getRequestContext` function cannot be called at the top level of a route file or in any manner that triggers the function call as part of the file's initialization.
+不能在路由文件的顶层调用 `getRequestContext` 函数，也不能在文件初始化过程中以任何方式触发函数调用。
 
-`getRequestContext` must be called inside the request handling process logic and not in a global/unconditional manner that gets triggered as soon as the file is imported.
+`getRequestContext` 必须在请求处理流程逻辑中调用，而不是以全局/无条件的方式在导入文件后立即触发。
 
-For example, the following is an incorrect usage of `getRequestContext`:
+例如，下面是 `getRequestContext` 的错误用法：
 
 ```js
 ---
@@ -387,7 +387,7 @@ export async function GET(request) {
 }
 ```
 
-The above example can be fixed in the following way:
+上面的例子可以用下面的方法解决：
 
 ```js
 ---
@@ -404,15 +404,15 @@ export async function GET(request) {
 }
 ```
 
-### Pages router
+### Pages 路由
 
 #### `getStaticPaths`
 
-When doing static site generation (SSG) in the [`/pages` directory](https://nextjs.org/docs/getting-started/project-structure) and using the [`getStaticPaths`](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths) function, Next.js by default tries to handle requests for non statically generated routes on-demand via Node.js serverless functions which, as such, are incompatible with `@cloudflare/next-on-pages`.
+在 [`/pages`目录](https://nextjs.org/docs/getting-started/project-structure) 中进行静态网站生成 (SSG) 并使用 [`getStaticPaths`](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths)函数时，Next.js 默认会尝试通过 Node.js 无服务器函数按需处理对非静态生成路由的请求，因此这些函数与 `@cloudflare/next-on-pages` 不兼容。
 
-To avoid such problem make sure to have your route opted in the edge runtime as mentioned [above](#edge-runtime) (which however nullifies SSG since currently Next.js does not support SSG with the edge runtime).
+为避免此类问题，请确保按照 [上文](#edge-runtime)所述，在边缘运行时选择路由(但这会使 SSG 失效，因为目前 Next.js 在边缘运行时不支持 SSG)。
 
-Or alternatively you can opt out of the dynamic routes handling by specifying a [false `fallback`](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths#fallback-false):
+或者，也可以通过指定 [false `fallback`](https://nextjs.org/docs/pages/api-reference/functions/get-static-paths#fallback-false) 来退出动态路由处理：
 
 
 ```diff
@@ -433,7 +433,7 @@ export async function getStaticPaths() {
 
 {{<Aside type="warning">}}
 
-When opting for the latter please keep in mind that the `paths` array cannot be empty since an empty `paths` array causes Next.js to ignore the provided `fallback` value. At build time, make sure that at least one entry is present in the array.
+如果选择后者，请注意 `paths `数组不能为空，因为空的 `paths `数组会导致 Next.js 忽略所提供的 `fallback `值。在构建时，请确保数组中至少有一个条目。
 
 {{</Aside>}}
 
