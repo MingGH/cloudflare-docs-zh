@@ -70,3 +70,6 @@
 /content/pages/framework-guides/deploy-a-gridsome-site.md,2024-07-20 17:07:32,558c3b4aed928c324a4c279139557bac21815407b1184b62380578b0f267253c
 /content/pages/framework-guides/deploy-a-hono-site.md,2024-07-20 17:07:41,3b40c54766e87993c5228aefb731f0bc1c7683470d13340158390d708ec5645b
 /content/pages/framework-guides/deploy-a-remix-site.md,2024-07-20 17:07:42,0ee6507e74186a7adfce723272306c784b34da4270eb40e2bc3774a925ca79a5
+/content/pages/framework-guides/deploy-anything.md,2024-07-20 17:12:59,715c2062f3f9b3190d058cd44b40e4fcae394dec2dac843e730039695b278fd8
+/content/pages/framework-guides/deploy-a-jekyll-site.md,2024-07-20 17:13:04,edcf49ddb48b55a000f14e299bc071a2ef3d1a0605d9ee18304f795c13bd735c
+/content/pages/framework-guides/deploy-a-hexo-site.md,2024-07-20 17:13:06,91ad7f9d0d874d57c753f51af0da99ec4bfc9feea817d1c8cdc9be04d5a37d34

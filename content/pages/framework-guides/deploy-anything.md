@@ -3,21 +3,21 @@ pcx_content_type: how-to
 title: Static HTML
 ---
 
-# Static HTML
+# 静态 HTML
 
-Cloudflare supports deploying any static HTML website to Cloudflare Pages. If you manage your website without using a framework or static site generator, or if your framework is not listed in [Framework guides](/pages/framework-guides/), you can still deploy it using this guide.
+Cloudflare 支持将任何静态 HTML 网站部署到 Cloudflare 页面。如果你在管理网站时未使用框架或静态网站生成器，或者你的框架未列在 [框架指南](/pages/framework-guides/) 中，你仍可使用本指南进行部署。
 
 {{<render file="_tutorials-before-you-start.md">}}
 
 {{<render file="/_framework-guides/_create-github-repository.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
-To deploy your site to Pages:
+将网站部署到页面：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 <div>
 
@@ -29,16 +29,16 @@ To deploy your site to Pages:
 
 </div>
 
-Unlike many of the framework guides, the build command and build output directory for your site are going to be completely custom. If you are not using a preset and do not need to build your site, use `exit 0` as your **Build command**. Cloudflare recommends using `exit 0` as your **Build command** to access features such as Pages Functions. The **Build output directory** is where your application's content lives.
+与许多框架指南不同，你网站的构建命令和构建输出目录将完全自定义。如果你没有使用预设，也不需要构建网站，请使用 `exit 0` 作为你的**构建命令**。Cloudflare 建议使用 `exit 0` 作为你的**构建命令**，以访问页面功能等功能。**构建输出目录**是你的应用程序内容所在的目录。
 
-After configuring your site, you can begin your first deploy. Your custom build command (if provided) will run, and Pages will deploy your static site.
+配置好网站后，就可以开始第一次部署了。你的自定义构建命令(如果已提供)将会运行，Pages 将部署你的静态网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After you have deployed your site, you will receive a unique subdomain for your project on `*.pages.dev`. Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev`上收到一个唯一的项目子域。Cloudflare Pages 将自动重建你的项目并进行部署。你还可以访问新拉取请求上的 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
 {{<render file="/_framework-guides/_learn-more.md" withParameters=" ">}}
