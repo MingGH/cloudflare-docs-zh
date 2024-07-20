@@ -5,35 +5,35 @@ title: Astro
 
 # Astro
 
-[Astro](https://astro.build) is an all-in-one web framework for building fast, content-focused websites. By default, Astro builds websites that have zero JavaScript runtime code.
+[Astro](https://astro.build)是一个一体化网站框架，用于构建快速、以内容为重点的网站。默认情况下，Astro 可构建零 JavaScript 运行时代码的网站。
 
-Refer to the [Astro Docs](https://docs.astro.build/) to learn more about Astro or for assistance with an Astro project.
+请参阅 [Astro Docs](https://docs.astro.build/) 了解有关 Astro 的更多信息，或寻求有关 Astro 项目的帮助。
 
-In this guide, you will create a new Astro application and deploy it using Cloudflare Pages.
+在本指南中，你将创建一个新的 Astro 应用程序，并使用 Cloudflare Pages 进行部署。
 
-## Set up a new project
+## 建立一个新项目
 
-To use `create-cloudflare` to create a new Astro project, run the following command:
+要使用 `create-cloudflare` 创建新的 Astro 项目，请运行以下命令：
 
 ```sh
 $ npm create cloudflare@latest my-astro-app -- --framework=astro
 ```
 
-Astro will ask:
+Astro 会问：
 
-1. Which project type you would like to set up. Your answers will not affect the rest of this tutorial. Select an answer ideal for your project.
+1. 你想设置哪种项目类型。你的答案不会影响本教程的其他内容。请选择适合你项目的答案。
 
-2. If you want to initialize a Git repository. We recommend you to select `No` and follow this guide's [Git instructions](/pages/framework-guides/deploy-an-astro-site/#create-a-github-repository) below. If you select `Yes`, do not follow the below Git instructions precisely but adjust them to your needs.
+2. 如果要初始化 Git 仓库。我们建议你选择 `No`，并遵循本指南的 [Git 说明](/pages/framework-guides/deploy-an-astro-site/#create-a-github-repository)。如果选择 `yes`，请不要完全按照下面的 Git 说明进行操作，而是根据自己的需要进行调整。
 
-`create-cloudflare` will then install dependencies, including the [Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI and the `@astrojs/cloudflare` adapter, and ask you setup questions.
+然后，`create-cloudflare`会安装依赖项，包括[Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI和`@astrojs/cloudflare`适配器，并向你提出设置问题。
 
-### Astro configuration
+### Astro 配置
 
-You can deploy an Astro Server-side Rendered (SSR) site to Cloudflare Pages using the [`@astrojs/cloudflare` adapter](https://github.com/withastro/adapters/tree/main/packages/cloudflare#readme). SSR sites render on Pages Functions and allow for dynamic functionality and customizations.
+你可以使用 [`@astrojs/cloudflare` 适配器](https://github.com/withastro/adapters/tree/main/packages/cloudflare#readme) 将 Astro 服务器端渲染 (SSR) 网站部署到 Cloudflare 页面。SSR 网站在页面功能上呈现，允许动态功能和自定义。
 
 {{<render file="_c3-adapter.md">}}
 
-Add the [`@astrojs/cloudflare` adapter](https://github.com/withastro/adapters/tree/main/packages/cloudflare#readme) to your project's `package.json` by running:
+通过运行[`@astrojs/cloudflare` adapter](https://github.com/withastro/adapters/tree/main/packages/cloudflare#readme)，将[`@astrojs/cloudflare`adapter]添加到项目的`package.json`中：
 
 ```sh
 $ npm run astro add cloudflare
@@ -43,18 +43,18 @@ $ npm run astro add cloudflare
 
 {{<render file="/_framework-guides/_create-github-repository.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
 {{<render file="_deploy-via-c3.md" withParameters="Astro">}}
 
-### Deploy via the Cloudflare dashboard
+### 通过 Cloudflare 控制面板部署
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
 
-You will be asked to authorize access to your GitHub account if you have not already done so. Cloudflare needs this so that it can monitor and deploy your projects from the source. You may narrow access to specific repositories if you prefer; however, you will have to manually update this list [within your GitHub settings](https://github.com/settings/installations) when you want to add more repositories to Cloudflare Pages.
+如果你尚未授权访问你的 GitHub 帐户，系统将要求你进行授权。Cloudflare 需要这样才能从源代码监控和部署你的项目。如果你愿意，可以缩小对特定版本库的访问范围；但是，当你要向 Cloudflare 页面添加更多版本库时，必须手动更新此列表[在你的 GitHub 设置中](https://github.com/settings/installations)。
 
-Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+选择你创建的新 GitHub 仓库，并在**设置构建和部署**部分提供以下信息：
 
 <div>
 
@@ -62,25 +62,25 @@ Select the new GitHub repository that you created and, in the **Set up builds an
 
 </div>
 
-Optionally, you can customize the **Project name** field. It defaults to the GitHub repository's name, but it does not need to match. The **Project name** value is assigned as your `*.pages.dev` subdomain.
+你可以选择自定义**项目名称**字段。它默认为 GitHub 仓库的名称，但不必与之匹配。项目名称**值将被指定为`*.pages.dev`子域。
 
-After completing configuration, select **Save and Deploy**.
+完成配置后，选择**保存并部署**。
 
-You will see your first deployment in progress. Pages installs all dependencies and builds the project as specified.
+你将看到第一次部署正在进行中。Pages 会按照指定安装所有依赖项并构建项目。
 
-Cloudflare Pages will automatically rebuild your project and deploy it on every new pushed commit.
+Cloudflare Pages 会自动重建你的项目，并在每次推送新提交时进行部署。
 
-Additionally, you will have access to [preview deployments](/pages/configuration/preview-deployments/), which repeat the build-and-deploy process for pull requests. With these, you can preview changes to your project with a real URL before deploying them to production.
+此外，你还可以访问 [预览部署](/pages/configuration/preview-deployments/)，它可以重复拉取请求的构建和部署过程。有了它们，你就可以在将项目中的更改部署到生产环境之前，用一个真实的 URL 进行预览。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-### Local runtime
+### 本地运行时间
 
-Local runtime support is configured via the `platformProxy` option:
+本地运行时支持通过 `platformProxy` 选项进行配置：
 
 ```js
 ---
@@ -99,15 +99,15 @@ export default defineConfig({
 });
 ```
 
-## Use bindings in your Astro application
+## 在 Astro 应用程序中使用绑定
 
-A [binding](/pages/functions/bindings/) allows your application to interact with Cloudflare developer products, such as [KV](/kv/reference/how-kv-works/), [Durable Object](/durable-objects/), [R2](/r2/), and [D1](https://blog.cloudflare.com/introducing-d1/).
+[绑定](/pages/functions/bindings/) 允许你的应用程序与 Cloudflare 开发人员产品交互，例如 [KV](/kv/reference/how-kv-works/)、[Durable Object](/durable-objects/)、[R2](/r2/) 和 [D1](https://blog.cloudflare.com/introducing-d1/)。
 
-Use bindings in Astro components and API routes by using `context.locals` from [Astro Middleware](https://docs.astro.build/en/guides/middleware/) to access the Cloudflare runtime which amongst other fields contains the Cloudflare's environment and consecutively any bindings set for your application.
+在 Astro 组件和 API 路由中使用绑定，方法是使用 [Astro Middleware](https://docs.astro.build/en/guides/middleware/) 中的 `context.locals` 访问 Cloudflare 运行时，该运行时除其他字段外，还包含 Cloudflare 的环境以及为你的应用程序连续设置的任何绑定。
 
-Refer to the following example of how to access a KV namespace with TypeScript.
+请参考以下示例，了解如何使用 TypeScript 访问 KV 命名空间。
 
-First, you need to define Cloudflare runtime and KV type by updating the `env.d.ts`:
+首先，你需要通过更新 `env.d.ts` 来定义 Cloudflare 运行时和 KV 类型：
 
 ```typescript
 ---
@@ -128,7 +128,7 @@ declare namespace App {
 }
 ```
 
-You can then access your KV from an API endpoint in the following way:
+然后，你可以通过以下方式从 API 端点访问 KV：
 
 ```typescript
 ---
@@ -147,7 +147,7 @@ export async function get({locals}: APIContext) => {
 };
 ```
 
-Besides endpoints, you can also use bindings directly from your Astro components:
+除了端点，你还可以直接使用 Astro 组件中的绑定：
 
 ```typescript
 ---
@@ -161,6 +161,6 @@ const value = await myKV.get("key");
 <div>{value}</div>
 ```
 
-To learn more about the Astro Cloudflare runtime, refer to the [Access to the Cloudflare runtime](https://docs.astro.build/en/guides/integrations-guide/cloudflare/#access-to-the-cloudflare-runtime) in the Astro documentation.
+要了解有关 Astro Cloudflare 运行时的更多信息，请参阅 Astro 文档中的[访问 Cloudflare 运行时](https://docs.astro.build/en/guides/integrations-guide/cloudflare/#access-to-the-cloudflare-runtime)。
 
 {{<render file="/_framework-guides/_learn-more.md" withParameters="Astro">}}

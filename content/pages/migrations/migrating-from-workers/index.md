@@ -13,7 +13,7 @@ title: 从Workers迁移到Pages
 
 Cloudflare Pages 为服务网站的各个方面提供内置默认设置。你可以使用 [Functions](/pages/functions/)将 Worker 中的自定义行为(如自定义缓存逻辑)移植到 Cloudflare Pages 项目中。这样就可以实现一个易于使用、基于文件的路由系统。你还可以将自定义标题和重定向迁移到 Pages。
 
-你可能已经有了一个相当复杂的 Worker，而且/或者将其拼接到 Pages 基于文件的路由系统中会很繁琐。在这种情况下，Pages 为开发人员提供了在 Pages 项目的输出目录中定义一个 `_worker.js` 文件的功能。
+你可能已经有了一个相当复杂的 Worker，而且，或者说将其拼接到 Pages 基于文件的路由系统中会很繁琐。在这种情况下，Pages 为开发人员提供了在 Pages 项目的输出目录中定义一个 `_worker.js` 文件的功能。
 
 {{<Aside type="note">}}
 

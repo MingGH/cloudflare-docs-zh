@@ -5,27 +5,27 @@ title: Svelte
 
 # Svelte
 
-[Svelte](https://svelte.dev) is an increasingly popular, open-source framework for building user interfaces and web applications. Unlike most frameworks, Svelte is primarily a compiler that converts your component code into efficient JavaScript that surgically updates the DOM when your application state changes.
+[Svelte](https://svelte.dev)是一个日益流行的开源框架，用于构建用户界面和网络应用程序。与大多数框架不同，Svelte 主要是一个编译器，可将组件代码转换为高效的 JavaScript，并在应用程序状态发生变化时，以外科手术的方式更新 DOM。
 
-In this guide, you will create a new Svelte application and deploy it using Cloudflare Pages.
-You will use [`SvelteKit`](https://kit.svelte.dev/), the official Svelte framework for building web applications of all sizes.
+在本指南中，你将创建一个新的 Svelte 应用程序，并使用 Cloudflare Pages 进行部署。
+你将使用 [`SvelteKit`](https://kit.svelte.dev/)，这是用于构建各种规模网络应用程序的 Svelte 官方框架。
 
-## Setting up a new project
+## 设置新项目
 
-Use the [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) to set up a new project. C3 will create a new project directory, initiate Svelte's official setup tool, and provide the option to deploy instantly.
+使用 [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) 建立新项目。C3 将创建一个新的项目目录，启动 Svelte 的官方设置工具，并提供即时部署选项。
 
 
-To use `create-cloudflare` to create a new Svelte project, run the following command:
+要使用 `create-cloudflare` 创建新的 Svelte 项目，请运行以下命令：
 
 ```sh
 $ npm create cloudflare@latest my-svelte-app -- --framework=svelte
 ```
 
-SvelteKit will prompt you for customization choices. For the template option, choose one of the application/project options. The remaining answers will not affect the rest of this guide. Choose the options that suit your project.
+SvelteKit 将提示你进行自定义选择。对于模板选项，请选择应用程序/项目选项之一。其余答案不会影响本指南的其余部分。选择适合你项目的选项。
 
-`create-cloudflare` will then install dependencies, including the [Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI and the `@sveltejs/adapter-cloudflare` adapter, and ask you setup questions.
+然后，`create-cloudflare`会安装依赖项，包括[Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI和`@sveltejs/adapter-cloudflare`适配器，并向你提出设置问题。
 
-After you have installed your project dependencies, start your application:
+安装完项目依赖项后，启动应用程序：
 
 ```sh
 $ npm run dev
@@ -35,14 +35,14 @@ $ npm run dev
 
 {{<render file="/_framework-guides/_create-github-repository.md">}}
 
-## SvelteKit Cloudflare configuration
+## SvelteKit Cloudflare 配置
 
-To use SvelteKit with Cloudflare Pages, you need to add the [Cloudflare adapter](https://kit.svelte.dev/docs/adapter-cloudflare) to your application.
+要在 Cloudflare 页面中使用 SvelteKit，你需要在应用程序中添加 [Cloudflare 适配器](https://kit.svelte.dev/docs/adapter-cloudflare)。
 
 {{<render file="_c3-adapter.md">}}
 
-1. Install the Cloudflare Adapter by running `npm i --save-dev @sveltejs/adapter-cloudflare` in your terminal.
-2. Include the adapter in `svelte.config.js`:
+1. 在终端运行 `npm i --save-dev @sveltejs/adapter-cloudflare` 安装 Cloudflare 适配器。
+2. 在 `svelte.config.js` 中加入适配器：
 
 ```diff
 ---
@@ -62,7 +62,7 @@ const config = {
 export default config;
 ```
 
-3. (Needed if you are using TypeScript) Include support for environment variables. The `env` object, containing KV namespaces and other storage objects, is passed to SvelteKit via the platform property along with context and caches, meaning you can access it in hooks and endpoints. For example:
+3. (使用 TypeScript 时需要)包含对环境变量的支持。包含 KV 命名空间和其他存储对象的 `env` 对象与上下文和缓存一起通过平台属性传递给 SvelteKit，这意味着你可以在钩子和端点中访问它。例如
 
 ```diff
 ---
@@ -89,7 +89,7 @@ declare namespace App {
 
 ```
 
-4. Access the added KV or Durable objects (or generally any [binding](/pages/functions/bindings/)) in your endpoint with `env`:
+4. 使用 `env` 访问端点中添加的 KV 或 Durable 对象(或通常任何 [绑定](/pages/functions/bindings/))：
 
 ```js
 export async function post(context) {
@@ -99,38 +99,38 @@ export async function post(context) {
 
 {{<Aside type="note">}}
 
-In addition to the Cloudflare adapter, review other adapters you can use in your project:
+除 Cloudflare 适配器外，请查看你可以在项目中使用的其他适配器：
 
 - [`@sveltejs/adapter-auto`](https://www.npmjs.com/package/@sveltejs/adapter-auto)
 
-  SvelteKit's default adapter automatically chooses the adapter for your current environment. If you use this adapter, [no configuration is needed](https://kit.svelte.dev/docs/adapter-auto). However, the default adapter introduces a few disadvantages for local development because it has no way of knowing what platform the application is going to be deployed to.
+  SvelteKit 的默认适配器会自动选择适合当前环境的适配器。如果使用该适配器，则[无需配置](https://kit.svelte.dev/docs/adapter-auto)。不过，默认适配器会给本地开发带来一些不利因素，因为它无法知道应用程序将部署到哪个平台。
 
-To solve this issue, provide a `CF_PAGES` variable to SvelteKit so that the adapter can detect the Pages platform. For example, when locally building the application: `CF_PAGES=1 vite build`.
+要解决这个问题，请向 SvelteKit 提供一个 `CF_PAGES` 变量，以便适配器可以检测页面平台。例如，在本地构建应用程序时：`CF_PAGES=1 vite build`。
 
 - [`@sveltejs/adapter-static`](https://www.npmjs.com/package/@sveltejs/adapter-static)
-  Only produces client-side static assets (no server-side rendering) and is compatible with Cloudflare Pages.
-  Review the [official SvelteKit documentation](https://kit.svelte.dev/docs/adapter-static) for instructions on how to set up the adapter. Keep in mind that if you decide to use this adapter, the build directory, instead of `.svelte-kit/cloudflare`, becomes `build`. You must also configure your Cloudflare Pages application's build directory accordingly.
+  只生成客户端静态资产(无服务器端渲染)，与 Cloudflare Pages 兼容。
+  请查阅 [SvelteKit 官方文档](https://kit.svelte.dev/docs/adapter-static) 了解如何设置适配器。请注意，如果你决定使用此适配器，则构建目录将从 `.svelte-kit/cloudflare`变为 `build`。你还必须相应配置 Cloudflare Pages 应用程序的构建目录。
 
 {{</Aside>}}
 
 {{<Aside type="warning">}}
 
-If you are using any adapter different from the default SvelteKit adapter, remember to commit and push your adapter setting changes to your GitHub repository before attempting the deployment.
+如果你使用的适配器与默认的 SvelteKit 适配器不同，请记得在尝试部署前将适配器设置更改提交并推送到 GitHub 仓库。
 
 {{</Aside>}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
 {{<render file="_deploy-via-c3.md" withParameters="Svelte">}}
 
-### Deploy via the Cloudflare dashboard
+### 通过 Cloudflare 控制面板部署
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
 
-You will be asked to authorize access to your GitHub account if you have not already done so. Cloudflare needs this authorization to deploy your projects from your GitHub account. You may narrow Cloudflare's access to specific repositories. However, you will have to manually update this list [within your GitHub settings](https://github.com/settings/installations) when you want to add more repositories to Cloudflare Pages.
+如果你尚未授权访问你的 GitHub 账户，系统将要求你进行授权。Cloudflare 需要此授权才能从你的 GitHub 账户部署项目。你可以缩小 Cloudflare 对特定存储库的访问范围。但是，当你想在 Cloudflare 页面添加更多的软件源时，你必须手动更新此列表[在你的 GitHub 设置中](https://github.com/settings/installations)。
 
-Select the new GitHub repository that you created and, in **Set up builds and deployments**, provide the following information:
+选择你创建的新 GitHub 仓库，并在**设置构建和部署**中提供以下信息：
 
 <div>
 
@@ -138,27 +138,27 @@ Select the new GitHub repository that you created and, in **Set up builds and de
 
 </div>
 
-Optionally, you can customize the **Project name** field. It defaults to the GitHub repository's name, but it does not need to match. The **Project name** value is assigned as your `*.pages.dev` subdomain.
+你可以选择自定义**项目名称**字段。它默认为 GitHub 仓库的名称，但不必与之匹配。 **Project name** 值将被指定为`*.pages.dev`子域。
 
-After completing configuration, click the **Save and Deploy** button.
+完成配置后，单击**保存和部署**按钮。
 
-You will see your first deploy pipeline in progress. Pages installs all dependencies and builds the project as specified.
+你将看到第一个部署管道正在进行中。页面会安装所有依赖项，并按指定方式构建项目。
 
-Cloudflare Pages will automatically rebuild your project and deploy it on every new pushed commit.
+Cloudflare Pages 会自动重建你的项目，并在每次推送新提交时进行部署。
 
-Additionally, you will have access to [preview deployments](/pages/configuration/preview-deployments/), which repeat the build-and-deploy process for pull requests. With these, you can preview changes to your project with a real URL before deploying them to production.
+此外，你还可以访问 [预览部署](/pages/configuration/preview-deployments/)，它可以重复拉取请求的构建和部署过程。有了它们，你就可以在将项目中的更改部署到生产环境之前，用一个真实的 URL 进行预览。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
 ## Functions setup
 
-In SvelteKit, functions are written as endpoints. Functions contained in the `/functions` directory at the project's root will not be included in the deployment, which compiles to a single `_worker.js` file.
+在 SvelteKit 中，函数被写成端点。项目根目录 `/functions`中包含的函数将不会包含在部署中，部署会编译成一个 `_worker.js`文件。
 
-To have the functionality equivalent to Pages Functions [`onRequests`](/pages/functions/api-reference/#onrequests), you need to write standard request handlers in SvelteKit. For example, the following TypeScript file behaves like an `onRequestGet`:
+要获得与 Pages Functions [`onRequests`](/pages/functions/api-reference/#onrequests) 相同的功能，你需要在 SvelteKit 中编写标准请求处理程序。例如，以下 TypeScript 文件的行为类似于 `onRequestGet`：
 
 ```ts
 ---
@@ -172,7 +172,7 @@ export const GET = (({ url }) => {
 ```
 
 {{<Aside type= "note" header="SvelteKit API Routes">}}
-For more information about SvelteKit API Routes, refer to the [SvelteKit documentation](https://kit.svelte.dev/docs/routing#server).
+有关 SvelteKit API 路由的更多信息，请参阅 [SvelteKit 文档](https://kit.svelte.dev/docs/routing#server)。
 {{</Aside>}}
 
 {{<render file="/_framework-guides/_learn-more.md" withParameters="Svelte">}}
