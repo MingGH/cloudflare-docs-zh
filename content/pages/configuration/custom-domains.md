@@ -1,6 +1,6 @@
 ---
 pcx_content_type: how-to
-title: Custom domains[自定义域]
+title: 自定义域
 ---
 
 # 自定义域

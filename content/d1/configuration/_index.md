@@ -1,9 +1,9 @@
 ---
-title: Configuration
+title: 配置
 pcx_content_type: navigation
 weight: 4
 ---
 
-# Configuration
+# 配置
 
 {{<directory-listing>}}

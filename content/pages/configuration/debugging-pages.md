@@ -1,6 +1,6 @@
 ---
 pcx_content_type: how-to
-title: Debugging Pages[调试页面]
+title: 调试页面
 ---
 
 # 调试页面
