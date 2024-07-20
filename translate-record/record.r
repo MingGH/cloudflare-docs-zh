@@ -54,3 +54,7 @@
 /content/pages/migrations/migrating-from-workers/index.md,2024-07-20 15:26:57,ced6331293c88e2bead596ee7f098da731b2b56fb247dde788f5d5630bb8f2bc
 /content/pages/migrations/migrating-from-netlify/index.md,2024-07-20 15:31:54,40c0cecc8f65a2f4fcd3f37211aa14ce5b679174d96b6e93963901bd1331f6ca
 /content/pages/tutorials/add-a-react-form-with-formspree/index.md,2024-07-20 15:32:06,30c7b6df361b4954e2f01478e13e71a27d4dd97f6509192bb9395f90fde9bcfa
+/content/pages/get-started/git-integration.md,2024-07-20 15:45:27,49cbc658d87533cccbf22695e7faae176b02d225d7010ed023379372a3563438
+/content/pages/get-started/direct-upload.md,2024-07-20 15:45:28,8a562edc9a1656f1d2ddbc7cb5e3cbc41944d55b1488cc5fddfe496234ef9485
+/content/pages/get-started/c3.md,2024-07-20 15:45:31,68fe73a6de09e5d2593d4c1cfce7d1ca913755f37ea636e0759f92ad40ecb92b
+/content/pages/get-started/_index.md,2024-07-20 15:45:56,f329bff1b99ad89d146bd2149a461574309534579e2e70077f9f54f17f37d0e8

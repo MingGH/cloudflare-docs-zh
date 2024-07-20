@@ -1,143 +1,142 @@
 ---
 pcx_content_type: concept
-title: Direct Upload
+title: 直接上传
 meta:
   title: Direct Upload
-  description: Upload your prebuilt assets to Pages and deploy them via the Wrangler CLI or the Cloudflare dashboard.
+  description: 将预构建的资产上传到 Pages 并通过 Wrangler CLI 或 Cloudflare 仪表板进行部署。
 ---
 
-# Direct Upload
+# 直接上传
 
-Direct Upload enables you to upload your prebuilt assets to Pages and deploy them to the Cloudflare global network. This guide will instruct you how to upload your assets using Wrangler or the drag and drop method.
+直接上传使你能够将预构建的资产上传到 Pages 并部署到 Cloudflare 全球网络。本指南将指导你如何使用 Wrangler 或拖放方法上传资产。
 
-## Prerequisites
+## 先决条件
 
-Before you deploy your project with Direct Upload, run the appropriate [build command](/pages/configuration/build-configuration/#framework-presets) to build your project.
+在使用 Direct Upload 部署项目之前，请运行相应的 [build command](/pages/configuration/build-configuration/#framework-presets)来构建项目。
 
-## Upload methods
+## 上传方法
 
-After you have your prebuilt assets ready, there are two ways to begin uploading:
+准备好预置资产后，有两种方法可以开始上传：
 
 * [Wrangler](/pages/get-started/direct-upload/#wrangler-cli).
-* [Drag and drop](/pages/get-started/direct-upload/#drag-and-drop).
+* [拖放](/pages/get-started/direct-upload/#drag-and-drop)。
 
 {{<Aside type= "note">}}
 
-Within a Direct Upload project, you can switch between creating deployments with either Wrangler or drag and drop. However, you cannot create deployments with Direct Upload on a project that you created through Git integration on the dashboard. Only projects created with Direct Upload can be updated with Direct Upload.
+在 Direct Upload 项目中，可以切换使用 Wrangler 或拖放创建部署。不过，你不能在通过仪表板上的 Git 整合创建的项目上使用 Direct Upload 创建部署。只有通过 Direct Upload 创建的项目才能使用 Direct Upload 进行更新。
 
 {{</Aside>}}
 
-## Supported file types
+## 支持的文件类型
 
-Below is the supported file types for each Direct Upload options:
-* Wrangler: A single folder of assets. (Zip files are not supported.)
-* Drag and drop: A zip file or single folder of assets.
+以下是各直接上传选项支持的文件类型：
+* Wrangler：单个资产文件夹。(不支持压缩文件)。
+* 拖放：压缩文件或单一资产文件夹。
 
 ## Wrangler CLI
 
-### Set up Wrangler
+### 设置Wrangler
 
-To begin, install [`npm`](https://docs.npmjs.com/getting-started). Then [install Wrangler, the Developer Platform CLI](/workers/wrangler/install-and-update/).
+首先，安装 [`npm`](https://docs.npmjs.com/getting-started)。然后 [安装开发者平台 CLI Wrangler](/workers/wrangler/install-and-update/)。
 
-#### Create your project
+#### 创建你的项目
 
-Log in to Wrangler with the [`wrangler login` command](/workers/wrangler/commands/#login). Then run the [`pages project create` command](/workers/wrangler/commands/#project-create):
+使用 [`wrangler login`命令](/workers/wrangler/commands/#login)登录Wrangler。然后运行 [`pages project create` 命令](/workers/wrangler/commands/#project-create)：
 
 ```sh
 $ npx wrangler pages project create
 ```
 
-You will then be prompted to specify the project name. Your project will be served at `<PROJECT_NAME>.pages.dev` (or your project name plus a few random characters if your project name is already taken). You will also be prompted to specify your production branch.
+然后系统会提示你指定项目名称。项目的服务地址为 `<PROJECT_NAME>.pages.dev`(如果项目名称已被占用，则项目名称加上几个随机字符)。系统还会提示你指定生产分支。
 
-Subsequent deployments will reuse both of these values (saved in your `node_modules/.cache/wrangler` folder).
+后续部署将重复使用这两个值(保存在 `node_modules/.cache/wrangler` 文件夹中)。
 
-#### Deploy your assets
+#### 部署你的资产
 
-From here, you have created an empty project and can now deploy your assets for your first deployment and for all subsequent deployments in your production environment. To do this, run the [`wrangler pages deploy`](/workers/wrangler/commands/#deploy-1) command:
+从这里开始，你就创建了一个空项目，现在就可以在生产环境中为首次部署和所有后续部署部署资产了。为此，请运行 [`wrangler pages deploy`](/workers/wrangler/commands/#deploy-1) 命令：
 
 ```sh
 $ npx wrangler pages deploy <BUILD_OUTPUT_DIRECTORY>
 ```
 
-Find the appropriate build output directory for your project in [Build directory under Framework presets](/pages/configuration/build-configuration/#framework-presets).
+在[框架预设下的构建目录](/pages/configuration/build-configuration/#framework-presets)中为项目找到合适的构建输出目录。
 
-Your production deployment will be available at `<PROJECT_NAME>.pages.dev`.
+你的生产部署将位于 `<PROJECT_NAME>.pages.dev`。
 
 {{<Aside type= "note">}}
 
-Before using the `wrangler pages deploy` command, you will need to make sure you are inside the project. If not, you can also pass in the project path.
+在使用 `wrangler pages deploy` 命令之前，你需要确保自己在项目中。如果不在，也可以输入项目路径。
 
 {{</Aside>}}
 
-To deploy assets to a preview environment, run:
+要将资产部署到预览环境，请运行
 
 ```sh
 $ npx wrangler pages deploy <OUTPUT_DIRECTORY> --branch=<BRANCH_NAME>
 ```
 
-For every branch you create, a branch alias will be available to you at `<BRANCH_NAME>.<PROJECT_NAME>.pages.dev`.
+你创建的每个分支都会有一个分支别名，地址为 `<BRANCH_NAME>.<PROJECT_NAME>.pages.dev`。
 
 {{<Aside type= "note">}}
 
-If you are in a Git workspace, Wrangler will automatically pull the branch information for you. Otherwise, you will need to specify your branch in this command.
+如果你在 Git 工作区中，Wrangler 会自动为你提取分支信息。否则，你需要在此命令中指定你的分支。
 
 {{</Aside>}}
 
-If you would like to streamline the project creation and asset deployment steps, you can also use the deploy command to both create and deploy assets at the same time. If you execute this command first, you will still be prompted to specify your project name and production branch. These values will still be cached for subsequent deployments as stated above. If the cache already exists and you would like to create a new project, you will need to run the [`create` command](#create-your-project).
+如果想简化项目创建和资产部署步骤，也可以使用部署命令同时创建和部署资产。如果先执行该命令，系统仍会提示你指定项目名称和生产分支。如上所述，这些值仍将被缓存，以备后续部署之用。如果缓存已经存在，而你想创建一个新项目，则需要运行 [`create`命令](#create-your-project)。
 
-#### Other useful commands
+#### 其他有用的命令
 
-If you would like to use Wrangler to obtain a list of all available projects for Direct Upload, use [`pages project list`](/workers/wrangler/commands/#project-list):
+如果想使用 Wrangler 获取所有可用于直接上传的项目列表，请使用 [`pages project list`](/workers/wrangler/commands/#project-list)：
 
 ```sh
 $ npx wrangler pages project list
 ```
 
-If you would like to use Wrangler to obtain a list of all unique preview URLs for a particular project, use [`pages deployment list`](/workers/wrangler/commands/#deployment-list):
+如果想使用 Wrangler 获取特定项目的所有唯一预览 URL 的列表，请使用 [`pages deployment list`](/workers/wrangler/commands/#deployment-list)：
 
 ```sh
 $ npx wrangler pages deployment list
 ```
 
-For step-by-step directions on how to use Wrangler and continuous integration tools like GitHub Actions, Circle CI, and Travis CI together for continuous deployment, refer to [Use Direct Upload with continuous integration](/pages/how-to/use-direct-upload-with-continuous-integration/).
+有关如何将 Wrangler 与 GitHub Actions、Circle CI 和 Travis CI 等持续集成工具一起用于持续部署的逐步说明，请参阅 [Use Direct Upload with continuous integration](/pages/how-to/use-direct-upload-with-continuous-integration/)。
 
-## Drag and drop
+## 拖放
 
-#### Deploy your project with drag and drop
+#### 使用拖放功能部署项目
 
-To deploy with drag and drop:
+通过拖放进行部署：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/login).
-2. In **Account Home**, select your account > **Workers & Pages**.
-3. Select **Create application** > **Pages** > **Upload assets**.
-4. Enter your project name in the provided field and drag and drop your assets.
-5. Select **Deploy**.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/login)。
+2. 在**账户主页**中，选择账户 > **员工和页面**。
+3. 选择 **创建应用程序**> **页面**> **上传资产**。
+4. 在提供的字段中输入项目名称，然后拖放资产。
+5. 选择 **部署**。
 
-Your project will be served from `<PROJECT_NAME>.pages.dev`. Next drag and drop your build output directory into the uploading frame. Once your files have been successfully uploaded, select **Save and Deploy** and continue to your newly deployed project.
+你的项目将从`<PROJECT_NAME>.pages.dev `提供。然后将构建输出目录拖放到上传框中。文件上传成功后，选择**保存并部署**，然后继续新部署的项目。
 
-#### Create a new deployment
+#### 创建新部署
 
-After you have your project created, select **Create a new deployment** to begin a new version of your site. Next, choose whether your new deployment will be made to your production or preview environment. If choosing preview, you can create a new deployment branch or enter an existing one.
+创建项目后，选择**创建新部署**，开始网站的新版本。接下来，选择新部署是部署到生产环境还是预览环境。如果选择预览，则可以创建新的部署分支或输入现有分支。
 
-## Troubleshoot
+## 故障排除
 
-### Limits
+#### 限制
 
-| Upload method | File limit   | File size |
-| ------------- | ------------ | --------- |
-| Wrangler      | 20,000 files | 25 MiB    |
-| Drag and drop | 1,000 files  | 25 MiB    |
+| 上传方法 | 文件限制 | 文件大小|
+| ------------- | ------------ | -------- |
+| Wrangler      | 20,000 files | 25 MiB   |
+| Drag and drop | 1,000 files  | 25 MiB   |
 
-If using the drag and drop method, a red warning symbol will appear next to an asset if too large and thus unsuccessfully uploaded. In this case, you may choose to delete that asset but you cannot replace it. In order to do so, you must reupload the entire project.
+如果使用拖放方法，如果资产太大，上传不成功，旁边会出现红色警告符号。在这种情况下，你可以选择删除该资产，但不能替换它。为此，你必须重新上传整个项目。
 
-### Production branch configuration
+### 生产分支配置
 
 {{<render file="_prod-branch-update.md" productFolder="/pages/">}}
 
-### Functions
+### 功能
 
-Drag and drop deployments made from the Cloudflare dashboard do not currently support compiling a `functions` folder of [Pages Functions](/pages/functions/). To deploy a `functions` folder, you must use Wrangler. When deploying a project using Wrangler, if a `functions` folder exists where the command is run, that `functions` folder will be uploaded with the project.
+从 Cloudflare 控制面板进行的拖放部署目前不支持编译 [Pages Functions](/pages/functions/) 的 `functions `文件夹。要部署 `functions` 文件夹，必须使用 Wrangler。使用 Wrangler 部署项目时，如果运行命令的地方存在 `functions` 文件夹，则该 `functions` 文件夹将与项目一起上传。
 
-However, note that a `_worker.js` file is supported by both Wrangler and drag-and-drop deployments made from the dashboard.
-
+不过，请注意 Wrangler 和从仪表板拖放部署都支持 `_worker.js`文件。
 

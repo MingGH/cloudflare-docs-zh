@@ -1,11 +1,11 @@
 ---
 pcx_content_type: navigation
-title: Get started
+title: 开始
 weight: 2
 ---
 
-# Get started
+# 开始
 
-Choose a setup method for your Pages project:
+为你的页面项目选择一种设置方法：
 
 {{<directory-listing showDescriptions="true">}}
