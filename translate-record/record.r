@@ -61,3 +61,9 @@
 /content/pages/framework-guides/deploy-an-emberjs-site.md,2024-07-20 15:57:08,0fd042afa6620cf35d914a41dee51c379de9b03156e9416cc7517ddb53a6e2a2
 /content/pages/framework-guides/deploy-a-docusaurus-site.md,2024-07-20 15:57:12,1cd7f406952c49fed82e524de5e1f59d86adc659e4e7ca4cb2b12160bbf4899e
 /content/pages/framework-guides/deploy-an-angular-site.md,2024-07-20 15:57:13,d5678fb403926564b21d5b87615b16041c418769b602b4be82bf7f7929e05acc
+/content/pages/framework-guides/deploy-a-pelican-site.md,2024-07-20 16:01:40,6628107e44adb6c184f0e2af4bd608999a67fe38709f98af6f717565f7c5667d
+/content/pages/framework-guides/deploy-an-elderjs-site.md,2024-07-20 16:01:40,e4bbe2ce66de546a377f524bec2b7d65f60bc95258481db7a3f6c30685cd1d71
+/content/pages/framework-guides/deploy-a-nuxt-site.md,2024-07-20 16:01:45,2d39ecfaff34740b4881e02230b41fd3d021441426d4a2c0adc96e6cbe664187
+/content/pages/framework-guides/deploy-an-mkdocs-site.md,2024-07-20 17:00:59,460f060135f1f8d06be63ca98bb29706436fa382356e0e10adaf2117453f9635
+/content/pages/framework-guides/deploy-an-eleventy-site.md,2024-07-20 17:00:59,52d94bbbeafee549e9d6e1b98f8ceb77246c476ff8379caf26d681074a89054e
+/content/pages/framework-guides/nextjs/deploy-a-static-nextjs-site.md,2024-07-20 17:01:01,b1236bcf22fe76713af877a2bf0092a5c4febf71ceb9a5f77c41405a17a55c68

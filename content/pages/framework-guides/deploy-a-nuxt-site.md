@@ -7,23 +7,23 @@ meta:
 
 # Nuxt
 
-[Nuxt](https://nuxt.com) is a web framework making Vue.js-based development simple and powerful.
+[Nuxt](https://nuxt.com)是一个网络框架，使基于 Vue.js 的开发变得简单而强大。
 
-In this guide, you will create a new Nuxt application and deploy it using Cloudflare Pages.
+在本指南中，你将创建一个新的 Nuxt 应用程序，并使用 Cloudflare Pages 进行部署。
 
-## Create a new project using the `create-cloudflare` CLI (C3)
+## 使用 `create-cloudflare` CLI(C3)创建新项目
 
-The [`create-cloudflare` CLI (C3)](/pages/get-started/c3/) will configure your Nuxt site for Cloudflare Pages. Run the following command in your terminal to create a new Nuxt site:
+`create-cloudflare` CLI (C3)](/pages/get-started/c3/) 将为 Cloudflare 页面配置你的 Nuxt 站点。在终端中运行以下命令创建新的 Nuxt 网站：
 
 ```sh
 $ npm create cloudflare@latest my-nuxt-app -- --framework=nuxt
 ```
 
-C3 will ask you a series of setup questions and create a new project with [`nuxi` (the official Nuxt CLI)](https://github.com/nuxt/cli). C3 will also install the necessary adapters along with the [Wrangler CLI](/workers/wrangler/install-and-update/#check-your-wrangler-version).
+C3 会询问一系列设置问题，并使用 [`nuxi`(官方 Nuxt CLI)](https://github.com/nuxt/cli) 创建一个新项目。C3 还将安装必要的适配器和 [Wrangler CLI](/workers/wrangler/install-and-update/#check-your-wrangler-version)。
 
-After creating your project, C3 will generate a new `my-nuxt-app` directory using the default Nuxt template, updated to be fully compatible with Cloudflare Pages.
+创建项目后，C3 将使用默认 Nuxt 模板生成一个新的 `my-nuxt-app` 目录，该模板已更新为与 Cloudflare Pages 完全兼容。
 
-When creating your new project, C3 will give you the option of deploying an initial version of your application via [Direct Upload](/pages/how-to/use-direct-upload-with-continuous-integration/). You can redeploy your application at any time by running following command inside your project directory:
+创建新项目时，C3 会让你选择通过 [Direct Upload](/pages/how-to/use-direct-upload-with-continuous-integration/)部署应用程序的初始版本。你可以在项目目录下运行以下命令，随时重新部署应用程序：
 
 ```sh
 $ npm run deploy
@@ -31,17 +31,17 @@ $ npm run deploy
 
 {{<Aside type="note" header="Git integration">}}
 
-The initial deployment created via C3 is referred to as a [Direct Upload](/pages/get-started/direct-upload/). To set up a deployment via the Pages Git integration, refer to the [Git Integration](#git-integration) section below.
+通过 C3 创建的初始部署称为 [Direct Upload](/pages/get-started/direct-upload/)。要通过 Pages Git 集成设置部署，请参阅下面的 [Git 集成](#git-integration) 部分。
 
 {{</Aside>}}
 
-## Configure and deploy a project without C3
+## 配置和部署不带 C3 的项目
 
-To deploy a Nuxt project without C3, follow the [Nuxt Get Started guide](https://nuxt.com/docs/getting-started/installation). After you have set up your Nuxt project, choose either the [Git integration guide](/pages/get-started/git-integration/) or [Direct Upload guide](/pages/get-started/direct-upload/) to deploy your Nuxt project on Cloudflare Pages.
+要在没有 C3 的情况下部署 Nuxt 项目，请遵循 [Nuxt 入门指南](https://nuxt.com/docs/getting-started/installation)。设置好 Nuxt 项目后，选择 [Git 整合指南](/pages/get-started/git-integration/) 或 [Direct Upload 指南](/pages/get-started/direct-upload/) 在 Cloudflare Pages 上部署 Nuxt 项目。
 
 {{<render file="/_framework-guides/_git-integration.md">}}
 
-### Create a GitHub repository
+### 创建 GitHub 仓库
 
 {{<render file="/_framework-guides/_create-gh-repo.md">}}
 
@@ -57,32 +57,32 @@ $ git remote add origin https://github.com/<YOUR_GH_USERNAME>/<REPOSITORY_NAME>
 $ git push -u origin main
 ```
 
-### Create a Pages project
+### 创建一个页面项目
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. Go to **Workers & Pages** > **Create application** > **Pages** > **Connect to Git** and create a new Pages project.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 转到 **Workers & Pages**> **Create application**> **Pages**> **Connect to Git**并创建一个新的 Pages 项目。
 
-You will be asked to authorize access to your GitHub account if you have not already done so. Cloudflare needs this so that it can monitor and deploy your projects from the source. You may narrow access to specific repositories if you prefer; however, you will have to manually update this list [within your GitHub settings](https://github.com/settings/installations) when you want to add more repositories to Cloudflare Pages.
+如果你尚未授权访问你的 GitHub 帐户，系统将要求你进行授权。Cloudflare 需要这样才能从源代码监控和部署你的项目。如果你愿意，可以缩小对特定版本库的访问范围；但是，当你要向 Cloudflare 页面添加更多版本库时，必须手动更新此列表[在你的 GitHub 设置中](https://github.com/settings/installations)。
 
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 {{<pages-build-preset framework="nuxt-js">}}
 
-Optionally, you can customize the **Project name** field. It defaults to the GitHub repository's name, but it does not need to match. The **Project name** value is assigned as your `*.pages.dev` subdomain.
+你可以选择自定义**项目名称**字段。它默认为 GitHub 仓库的名称，但不必与之匹配。项目名称**值将被指定为`*.pages.dev`子域。
 
-4. After completing configuration, select the **Save and Deploy**.
+4. 完成配置后，选择**保存并部署**。
 
-Review your first deploy pipeline in progress. Pages installs all dependencies and builds the project as specified. Cloudflare Pages will automatically rebuild your project and deploy it on every new pushed commit.
+查看正在进行的第一个部署管道。Pages 按照指定安装所有依赖项并构建项目。Cloudflare Pages 会自动重建项目，并在每次推送新提交时进行部署。
 
-Additionally, you will have access to [preview deployments](/pages/configuration/preview-deployments/), which repeat the build-and-deploy process for pull requests. With these, you can preview changes to your project with a real URL before deploying your changes to production.
+此外，你还可以访问 [预览部署](/pages/configuration/preview-deployments/)，它可以重复拉取请求的构建和部署过程。有了它们，你就可以在将更改部署到生产环境之前，用一个真实的 URL 来预览对项目所做的更改。
 
-## Use bindings in your Nuxt application
+## 在 Nuxt 应用程序中使用绑定
 
 {{<render file="/_framework-guides/_bindings_definition.md">}}
 
-### Set up bindings for local development
+### 为本地开发设置绑定
 
-Projects created via C3 come with `nitro-cloudflare-dev`, a `nitro` module that simplifies the process of working with bindings during development:
+通过 C3 创建的项目附带 `nitro-cloudflare-dev`，这是一个 `nitro `模块，可简化开发过程中的绑定工作：
 
 ```typescript
 ---
@@ -94,23 +94,23 @@ export default defineNuxtConfig({
 });
 ```
 
-This module is powered by the [`getPlatformProxy` helper function](/workers/wrangler/api#getplatformproxy). `getPlatformProxy` will automatically detect any bindings defined in your project's `wrangler.toml` file and emulate those bindings in local development. Review [Wrangler configuration information on bindings](/workers/wrangler/configuration/#bindings) for more information on how to configure bindings in `wrangler.toml`.
+该模块由 [`getPlatformProxy`辅助函数](/workers/wrangler/api#getplatformproxy) 提供支持。`getPlatformProxy `会自动检测项目的 `wrangler.toml `文件中定义的任何绑定，并在本地开发中模拟这些绑定。查看[Wrangler 关于绑定的配置信息](/workers/wrangler/configuration/#bindings)，了解如何在`wrangler.toml`中配置绑定的更多信息。
 
 {{<Aside type="note">}}
 
-`wrangler.toml` is currently **only** used for local development. Bindings specified in it are not available remotely.
+`wrangler.toml `目前**仅**用于本地开发。其中指定的绑定无法远程使用。
 
 {{</Aside>}}
 
-### Set up bindings for a deployed application
+### 为已部署的应用程序设置绑定
 
-In order to access bindings in a deployed application, you will need to [configure your bindings](/pages/functions/bindings/) in the Cloudflare dashboard.
+要访问已部署应用程序中的绑定，你需要在 Cloudflare 控制面板中[配置你的绑定](/pages/functions/bindings/)。
 
-### Add bindings to TypeScript projects
+### 为 TypeScript 项目添加绑定
 
-To get proper type support, you need to create a new `env.d.ts` file in the root of your project and declare a [binding](/pages/functions/bindings/).
+要获得适当的类型支持，你需要在项目根目录下创建一个新的 `env.d.ts` 文件，并声明一个 [binding](/pages/functions/bindings/)。
 
-The following is an example of adding a `KVNamespace` binding:
+下面是添加 `KVNamespace` 绑定的示例：
 
 ```ts
 ---
@@ -133,11 +133,11 @@ declare module 'h3' {
 }
 ```
 
-### Access bindings in your Nuxt application
+### 在 Nuxt 应用程序中访问绑定
 
-In Nuxt, add server-side code via [Server Routes and Middleware](https://nuxt.com/docs/guide/directory-structure/server#server-directory). The `defineEventHandler()` method is used to define your API endpoints in which you can access Cloudflare's context via the provided `context` field. The `context` field allows you to access any bindings set for your application.
+在 Nuxt 中，通过 [Server Routes and Middleware](https://nuxt.com/docs/guide/directory-structure/server#server-directory) 添加服务器端代码。`defineEventHandler() `方法用于定义你的 API 端点，在这些端点中，你可以通过提供的 `context `字段访问 Cloudflare 的上下文。通过 `context` 字段，你可以访问为你的应用程序设置的任何绑定。
 
-The following code block shows an example of accessing a KV namespace in Nuxt.
+下面的代码块展示了在 Nuxt 中访问 KV 命名空间的示例。
 
 
 {{<tabs labels="js | ts">}}
