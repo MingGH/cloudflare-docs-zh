@@ -1,7 +1,7 @@
 ---
 type: overview
 pcx_content_type: navigation
-title: Framework guides
+title: 框架指南
 weight: 3
 ---
 
