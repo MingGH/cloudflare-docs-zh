@@ -1,51 +1,51 @@
 ---
 pcx_content_type: concept
-title: Build watch paths 
+title: Build watch paths
 ---
 
-# Build watch paths
+# 建立监听路径
 
-When you connect a git repository to Pages, by default a change to any file in the repository will trigger a Pages build. You can configure Pages to include or exclude specific paths to specify if Pages should skip a build for a given path. This can be especially helpful if you are using a monorepo project structure and want to limit the amount of builds being kicked off. 
+将 git 仓库连接到 Pages 时，默认情况下，对仓库中任何文件的修改都会触发 Pages 的编译。你可以配置 Pages 包含或排除特定路径，以指定 Pages 是否应该跳过特定路径的构建。如果你使用的是 monorepo 项目结构，并希望限制启动的构建数量，这一点会特别有用。
 
-## Configure paths 
+## 配置路径
 
-To configure which paths are included and excluded, go to your Pages project > Settings > Builds & deployments > Build watch paths. Pages will default to setting your project’s includes paths to everything ([*]) and excludes paths to nothing (`[]`).  
+要配置包含和排除哪些路径，请转至 `Pages 项目`>`设置`>`构建和部署`>`构建监视路径`。Pages 默认会将项目的包含路径设置为全部([*])，将排除路径设置为无 (`[]`)。
 
-The configuration fields can be filled in two ways:
+配置字段有两种填写方式：
 
-* **Static filepaths**: Enter the precise name of the file you are looking to include or exclude (for example, `docs/README.md`).
-* **Wildcard syntax:** Use wildcards to match multiple path directories. You can specify wildcards at the start or end of your rule. 
+* **静态文件路径**：输入你要包含或排除的文件的准确名称(例如，`docs/README.md`)。
+* **通配符语法**：使用通配符匹配多个路径目录。你可以在规则的开头或结尾指定通配符。
 
 {{<Aside type="note" header="Wildcard syntax">}}
 
-A wildcard (`*`) is a character that is used within rules. It can be placed alone to match anything or placed at the start or end of a rule to allow for better control over branch configuration. A wildcard will match zero or more characters.For example, if you wanted to match all branches that started with `fix/` then you would create the rule `fix/*` to match strings like `fix/1`, `fix/bugs`or `fix/`.
+通配符 (`*`) 是一种在规则中使用的字符。它可以单独使用以匹配任何内容，也可以放在规则的开头或结尾，以便更好地控制分支配置。例如，如果要匹配所有以 `fix/` 开头的分支，可以创建规则 `fix/*` 来匹配 `fix/1`、`fix/bugs` 或 `fix/` 等字符串。
 
 {{</Aside>}}
 
-For each path in a push event, build watch paths will be evaluated as follows:
+对于推送事件中的每个路径，将按以下方式评估构建观察路径：
 
-  * Paths satisfying excludes conditions are ignored first 
-  * Any remaining paths are checked against includes conditions 
-  * If any matching path is found, a build is triggered. Otherwise the build is skipped
+  * 首先忽略满足排除条件的路径
+  * 根据包括的条件检查任何剩余路径
+  * 如果找到匹配的路径，就会触发构建。否则跳过构建
 
-Pages will bypass the path matching for a push event and default to building the project if: 
+如果出现以下情况，页面将绕过推送事件的路径匹配，默认为构建项目：
 
-  * A push event contains 0 file changes, in case a user pushes a empty push event to trigger a build
-  * A push event contains 3000+ file changes or 20+ commits
+  * 推送事件不包含文件更改，以防用户推送一个空的推送事件来触发构建。
+  * 推送事件包含 3000 多处文件更改或 20 多处提交
 
-## Examples
+## 示例
 
-### Example 1
-If you want to trigger a build from all changes within a set of directories, such as all changes in the folders `project-a/` and `packages/` 
-* Include paths: `project-a/*, packages/*`
-* Exclude paths: ``
+### 示例 1
+如果你想根据一组目录中的所有更改触发构建，例如 `project-a/` 和 `packages/` 文件夹中的所有更改
+* 包含路径：`project-a/*, packages/*`
+* 排除路径：``
 
-### Example 2
-If you want to trigger a build for any changes, but want to exclude changes to a certain directory, such as all changes in a docs/ directory
-* Include paths: `*`
-* Exclude paths: `docs/*`
+### 示例 2
+如果你想触发对任何更改的构建，但又想排除对特定目录的更改，如 docs/ 目录中的所有更改
+* 包含路径： `*`
+* 排除路径： `docs/*`
 
-### Example 3
-If you want to trigger a build for a specific file or specific filetype, for example all files ending in `.md`.
-* Include paths: `*.md`
-* Exclude paths: ``
+### 示例 3
+如果要触发特定文件或特定文件类型的构建，例如所有以 `.md` 结尾的文件。
+* 包含路径：`*.md`。
+* 排除路径：``

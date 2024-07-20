@@ -1,6 +1,6 @@
 ---
 pcx_content_type: concept
-title: Build caching
+title: 建立缓存
 ---
 
 # 建立缓存(测试版)

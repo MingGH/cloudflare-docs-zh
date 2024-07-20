@@ -1,13 +1,13 @@
 ---
 pcx_content_type: concept
-title: Branch deployment controls
+title: 分支部署控制
 ---
 
-# Branch deployment controls
+# 分支部署控制
 
-When connected to your git repository, Pages allows you to control which environments and branches you would like to automatically deploy to. By default, Pages will trigger a deployment any time you commit to either your production or preview environment. However, with branch deployment controls, you can configure automatic deployments to suit your preference on a per project basis.
+连接到 git 仓库后，Pages 允许你控制要自动部署到哪些环境和分支。默认情况下，Pages 会在你提交到生产环境或预览环境的任何时候触发部署。不过，有了分支部署控制，你可以根据每个项目的喜好配置自动部署。
 
-## Production branch control
+## 生产分支控制
 
 {{<Aside type="warning" header="Direct Upload">}}
 
@@ -15,66 +15,66 @@ When connected to your git repository, Pages allows you to control which environ
 
 {{</Aside>}}
 
-To configure deployment options, go to your Pages project > **Settings** > **Builds & deployments** > **Configure Production deployments**. Pages will default to setting your production environment to the branch you first push, but you can set your production to another branch if you choose.
+要配置部署选项，请进入 Pages 项目 > **设置**> **构建和部署**> **配置生产部署**。Pages 默认会将生产环境设置为首次推送的分支，但你也可以选择将生产环境设置为其他分支。
 
-You can also enable or disable automatic deployment behavior on the production branch by checking the **Enable automatic production branch deployments** box. You must save your settings in order for the new production branch controls to take effect.
+你还可以通过选中 **启用生产分支自动部署**复选框，在生产分支上启用或禁用自动部署行为。你必须保存设置，新的生产分支控制才能生效。
 
-## Preview branch control
+## 预览分支控制
 
-When configuring automatic preview deployments, there are three options to choose from.
+配置自动预览部署时，有三个选项可供选择。
 
-* **All non-Production branches**: By default, Pages will automatically deploy any and every commit to a preview branch.
-* **None**: Turns off automatic builds for all preview branches.
-* **Custom branches**: Customize the automatic deployments of certain preview branches.
+* **All non-Production branches 所有非生产分支**：默认情况下，Pages 会自动将所有提交部署到预览分支。
+* **None 无**：关闭所有预览分支的自动构建。
+* **Custom branches 自定义分支**：自定义某些预览分支的自动部署。
 
-### Custom preview branch control
+### 自定义预览分支控制
 
-By selecting **Custom branches**, you can specify branches you wish to include and exclude from automatic deployments in the provided configuration fields. The configuration fields can be filled in two ways:
+通过选择 **自定义分支**，你可以在所提供的配置字段中指定希望从自动部署中包括或排除的分支。配置字段有两种填写方式：
 
-* **Static branch names**: Enter the precise name of the branch you are looking to include or exclude (for example, staging or dev).
-* **Wildcard syntax**: Use wildcards to match multiple branches. You can specify wildcards at the start or end of your rule. The order of execution for the configuration is (1) Excludes, (2) Includes, (3) Skip. Pages will process the exclude configuration first, then go to the include configuration. If a branch does not match either then it will be skipped.
+* **静态分支名称**：输入要包含或排除的分支的准确名称(例如，暂存或开发)。
+* **通配符语法**：使用通配符匹配多个分支。你可以在规则的开头或结尾指定通配符。配置的执行顺序是：(1) 排除，(2) 包括，(3) 跳过。页面会先处理排除配置，然后再处理包含配置。如果某个分支与这两种配置都不匹配，就会被跳过。
 
 {{<Aside type="note" header="Wildcard syntax">}}
 
-A wildcard (`*`) is a character that is used within rules. It can be placed alone to match anything or placed at the start or end of a rule to allow for better control over branch configuration. A wildcard will match zero or more characters.For example, if you wanted to match all branches that started with `fix/` then you would create the rule `fix/*` to match strings like `fix/1`, `fix/bugs`or `fix/`.
+通配符 (`*`) 是一种在规则中使用的字符。它可以单独使用以匹配任何内容，也可以放在规则的开头或结尾，以便更好地控制分支配置。例如，如果要匹配所有以 `fix/` 开头的分支，可以创建规则 `fix/*` 来匹配 `fix/1`、`fix/bugs` 或 `fix/` 等字符串。
 
 {{</Aside>}}
 
 
-**Example 1:**
+**示例 1：**
 
-If you want to enforce branch prefixes such as `fix/`, `feat/`, or `chore/` with wildcard syntax, you can include and exclude certain branches with the following rules:
+如果要使用通配符语法强制执行分支前缀，如 `fix/`、`feat/` 或 `chore/` ，可以使用以下规则包含或排除某些分支：
 
-* Include Preview branches:
+* 包括预览分支：
 `fix/*`, `feat/*`, `chore/*`
 
-* Exclude Preview branches:
+* 排除预览分支：
 ``
 
-Here Pages will include any branches with the indicated prefixes and exclude everything else. In this example, the excluding option is left empty.
+在这里，Pages 将包括任何带有指定前缀的分支，并排除所有其他分支。在本例中，排除选项为空。
 
 
-**Example 2:**
+**示例 2：**
 
-If you wanted to prevent [dependabot](https://github.com/dependabot) from creating a deployment for each PR it creates, you can exclude those branches with the following:
+如果想阻止 [dependabot](https://github.com/dependabot) 为其创建的每个 PR 创建部署，可以通过以下方法排除这些分支：
 
-* Include Preview branches:
+* 包括预览分支：
 `*`
 
-* Exclude Preview branches:
+* 排除预览分支：
 `dependabot/*`
 
-Here Pages will include all branches except any branch starting with `dependabot`. In this example, the excluding option means any `dependabot/`  branches will not be built.
+在这里，Pages 将包含所有分支，但以 `dependabot` 开头的分支除外。在本例中，`排除 `选项表示不构建任何 `dependabot/` 分支。
 
 
-**Example 3:**
+**例 3：**
 
-If you only want to deploy release-prefixed branches, then you could use the following rules:
+如果只想部署版本预置分支，可以使用以下规则：
 
-* Include Preview branches:
+* 包括预览分支：
 `release/*`
 
-* Exclude Preview branches:
+* 排除预览分支：
 `*`
 
-This will deploy only branches starting with `release/`.
+这将只部署以 `release/` 开头的分支。

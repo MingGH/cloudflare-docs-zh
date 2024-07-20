@@ -90,3 +90,8 @@
 /content/pages/framework-guides/deploy-a-svelte-site.md,2024-07-20 17:23:06,4063d93c68fe7c05aec0d3e93372f2b7844def4374b93ee26b8bdf3824679b97
 /content/pages/framework-guides/nextjs/deploy-a-nextjs-site.md,2024-07-20 17:23:24,cda71c61bf2dd8c8cbf2a68fa5988fc604aef68cedc724c7b5a2f8d83acc280e
 /content/pages/framework-guides/_index.md,2024-07-20 19:03:43,c7a7bb421c03237ea04b6ec94fb6050c6813c5c2c52e882e5ab08c8d7b44069c
+/content/pages/configuration/language-support-and-tools.md,2024-07-20 19:27:10,577f01277588e3c0619b3f210cc67a730f665561bef0a41a80a5d34ba5e1b74f
+/content/pages/configuration/early-hints.md,2024-07-20 19:27:10,10605b094297a1449a609a38f31370b288d65e94169178b98b9440c8f8d30942
+/content/pages/configuration/build-watch-paths.md,2024-07-20 19:27:11,1d4e68143d1166e02907874765129c664380afe88bb877b255f9b49021c4eaf7
+/content/pages/configuration/preview-deployments.md,2024-07-20 19:27:13,86e512cb447a00bd77ad93ab4aa952a9ee8a2385ba43ce155bcfb8871d38473e
+/content/pages/configuration/branch-build-controls.md,2024-07-20 19:27:14,680f4c99ff7f0caa4fe20de1c9828a31c3f354edb4e2fb84fe4bbdf5575c84c2
