@@ -5,6 +5,6 @@ title: Migration guides
 weight: 4
 ---
 
-# Migration guides
+# 迁移指南
 
 {{<directory-listing>}}

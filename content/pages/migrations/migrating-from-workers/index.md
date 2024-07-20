@@ -2,80 +2,80 @@
 updated: 2020-08-13
 difficulty: Beginner
 pcx_content_type: tutorial
-title: Migrating from Workers Sites to Pages
+title: 从Workers迁移到Pages
 ---
 
-# Migrating from Workers Sites to Pages
+# 从Workers迁移到Pages
 
-In this tutorial, you will learn how to migrate an existing [Cloudflare Workers Sites](https://workers.cloudflare.com/sites) application to Cloudflare Pages.
+在本教程中，你将学习如何将现有的 [Cloudflare Workers Sites](https://workers.cloudflare.com/sites) 应用程序迁移到 Cloudflare Pages。
 
-As a prerequisite, you should have a Cloudflare Workers Sites project, created with [Wrangler](https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler).
+前提条件是，你应该有一个使用 [Wrangler](https://github.com/cloudflare/workers-sdk/tree/main/packages/wrangler) 创建的 Cloudflare Workers Sites 项目。
 
-Cloudflare Pages provides built-in defaults for every aspect of serving your site. You can port custom behavior in your Worker — such as custom caching logic — to your Cloudflare Pages project using [Functions](/pages/functions/). This enables an easy-to-use, file-based routing system. You can also migrate your custom headers and redirects to Pages.
+Cloudflare Pages 为服务网站的各个方面提供内置默认设置。你可以使用 [Functions](/pages/functions/)将 Worker 中的自定义行为(如自定义缓存逻辑)移植到 Cloudflare Pages 项目中。这样就可以实现一个易于使用、基于文件的路由系统。你还可以将自定义标题和重定向迁移到 Pages。
 
-You may already have a reasonably complex Worker and/or it would be tedious to splice it up into Pages' file-based routing system. For these cases, Pages offers developers the ability to define a `_worker.js` file in the output directory of your Pages project.
-
-{{<Aside type="note">}}
-
-When using a `_worker.js` file, the entire `/functions` directory is ignored – this includes its routing and middleware characteristics. Instead, the `_worker.js` file is deployed as is and must be written using the [Module Worker syntax](/workers/reference/migrate-to-module-workers/).
-
-{{</Aside>}}
-
-By migrating to Cloudflare Pages, you will be able to access features like [preview deployments](/pages/configuration/preview-deployments/) and automatic branch deploys with no extra configuration needed.
-
-## Remove unnecessary code
-
-Workers Sites projects consist of the following pieces:
-
-1. An application built with a [static site tool](/pages/how-to/) or a static collection of HTML, CSS and JavaScript files.
-2. If using a static site tool, a build directory (called `bucket` in `wrangler.toml`) where the static project builds your HTML, CSS, and JavaScript files.
-3. A Worker application for serving that build directory. For most projects, this is likely to be the `workers-site` directory.
-
-When moving to Cloudflare Pages, remove the Workers application and any associated `wrangler.toml` configuration files or build output. Instead, note and record your `build` command (if you have one), and the `bucket` field, or build directory, from the `wrangler.toml` file in your project's directory.
-
-## Migrate headers and redirects
-
-You can migrate your redirects to Pages, by creating a `_redirects` file in your output directory. Pages currently offers limited support for advanced redirects. More support will be added in the future. For a list of support types, refer to the [Redirects documentation](/pages/configuration/redirects/).
+你可能已经有了一个相当复杂的 Worker，而且/或者将其拼接到 Pages 基于文件的路由系统中会很繁琐。在这种情况下，Pages 为开发人员提供了在 Pages 项目的输出目录中定义一个 `_worker.js` 文件的功能。
 
 {{<Aside type="note">}}
 
-A project is limited to 2,000 static redirects and 100 dynamic redirects, for a combined total of 2,100 redirects. Each redirect declaration has a 1,000-character limit. Malformed definitions are ignored. If there are multiple redirects for the same source path, the topmost redirect is applied.
-
-Make sure that static redirects are before dynamic redirects in your `_redirects` file.
+使用 `_worker.js` 文件时，整个 `/functions` 目录都将被忽略 - 这包括其路由和中间件特性。相反，`_worker.js` 文件将按原样部署，并且必须使用 [Module Worker 语法](/workers/reference/migrate-to-module-workers/)编写。
 
 {{</Aside>}}
 
-In addition to a `_redirects` file, Cloudflare also offers [Bulk Redirects](/pages/configuration/redirects/#surpass-_redirects-limits), which handles redirects that surpasses the 2,100 redirect rules limit set by Pages.
+迁移到 Cloudflare Pages 后，你将能够访问 [预览部署](/pages/configuration/preview-deployments/) 和自动分支部署等功能，无需额外配置。
 
-Your custom headers can also be moved into a `_headers` file in your output directory. It is important to note that custom headers defined in the `_headers` file are not currently applied to responses from Functions, even if the Function route matches the URL pattern. To learn more about handling headers, refer to [Headers](/pages/configuration/headers/).
+## 删除不必要的代码
 
+工人遗址项目由以下部分组成：
 
-## Create a new Pages project
+1. 使用[静态网站工具](/pages/how-to/)或 HTML、CSS 和 JavaScript 文件的静态集合构建的应用程序。
+2. 如果使用静态网站工具，则需要一个构建目录(在 `wrangler.toml` 中称为`bucket`)，静态项目会在此构建 HTML、CSS 和 JavaScript 文件。
+3. 为构建目录提供服务的 Worker 应用程序。对于大多数项目来说，这可能是 `workers-site` 目录。
 
-### Connect to your git provider
+迁移到 Cloudflare Pages 时，请删除 Workers 应用程序和任何相关的 `wrangler.toml` 配置文件或构建输出。相反，请注意并记录你的 `build` 命令(如果有的话)，以及项目目录中 `wrangler.toml` 文件中的 `bucket` 字段或构建目录。
 
-After you have recorded your **build command** and **build directory** in a separate location, remove everything else from your application, and push the new version of your project up to your git provider. Follow the [Get started guide](/pages/get-started/) to add your project to Cloudflare Pages, using the **build command** and **build directory** that you saved earlier.
+## 迁移header和重定向
 
-If you choose to use a custom domain for your Pages project, you can set it to the same custom domain as your currently deployed Workers application. Follow the steps for [adding a custom domain](/pages/configuration/custom-domains/#add-a-custom-domain) to your Pages project.
+你可以在输出目录中创建一个 `_redirects` 文件，将重定向迁移到 Pages。Pages 目前对高级重定向的支持有限。未来将添加更多支持。有关支持类型的列表，请参阅[重定向文档](/pages/configuration/redirects/)。
 
 {{<Aside type="note">}}
 
-Before you deploy, you will need to delete your old Workers routes to start sending requests to Cloudflare Pages.
+一个项目只能有 2,000 个静态重定向和 100 个动态重定向，合计 2,100 个重定向。每个重定向声明有 1000 个字符的限制。畸形定义将被忽略。如果同一源路径有多个重定向，则应用最上层的重定向。
+
+确保在 `_redirects` 文件中，静态重定向位于动态重定向之前。
 
 {{</Aside>}}
 
-### Using Direct Upload
+除 `_redirects` 文件外，Cloudflare 还提供 [批量重定向](/pages/configuration/redirects/#surpass-_redirects-limits)，用于处理超过 Pages 设置的 2,100 条重定向规则限制的重定向。
 
-If your Workers site has its custom build settings, you can bring your prebuilt assets to Pages with [Direct Upload](/pages/get-started/direct-upload/). In addition, you can serve your website's assets right to the Cloudflare global network by either using the [Wrangler CLI](/workers/wrangler/install-and-update/) or the drag and drop option.
+也可以将自定义标题移入输出目录中的 `_headers` 文件。需要注意的是，在 `_headers`文件中定义的自定义header目前不会应用于函数的响应，即使函数路由与 URL 模式相匹配。要了解有关处理标题的更多信息，请参阅 [标题](/pages/configuration/headers/)。
 
-These options allow you to create and name a new project from the CLI or dashboard. After your project deployment is complete, you can set the custom domain by following the [adding a custom domain](/pages/configuration/custom-domains/#add-a-custom-domain) steps to your Pages project.
 
-## Cleaning up your old application and assigning the domain
+## 创建一个新的 Pages 项目
 
-After you have deployed your Pages application, to delete your Worker:
+### 连接到你的 Git 提供商
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. Go to **Workers & Pages** and in **Overview**, select your Worker.
-3. Go to **Manage service** > **Delete**.
+将 **build 命令**和 **build 目录**记录到一个单独的位置后，删除应用程序中的所有其他内容，并将项目的新版本推送到 git 提供商。按照 [入门指南](/pages/get-started/) 使用你之前保存的 **build 命令**和 **build 目录**，将你的项目添加到 Cloudflare Pages。
 
-With your Workers application removed, requests will go to your Pages application. You have successfully migrated your Workers Sites project to Cloudflare Pages by completing this guide.
+如果选择在 Pages 项目中使用自定义域，可以将其设置为与当前部署的 Workers 应用程序相同的自定义域。请按照 [添加自定义域](/pages/configuration/custom-domains/#add-a-custom-domain) 的步骤操作。
+
+{{<Aside type="note">}}
+
+部署前，你需要删除旧的 Workers 路由，以便开始向 Cloudflare 页面发送请求。
+
+{{</Aside>}}
+
+### 使用直接上传
+
+如果你的 Workers 网站有自定义构建设置，你可以使用 [Direct Upload](/pages/get-started/direct-upload/)将预构建资产导入页面。此外，你还可以使用[Wrangler CLI](/workers/wrangler/install-and-update/)或拖放选项，将网站资产直接传送到 Cloudflare 全球网络。
+
+通过这些选项，你可以从 CLI 或仪表板创建新项目并为其命名。项目部署完成后，你可以按照 Pages 项目中的 [添加自定义域](/pages/configuration/custom-domains/#add-a-custom-domain) 步骤设置自定义域。
+
+## 清理旧应用程序并分配域名
+
+部署完 Pages 应用程序后，删除 Worker：
+
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 进入**工作者和页面**，在**概览**中选择你的工作者。
+3. 转到 **管理服务**> **删除**。
+
+删除 Workers 应用程序后，请求将转至 Pages 应用程序。通过完成本指南，你已成功将 Workers Sites 项目迁移到 Cloudflare Pages。

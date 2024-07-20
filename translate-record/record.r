@@ -49,3 +49,6 @@
 /content/pages/functions/debugging-and-logging.md,2024-07-17 19:45:27,623cc85de9509cb62b5f04881a983c9b6d95e0ed58942e6fd9f8e2cc26f57042
 /content/pages/how-to/use-direct-upload-with-continuous-integration.md,2024-07-17 19:45:35,c2930a874c30307fb5f4ae5599afc887c93d4b38cdecfcb2bf4b4ba4821ad1ae
 /content/pages/functions/routing.md,2024-07-17 19:45:36,4e7211871755b6eb68d0f875bca09524e9f753a040b9612fc71f186dedb1ca20
+/content/pages/migrations/_index.md,2024-07-20 15:26:47,75c6f1ee5fb2d2f5d0e8f82ac124e9aaad835589f118bd9a6b138b99416b08bb
+/content/pages/migrations/migrating-from-firebase.md,2024-07-20 15:26:51,869108815ab820a82949d2e4993fb28d80b5b0500b05e3b7f4b3b9674095e2cb
+/content/pages/migrations/migrating-from-workers/index.md,2024-07-20 15:26:57,ced6331293c88e2bead596ee7f098da731b2b56fb247dde788f5d5630bb8f2bc
