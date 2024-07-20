@@ -3,11 +3,11 @@ pcx_content_type: how-to
 title: Brunch
 ---
 
-# 早午餐
+# Brunch
 
 [Brunch](https://brunch.io/)是一款快速的前端网络应用程序构建工具，具有简单的声明式配置和无缝增量编译功能，可用于快速开发。
 
-## 安装早午餐
+## 安装Brunch
 
 首先，安装 Brunch：
 
@@ -15,7 +15,7 @@ title: Brunch
 $ npm install -g brunch
 ```
 
-## 创建一个早午餐项目
+## 创建一个Brunch项目
 
 Brunch 维护着一个社区提供的 [skeletons](https://brunch.io/skeletons) 库，为你的项目提供模板。使用 `brunch new` 命令运行 Brunch 推荐的 `es6` 骨架：
 
@@ -31,9 +31,9 @@ $ brunch new proj -s es6
 
 将网站部署到页面：
 
-1.登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
-2.在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
-3.选择你创建的新 GitHub 仓库，然后在**设置构建和部署**部分，选择*Brunch*作为你的**框架预设**。你的选择将提供以下信息。
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择你创建的新 GitHub 仓库，然后在**设置构建和部署**部分，选择*Brunch*作为你的**框架预设**。你的选择将提供以下信息。
 
 {{<pages-build-preset framework="brunch">}}
 

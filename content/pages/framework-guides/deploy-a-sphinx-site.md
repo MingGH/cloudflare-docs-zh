@@ -5,76 +5,76 @@ title: Sphinx
 
 # Sphinx
 
-[Sphinx](https://www.sphinx-doc.org/) is a tool that makes it easy to create documentation and was originally made for the publication of Python documentation. It is well known for its simplicity and ease of use.
+[Sphinx](https://www.sphinx-doc.org/)是一个可以轻松创建文档的工具，最初是为发布 Python 文档而设计的。它以简单易用而著称。
 
-In this guide, you will create a new Sphinx project and deploy it using Cloudflare Pages.
+在本指南中，你将创建一个新的 Sphinx 项目并使用 Cloudflare Pages 进行部署。
 
-## Prerequisites
+## 先决条件
 
-- Python 3 - Sphinx is based on Python, therefore you must have Python installed
+- Python 3 - Sphinx 基于 Python，因此必须安装 Python
 
-- [pip](https://pypi.org/project/pip/) - The PyPA recommended tool for installing Python packages
+- [pip](https://pypi.org/project/pip/) - PyPA 推荐的安装 Python 软件包的工具
 
-- [pipenv](https://pipenv.pypa.io/en/latest/) - automatically creates and manages a virtualenv for your projects
+- [pipenv](https://pipenv.pypa.io/en/latest/) - 自动为项目创建和管理虚拟环境
 
 {{<Aside type="note">}}
 
-If you are already running a version of Python 3.7, ensure that Python version 3.7 is also installed on your computer before you begin this guide. Python 3.7 is the latest version supported by Cloudflare Pages.
+如果你已经在运行 Python 3.7 版本，请确保在开始本指南之前，你的计算机上也安装了 Python 3.7 版本。Python 3.7 是 Cloudflare Pages 支持的最新版本。
 
 {{</Aside>}}
 
-The latest version of Python 3.7 is 3.7.11:
+Python 3.7 的最新版本是 3.7.11：
 
 [Python 3.7.11](https://www.python.org/downloads/release/python-3711/)
 
-### Installing Python
+### 安装 Python
 
-Refer to the official Python documentation for installation guidance:
+有关安装指导，请参阅 Python 官方文档：
 
 - [Windows](https://www.python.org/downloads/windows/)
 - [Linux/UNIX](https://www.python.org/downloads/source/)
 - [macOS](https://www.python.org/downloads/macos/)
-- [Other](https://www.python.org/download/other/)
+- [其他](https://www.python.org/download/other/)
 
-### Installing Pipenv
+### 安装 Pipenv
 
-If you already had an earlier version of Python installed before installing version 3.7, other global packages you may have installed could interfere with the following steps to install Pipenv, or your other Python projects which depend on global packages.
+如果你在安装 3.7 版之前已经安装了较早版本的 Python，那么你可能已经安装的其他全局包可能会干扰下面安装 Pipenv 的步骤，或你的其他依赖于全局包的 Python 项目。
 
-[Pipenv](https://pipenv.pypa.io/en/latest/) is a Python-based package manager that makes managing virtual environments simple. This guide will not require you to have prior experience with or knowledge of Pipenv to complete your Sphinx site deployment. Cloudflare Pages natively supports the use of Pipenv and, by default, has the latest version installed.
+[Pipenv](https://pipenv.pypa.io/en/latest/)是一个基于 Python 的软件包管理器，可让虚拟环境管理变得简单。本指南不要求你事先具备使用 Pipenv 的经验或知识以完成 Sphinx 站点部署。Cloudflare Pages 本身支持使用 Pipenv，默认情况下已安装最新版本。
 
-The quickest way to install Pipenv is by running the command:
+安装 Pipenv 的最快方法是运行命令：
 
 ```shell
 $ pip install --user pipenv
 ```
 
-This command will install Pipenv to your user level directory and will make it accessible via your terminal. You can confirm this by running the following command and reviewing the expected output:
+该命令将把 Pipenv 安装到用户层目录，并可通过终端访问。运行以下命令并查看预期输出即可确认：
 
 ```shell
 $ pipenv --version
 pipenv, version 2021.5.29
 ```
 
-### Creating a Sphinx project directory
+### 创建 Sphinx 项目目录
 
-From your terminal, run the following commands to create a new directory and navigate to it:
+在终端运行以下命令创建新目录并导航到该目录：
 
 ```shell
 $ mkdir my-wonderful-new-sphinx-project
 $ cd my-wonderful-new-sphinx-project
 ```
 
-### Pipenv with Python 3.7
+### 使用 Python 3.7 的 Pipenv
 
-Pipenv allows you to specify which version of Python to associate with a virtual environment. For the purpose of this guide, the virtual environment for your Sphinx project must use Python 3.7.
+Pipenv 允许你指定与虚拟环境相关联的 Python 版本。在本指南中，Sphinx 项目的虚拟环境必须使用 Python 3.7。
 
-Use the following command:
+使用以下命令
 
 ```shell
 ~my-wonderful-new-sphinx-project$ pipenv --python 3.7
 ```
 
-You should see the following output:
+输出结果如下
 
 ```bash
 Creating a virtualenv for this project...
@@ -91,24 +91,24 @@ Virtualenv location: /home/ubuntu/.local/share/virtualenvs/my-wonderful-new-sphi
 Creating a Pipfile for this project...
 ```
 
-List the contents of the directory:
+列出目录内容：
 
 ```shell
 ~my-wonderful-new-sphinx-project$ ls
 Pipfile
 ```
 
-### Installing Sphinx
+### 安装Sphinx
 
-Before installing Sphinx, create the directory you want your project to live in.
+安装 Sphinx 之前，请创建你希望项目所在的目录。
 
-From your terminal, run the following command to install Sphinx:
+在终端运行以下命令安装 Sphinx：
 
 ```shell
 ~/my-wonderful-new-sphinx-project$ pipenv install sphinx
 ```
 
-You should see output similar to the following:
+你应该会看到类似下面的输出：
 
 ```bash
 Installing sphinx...
@@ -127,7 +127,7 @@ To activate this project's virtualenv, run pipenv shell.
 Alternatively, run a command inside the virtualenv with pipenv run.
 ```
 
-This will install Sphinx into a new virtual environment managed by Pipenv. You should see a directory structure like this:
+这将把 Sphinx 安装到由 Pipenv 管理的新虚拟环境中。你应该看到这样的目录结构：
 
 ```bash
 my-wonderful-new-sphinx-project
@@ -135,9 +135,9 @@ my-wonderful-new-sphinx-project
 |--Pipfile.lock
 ```
 
-## Creating a new project
+## 创建一个新项目
 
-With Sphinx installed, you can now run the quickstart command to create a template project for you. This command will only work within the Pipenv environment you created in the previous step. To enter that environment, run the following command from your terminal:
+安装好 Sphinx 后，现在就可以运行 quickstart 命令，为自己创建一个模板项目。该命令只能在上一步创建的 Pipenv 环境中运行。要进入该环境，请在终端运行以下命令：
 
 ```shell
 ~/my-wonderful-new-sphinx-project$ pipenv shell
@@ -145,13 +145,13 @@ Launching subshell in virtual environment...
 ubuntu@sphinx-demo:~/my-wonderful-new-sphinx-project$  . /home/ubuntu/.local/share/virtualenvs/my-wonderful-new-sphinx-project-Y2HfWoOr/bin/activate
 ```
 
-Now run the following command:
+现在运行以下命令
 
 ```shell
 (my-wonderful-new-sphinx-project) user@hostname:~/my-wonderful-new-sphinx-project$ sphinx-quickstart
 ```
 
-You will be presented with a number of questions, please answer them in the following:
+你将收到一些问题，请在下面回答：
 
 ```shell
 $ Separate source and build directories (y/n) [n]: Y
@@ -161,7 +161,7 @@ $ Project release []: <You can accept default here or provide a version>
 $ Project language [en]: <You can accept en here or provide a regional language code>
 ```
 
-This will create four new files in your active directory, `source/conf.py`, `index.rst`, `Makefile` and `make.bat`:
+这将在你的活动目录中创建四个新文件：`source/conf.py`、`index.rst`、`Makefile` 和`make.bat`：
 
 ```bash
 my-wonderful-new-sphinx-project
@@ -176,16 +176,16 @@ my-wonderful-new-sphinx-project
 |--make.bat
 ```
 
-You now have everything you need to start deploying your site to Cloudflare Pages. For learning how to create documentation with Sphinx, refer to the official [Sphinx documentation](https://www.sphinx-doc.org/en/master/usage/quickstart.html).
+现在，你已经拥有了开始将网站部署到 Cloudflare 页面所需的一切。如需了解如何使用 Sphinx 创建文档，请参阅官方[Sphinx 文档](https://www.sphinx-doc.org/en/master/usage/quickstart.html)。
 
 {{<render file="_tutorials-before-you-start.md">}}
 
-## Creating a GitHub repository
+## 创建 GitHub 仓库
 
-<!-- TODO: check, do we need to specify all the various ssh + configs here?
-     (if not this should use the _create-github-repository partial instead) -->
+<! -- 待办事项：检查，我们是否需要在这里指定所有各种 ssh + 配置？
+     (如果没有，则应使用 _create-github-repository 部分)-->
 
-In a separate terminal window that is not within the pipenv shell session, verify that SSH key-based authentication is working:
+在 pipenv shell 会话之外的另一个终端窗口中，验证基于 SSH 密钥的身份验证是否正常：
 
 ```shell
 $ eval "$(ssh-agent)"
@@ -199,7 +199,7 @@ Warning: Permanently added 'github.com,140.82.113.4' (RSA) to the list of known 
 Hi yourgithubusername! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-Create a new GitHub repository by visiting [repo.new](https://repo.new). After your repository is set up, push your application to GitHub by running the following commands in your terminal:
+访问 [repo.new](https://repo.new)，创建一个新的 GitHub 仓库。仓库建立后，在终端运行以下命令，将应用程序推送到 GitHub：
 
 ```shell
 $ git init
@@ -212,13 +212,13 @@ $ git branch -M main
 $ git push -u origin main
 ```
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
-To deploy your site to Pages:
+将网站部署到页面：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 <div>
 
@@ -230,9 +230,9 @@ To deploy your site to Pages:
 
 </div>
 
-Below the configuration, make sure to set the environment variable for specifying the `PYTHON_VERSION`.
+在配置下方，请确保设置用于指定 `PYTHON_VERSION` 的环境变量。
 
-For example:
+例如
 
 <div>
 
@@ -242,16 +242,16 @@ For example:
 
 </div>
 
-After configuring your site, you can begin your first deploy. You should see Cloudflare Pages installing `Pipenv`, your project dependencies, and building your site, before deployment.
+配置网站后，你可以开始首次部署。在部署之前，你应该看到 Cloudflare 页面正在安装 `Pipenv`、项目依赖项并构建网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`. Every time you commit new code to your Sphinx site, Cloudflare Pages will automatically rebuild your project and deploy it.
+部署网站后，你将在 `*.pages.dev`上为你的项目获得一个唯一的子域。每次你向 Sphinx 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。
 
-You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+你还可以访问新的拉取请求上的 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在将更改部署到生产环境之前预览网站的外观。
 
 {{<render file="/_framework-guides/_learn-more.md" withParameters="Sphinx">}}
