@@ -5,29 +5,29 @@ title: Remix
 
 # Remix
 
-[Remix](https://remix.run/) is a framework that is focused on fully utilizing the power of the web. Like Cloudflare Workers, it uses modern JavaScript APIs, and it places emphasis on web fundamentals such as meaningful HTTP status codes, caching and optimizing for both usability and performance.
+[Remix](https://remix.run/)是一个专注于充分利用网络力量的框架。与 Cloudflare Workers 一样，它也使用现代 JavaScript API，并注重网络基本要素，例如有意义的 HTTP 状态代码、缓存以及可用性和性能优化。
 
-In this guide, you will create a new Remix application and deploy to Cloudflare Pages.
+在本指南中，你将创建一个新的 Remix 应用程序并部署到 Cloudflare 页面。
 
-## Setting up a new project
+## 设置新项目
 
-Use the [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) to set up a new project. C3 will create a new project directory, initiate Remix's official setup tool, and provide the option to deploy instantly.
+使用 [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) 建立新项目。C3 会创建一个新的项目目录，启动 Remix 的官方设置工具，并提供即时部署选项。
 
-To use `create-cloudflare` to create a new Remix project, run the following command:
+要使用 `create-cloudflare` 创建新 Remix 项目，请运行以下命令：
 
 ```sh
 $ npm create cloudflare@latest my-remix-app -- --framework=remix
 ```
 
-`create-cloudflare` will install additional dependencies, including the [Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI and any necessary adapters, and ask you setup questions.
+`create-cloudflare`将安装其他依赖项，包括[Wrangler](/workers/wrangler/install-and-update/#check-your-wrangler-version) CLI 和任何必要的适配器，并向你提出设置问题。
 
 {{<Aside type="warning" header="Before you deploy">}}
-Your Remix project will include a `functions/[[path]].ts` file. The `[[path]]` filename indicates that this file will handle requests to all incoming URLs. Refer to [Path segments](/pages/functions/routing/#dynamic-routes) to learn more.
+Remix 项目将包含一个 `functions/[[path]].ts` 文件。文件名`[[path]]`表示该文件将处理对所有传入 URL 的请求。请参阅 [Path segments](/pages/functions/routing/#dynamic-routes)，了解更多信息。
 
-The `functions/[[path]].ts` will not function as expected if you attempt to deploy your site before running `remix vite:build`.
+如果在运行 `remix vite:build` 之前尝试部署网站，则 `functions/[[path]].ts` 将无法按预期运行。
 {{</Aside>}}
 
-After setting up your project, change the directory and render your project by running the following command:
+设置好项目后，运行以下命令更改目录并渲染项目：
 
 ```sh
 # choose Cloudflare Pages
@@ -39,49 +39,49 @@ $ npm run dev
 
 {{<render file="/_framework-guides/_create-github-repository_no_init.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare 页面部署
 
 {{<render file="_deploy-via-c3.md" withParameters="Remix">}}
 
-### Deploy via the Cloudflare dashboard
+### 通过 Cloudflare 控制面板部署
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 {{<pages-build-preset framework="remix">}}
 
-After configuring your site, you can begin your first deploy. You should see Cloudflare Pages installing `npm`, your project dependencies, and building your site before deploying it.
+配置好网站后，你就可以开始第一次部署了。你应该会看到 Cloudflare 页面正在安装 `npm`、你的项目依赖项，并在部署前构建你的网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`.
-Every time you commit new code to your Remix site, Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, so you can preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev`上为你的项目收到一个唯一的子域。
+每次你向 Remix 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还可以访问新拉取请求上的 [预览部署](/pages/configuration/preview-deployments/)，这样你就可以在部署到生产环境之前预览网站的变更效果。
 
-### Deploy via the Wrangler CLI
+### 通过 Wrangler CLI 部署
 
-If you use [`create-cloudflare`(C3)](https://www.npmjs.com/package/create-cloudflare) to create your new Remix project, C3 will automatically scaffold your project with [`wrangler`](/workers/wrangler/). To deploy your project, run the following command:
+如果使用 [`create-cloudflare`(C3)](https://www.npmjs.com/package/create-cloudflare)创建新 Remix 项目，C3 会自动使用 [`wrangler`](/workers/wrangler/)为项目搭建脚手架。要部署项目，请运行以下命令：
 
 ```sh
 $ npm run deploy
 ```
 
-## Create and add a binding to your Remix application
+## 为 Remix 应用程序创建并添加绑定
 
-To add a binding to your Remix application, refer to [Bindings](/pages/functions/bindings/).
-A [binding](/pages/functions/bindings/) allows your application to interact with Cloudflare developer products, such as [KV namespaces](/kv/reference/how-kv-works/), [Durable Objects](/durable-objects/), [R2 storage buckets](/r2/), and [D1 databases](/d1/).
+要在 Remix 应用程序中添加绑定，请参阅 [绑定](/pages/functions/bindings/)。
+[绑定](/pages/functions/bindings/) 允许你的应用程序与 Cloudflare 开发人员产品交互，例如 [KV 命名空间](/kv/reference/how-kv-works/)、[耐用对象](/durable-objects/)、[R2 存储桶](/r2/) 和 [D1 数据库](/d1/)。
 
-### Binding resources in local development
+### 在本地开发中绑定资源
 
-Remix uses Wrangler's [`getPlatformProxy`](/workers/wrangler/api/#getplatformproxy) to simulate the Cloudflare environment locally. You configure `getPlatformProxy` in your project's `vite.config.ts` file via [`cloudflareDevProxyVitePlugin`](https://remix.run/docs/en/main/future/vite#cloudflare-proxy).
+Remix 使用 Wrangler 的 [`getPlatformProxy`](/workers/wrangler/api/#getplatformproxy)在本地模拟 Cloudflare 环境。你可通过[`cloudflareDevProxyVitePlugin`](https://remix.run/docs/en/main/future/vite#cloudflare-proxy)在项目的`vite.config.ts`文件中配置`getPlatformProxy`。
 
-To bind resources in local development, you need to configure the bindings in the `wrangler.toml` file. Refer to [Bindings](/workers/wrangler/configuration/#bindings) to learn more.
+要在本地开发中绑定资源，需要在 `wrangler.toml` 文件中配置绑定。请参阅 [绑定](/workers/wrangler/configuration/#bindings)，了解更多信息。
 
-Once you have configured the bindings in the `wrangler.toml` file, the proxies are then available within `context.cloudflare` in your `loader` or `action` functions:
+在`wrangler.toml`文件中配置绑定后，代理就可以在`context.cloudflare`中的`loader`或`action`函数中使用：
 
 ```typescript
 export const loader = ({ context }: LoaderFunctionArgs) => {
@@ -92,25 +92,25 @@ export const loader = ({ context }: LoaderFunctionArgs) => {
 ```
 
 {{<Aside header="Correcting the env type">}}
-You may have noticed that `context.cloudflare.env` is not typed correctly when you add additional bindings in `wrangler.toml`.
+你可能已经注意到，在 `wrangler.toml` 中添加附加绑定时，`context.cloudflare.env` 的键入不正确。
 
-To fix this, run `npm run typegen` to generate the missing types. This will update the `Env` interface defined in `worker-configuration.d.ts`.
-After running the command, you can access the bindings in your `loader` or `action` using `context.cloudflare.env` as shown above.
+要解决这个问题，请运行 `npm run typegen` 生成缺失的类型。这将更新 `worker-configuration.d.ts` 中定义的 `Env` 接口。
+运行该命令后，如上图所示，你可以使用 `context.cloudflare.env` 访问 `loader` 或 `action` 中的绑定。
 {{</Aside>}}
 
 
-### Binding resources in production
+### 在生产中绑定资源
 
-To bind resources in production, you need to configure the bindings in the Cloudflare dashboard. Refer to the [Bindings](/pages/functions/bindings/) documentation to learn more.
+要在生产中绑定资源，你需要在 Cloudflare 面板中配置绑定。请参阅 [绑定](/pages/functions/bindings/) 文档了解更多信息。
 
-Once you have configured the bindings in the Cloudflare dashboard, the proxies are then available within `context.cloudflare.env` in your `loader` or `action` functions as shown [above](#binding-resources-in-local-development).
+在 Cloudflare 控制面板中配置绑定后，代理就可以在`loader`或`action`函数中的`context.cloudflare.env`中使用，[如上所示](#binding-resources-in-local-development)。
 
-## Example: Access your D1 database in a Remix application
+## 示例在 Remix 应用程序中访问 D1 数据库
 
-As an example, you will bind and query a D1 database in a Remix application.
+例如，你将在 Remix 应用程序中绑定并查询 D1 数据库。
 
-1. Create a D1 database. Refer to the [D1 documentation](/d1/) to learn more.
-2. Configure bindings for your D1 database in the `wrangler.toml` file:
+1. 创建 D1 数据库。请参阅 [D1 文档](/d1/) 了解更多信息。
+2. 在 `wrangler.toml` 文件中为 D1 数据库配置绑定：
 
 ```toml
 [[ d1_databases ]]
@@ -118,7 +118,7 @@ binding = "DB"
 database_name = "<YOUR_DATABASE_NAME>"
 database_id = "<YOUR_DATABASE_ID>"
 ```
-3. Run `npm run typegen` to generate TypeScript types for your bindings.
+3. 运行 `npm run typegen` 为绑定生成 TypeScript 类型。
 
 ```sh
 $ npm run typegen
@@ -132,7 +132,7 @@ interface Env {
 }
 ```
 
-4. Access the D1 database in your `loader` function:
+4. 在`loader`函数中访问 D1 数据库：
 
 ```typescript
 ---
