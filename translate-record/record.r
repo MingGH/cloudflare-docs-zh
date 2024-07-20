@@ -95,3 +95,6 @@
 /content/pages/configuration/build-watch-paths.md,2024-07-20 19:27:11,1d4e68143d1166e02907874765129c664380afe88bb877b255f9b49021c4eaf7
 /content/pages/configuration/preview-deployments.md,2024-07-20 19:27:13,86e512cb447a00bd77ad93ab4aa952a9ee8a2385ba43ce155bcfb8871d38473e
 /content/pages/configuration/branch-build-controls.md,2024-07-20 19:27:14,680f4c99ff7f0caa4fe20de1c9828a31c3f354edb4e2fb84fe4bbdf5575c84c2
+/content/pages/configuration/_index.md,2024-07-20 23:00:58,3e65c3f3f557a1411ca069420b46c4bafdbf1ba0f84b7bfc634dfd56ba6158ca
+/content/pages/configuration/build-configuration.md,2024-07-20 23:01:06,5ec351226d5d9fee15ddee9738ec9be58a2f23beb581ad8b9ddbb2afcd79d903
+/content/pages/configuration/deploy-hooks.md,2024-07-20 23:01:18,872bed03e7206f62b72b80a3abd3e156363523644c8f351dbf2fc40d2f71e041
