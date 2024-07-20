@@ -5,25 +5,25 @@ title: Qwik
 
 # Qwik
 
-[Qwik](https://github.com/builderio/qwik) is an open-source, DOM-centric, resumable web application framework designed for best possible time to interactive by focusing on [resumability](https://qwik.builder.io/docs/concepts/resumable/), server-side rendering of HTML and [fine-grained lazy-loading](https://qwik.builder.io/docs/concepts/progressive/#lazy-loading) of code.
+[Qwik](https://github.com/builderio/qwik)是一个开源的、以 DOM 为中心的、可续写的网络应用程序框架，其设计重点是[可续写性](https://qwik.builder.io/docs/concepts/resumable/)、HTML 的服务器端渲染和代码的[细粒度懒加载](https://qwik.builder.io/docs/concepts/progressive/#lazy-loading)，从而尽可能缩短交互时间。
 
-In this guide, you will create a new Qwik application implemented via [Qwik City](https://qwik.builder.io/qwikcity/overview/) (Qwik's meta-framework) and deploy it using Cloudflare Pages.
+在本指南中，你将通过 [Qwik City](https://qwik.builder.io/qwikcity/overview/)(Qwik 的元框架)创建一个新的 Qwik 应用程序，并使用 Cloudflare Pages 进行部署。
 
-## Creating a new project
+## 创建一个新项目
 
-Use the [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) to create a new project. C3 will create a new project directory, initiate Qwik's official setup tool, and provide the option to deploy instantly.
+使用 [`create-cloudflare`](https://www.npmjs.com/package/create-cloudflare) CLI (C3) 创建新项目。C3 将创建一个新的项目目录，启动 Qwik 的官方设置工具，并提供即时部署选项。
 
-To use `create-cloudflare` to create a new Qwik project, run the following command:
+要使用 `create-cloudflare` 创建新的 Qwik 项目，请运行以下命令：
 
 ```sh
 $ npm create cloudflare@latest my-qwik-app -- --framework=qwik
 ```
 
-`create-cloudflare` will install additional dependencies, including the [Wrangler CLI](/workers/wrangler/install-and-update/#check-your-wrangler-version) and any necessary adapters, and ask you setup questions.
+`create-cloudflare`将安装其他依赖项，包括[Wrangler CLI](/workers/wrangler/install-and-update/#check-your-wrangler-version)和任何必要的适配器，并向你提出设置问题。
 
-As part of the `cloudflare-pages` adapter installation, a `functions/[[path]].ts` file will be created. The `[[path]]` filename indicates that this file will handle requests to all incoming URLs. Refer to [Path segments](/pages/functions/routing/#dynamic-routes) to learn more.
+作为 `cloudflare-pages `适配器安装的一部分，将创建一个 `functions/[[path]].ts `文件。文件名`[[path]]`表示该文件将处理对所有传入 URL 的请求。请参阅 [Path segments](/pages/functions/routing/#dynamic-routes)，了解更多信息。
 
-After selecting your server option, change the directory to your project and render your project by running the following command:
+选择服务器选项后，将目录更改为项目，然后运行以下命令渲染项目：
 
 ```sh
 $ npm start
@@ -33,36 +33,36 @@ $ npm start
 
 {{<render file="/_framework-guides/_create-github-repository.md">}}
 
-## Deploy with Cloudflare Pages
+## 使用 Cloudflare Pages部署
 
 {{<render file="_deploy-via-c3.md" withParameters="Qwik">}}
 
-### Deploy via the Cloudflare dashboard
+### 通过 Cloudflare 控制面板部署
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/) and select your account.
-2. In Account Home, select **Workers & Pages** > **Create application** > **Pages** > **Connect to Git**.
-3. Select the new GitHub repository that you created and, in the **Set up builds and deployments** section, provide the following information:
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/) 并选择你的账户。
+2. 在账户主页，选择 **工作者和页面**> **创建应用程序**> **页面**> **连接到 Git**。
+3. 选择创建的新 GitHub 仓库，并在 `**设置构建和部署**`部分提供以下信息：
 
 {{<pages-build-preset framework="qwik">}}
 
-After configuring your site, you can begin your first deploy. You should see Cloudflare Pages installing `npm`, your project dependencies, and building your site before deploying it.
+配置好网站后，你就可以开始第一次部署了。你应该会看到 Cloudflare 页面正在安装 `npm`、你的项目依赖项，并在部署前构建你的网站。
 
 {{<Aside type="note">}}
 
-For the complete guide to deploying your first site to Cloudflare Pages, refer to the [Get started guide](/pages/get-started/).
+有关将你的第一个网站部署到 Cloudflare Pages 的完整指南，请参阅 [入门指南](/pages/get-started/)。
 
 {{</Aside>}}
 
-After deploying your site, you will receive a unique subdomain for your project on `*.pages.dev`.
-Every time you commit new code to your Qwik site, Cloudflare Pages will automatically rebuild your project and deploy it. You will also get access to [preview deployments](/pages/configuration/preview-deployments/) on new pull requests, to preview how changes look to your site before deploying them to production.
+部署网站后，你将在 `*.pages.dev`上为你的项目收到一个唯一的子域。
+每次你向 Qwik 网站提交新代码时，Cloudflare Pages 都会自动重建你的项目并进行部署。你还可以在新的拉取请求中访问 [预览部署](/pages/configuration/preview-deployments/)，以便在将更改部署到生产环境之前预览网站的外观。
 
-## Use bindings in your Qwik application
+## 在 Qwik 应用程序中使用绑定
 
-A [binding](/pages/functions/bindings/) allows your application to interact with Cloudflare developer products, such as [KV](/kv/reference/how-kv-works/), [Durable Object](/durable-objects/), [R2](/r2/), and [D1](https://blog.cloudflare.com/introducing-d1/).
+[绑定](/pages/functions/bindings/) 允许你的应用程序与 Cloudflare 开发人员产品交互，例如 [KV](/kv/reference/how-kv-works/)、[Durable Object](/durable-objects/)、[R2](/r2/) 和 [D1](https://blog.cloudflare.com/introducing-d1/)。
 
-In QwikCity, add server-side code via [routeLoaders](https://qwik.builder.io/qwikcity/route-loader/) and [actions](https://qwik.builder.io/qwikcity/action/). Then access bindings set for your application via the `platform` object provided by the framework.
+在 QwikCity 中，通过 [routeLoaders](https://qwik.builder.io/qwikcity/route-loader/) 和 [actions](https://qwik.builder.io/qwikcity/action/) 添加服务器端代码。然后通过框架提供的 `platform` 对象访问为应用程序设置的绑定。
 
-The following code block shows an example of accessing a KV namespace in QwikCity.
+下面的代码块展示了在 QwikCity 中访问 KV 命名空间的示例。
 
 ```typescript
 ---
