@@ -4,17 +4,17 @@ title: Module support
 weight: 13
 ---
 
-# Module support
+# 模块支持
 
-Pages Functions provide support for several module types, much like [Workers](https://blog.cloudflare.com/workers-javascript-modules/). This means that you can import and use external modules such as WebAssembly (Wasm), `text` and `binary` files inside your Functions code.
+Pages Functions 支持多种模块类型，就像 [Workers](https://blog.cloudflare.com/workers-javascript-modules/)。这意味着你可以在 Functions 代码中导入和使用 WebAssembly (Wasm)、`text` 和`binary` 文件等外部模块。
 
-This guide will instruct you on how to use these different module types inside your Pages Functions.
+本指南将指导你如何在 Pages 函数中使用这些不同的模块类型。
 
-## ECMAScript Modules
+## ECMAScript 模块
 
-ECMAScript modules (or in short ES Modules) is the official, [standardized](https://tc39.es/ecma262/#sec-modules) module system for JavaScript. It is the recommended mechanism for writing modular and reusable JavaScript code. 
+ECMAScript 模块(简称 ES 模块)是 JavaScript 的官方[标准化](https://tc39.es/ecma262/#sec-modules) 模块系统。它是编写模块化和可重用 JavaScript 代码的推荐机制。
 
-[ES Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) are defined by the use of `import` and `export` statements. Below is an example of a script written in ES Modules format, and a Pages Function that imports that module:
+[ES 模块](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) 是通过使用 `import` 和 `export` 语句来定义的。下面是一个以 ES 模块格式编写的脚本和导入该模块的 Pages 函数的示例：
 
 ```js
 ---
@@ -36,13 +36,13 @@ export async function onRequest(context) {
 }
 ```
 
-## WebAssembly Modules
+## WebAssembly 模块
 
-[WebAssembly](/workers/runtime-apis/webassembly/) (abbreviated Wasm) allows you to compile languages like Rust, Go, or C to a binary format that can run in a wide variety of environments, including web browsers, Cloudflare Workers, Cloudflare Pages Functions, and other WebAssembly runtimes.
+[WebAssembly](/workers/runtime-apis/webassembly/)(缩写为 Wasm)允许你将 Rust、Go 或 C 等语言编译成二进制格式，以便在各种环境中运行，包括网络浏览器、Cloudflare Workers、Cloudflare Pages Functions 和其他 WebAssembly 运行时。
 
-The distributable, loadable, and executable unit of code in WebAssembly is called a [module](https://webassembly.github.io/spec/core/syntax/modules.html).
+WebAssembly 中可分发、可加载、可执行的代码单元称为 [模块](https://webassembly.github.io/spec/core/syntax/modules.html)。
 
-Below is a basic example of how you can import Wasm Modules inside your Pages Functions code:
+以下是如何在页面功能代码中导入 Wasm 模块的基本示例：
 
 ```js
 ---
@@ -58,11 +58,11 @@ export async function onRequest() {
 }
 ```
 
-## Text Modules
+## 文本模块
 
-Text Modules are a non-standardized means of importing resources such as HTML files as a `String`.
+文本模块是一种以 `String `形式导入 HTML 文件等资源的非标准化方法。
 
-To import the below HTML file into your Pages Functions code:
+将以下 HTML 文件导入到你的页面功能代码中：
 
 ```html
 ---
@@ -76,7 +76,7 @@ filename: index.html
 </html>
 ```
 
-Use the following script:
+使用以下脚本：
 
 ```js
 ---
@@ -94,11 +94,11 @@ export async function onRequest() {
 }
 ```
 
-## Binary Modules
+## 二进制模块
 
-Binary Modules are a non-standardized way of importing binary data such as images as an `ArrayBuffer`.
+二进制模块是一种非标准化的导入二进制数据(如图像)的方式，它以 `ArrayBuffer`(数组缓冲区)的形式导入。
 
-Below is a basic example of how you can import the data from a binary file inside your Pages Functions code:
+下面是一个基本示例，说明如何在 Pages 函数代码中导入二进制文件中的数据：
 
 ```js
 ---

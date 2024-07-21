@@ -4,19 +4,19 @@ title: Advanced mode
 weight: 9
 ---
 
-# Advanced mode
+# 高级模式
 
-Advanced mode allows you to develop your Pages Functions with a `_worker.js` file rather than the `/functions` directory.
+高级模式允许你使用 `_worker.js` 文件而不是 `/functions` 目录开发页面函数。
 
-In some cases, Pages Functions' built-in file path based routing and middleware system is not desirable for existing applications. You may have a Worker that is complex and difficult to splice up into Pages' file-based routing system. For these cases, Pages offers the ability to define a `_worker.js` file in the output directory of your Pages project.
+在某些情况下，Pages Functions 内置的基于文件路径的路由和中间件系统并不适合现有的应用程序。你的 Worker 可能比较复杂，难以拼接到 Pages 基于文件的路由系统中。在这种情况下，Pages 提供了在 Pages 项目的输出目录中定义 `_worker.js` 文件的功能。
 
-When using a `_worker.js` file, the entire `/functions` directory is ignored, including its routing and middleware characteristics. Instead, the `_worker.js` file is deployed and must be written using the [Module Worker syntax](/workers/runtime-apis/handlers/fetch/). If you have never used Module syntax, refer to the [JavaScript modules blog post](https://blog.cloudflare.com/workers-javascript-modules/) to learn more. Using Module syntax enables JavaScript frameworks to generate a Worker as part of the Pages output directory contents.
+使用 `_worker.js` 文件时，整个 `/functions` 目录将被忽略，包括其路由和中间件特性。相反，`_worker.js` 文件将被部署，并且必须使用 [Module Worker 语法](/workers/runtime-apis/handlers/fetch/)编写。如果从未使用过模块语法，请参阅[JavaScript 模块博文](https://blog.cloudflare.com/workers-javascript-modules/) 了解更多信息。使用模块语法，JavaScript 框架可以生成 Worker，作为页面输出目录内容的一部分。
 
-## Set up a Function
+## 设置Function
 
-In advanced mode, your Function will assume full control of all incoming HTTP requests to your domain. Your Function is required to make or forward requests to your project's static assets. Failure to do so will result in broken or unwanted behavior. Your Function must be written in Module syntax.
+在高级模式下，你的 Function 将完全控制所有传入你域的 HTTP 请求。你的 Function 必须向项目的静态资产发出或转发请求。否则将导致错误或不需要的行为。你的 Function 必须使用模块语法编写。
 
-After making a `_worker.js` file in your output directory, add the following code snippet:
+在输出目录中创建 `_worker.js` 文件后，添加以下代码片段：
 
 {{<tabs labels="js | ts">}}
 {{<tab label="js" default="true">}}
@@ -64,16 +64,16 @@ export default {
 {{</tab>}}
 {{</tabs>}}
 
-In the above code, you have configured your Function to return a response under all requests headed for `/api/`. Otherwise, your Function will fallback to returning static assets.
+在上述代码中，你已将 Function 配置为在所有以 `/api/` 为标题的请求下返回响应。否则，你的 Function 将返回静态资产。
 
-* The `env.ASSETS.fetch()` function will allow you to return assets on a given request.
-* `env` is the object that contains your environment variables and bindings.
-* `ASSETS` is a default Function binding that allows communication between your Function and Pages' asset serving resource.
-* `fetch()` calls to Pages' asset-serving resource and serves the requested asset.
+* 使用`env.ASSETS.fetch()`函数，可以根据给定请求返回资产。
+* `env` 是包含环境变量和绑定的对象。
+* `ASSETS` 是一个默认的函数绑定，允许你的函数与 Pages 的资产服务资源进行通信。
+* `fetch()`调用页面的资产服务资源，并提供所请求的资产。
 
-## Migrate from Workers
+## 从Works迁移
 
-To migrate an existing Worker to your Pages project, copy your Worker code and paste it into your new `_worker.js` file. Then handle static assets by adding the following code snippet to `_worker.js`:
+要将现有 Worker 移植到 Pages 项目，请复制 Worker 代码并粘贴到新的 `_worker.js` 文件中。然后在 `_worker.js` 中添加以下代码段，以处理静态资产：
 
 ```ts
 ---
@@ -82,6 +82,6 @@ filename: _worker.js
 return env.ASSETS.fetch(request);
 ```
 
-## Deploy your Function
+## 部署你的Function
 
-After you have set up a new Function or migrated your Worker to `_worker.js`, make sure your `_worker.js` file is placed in your Pages' project output directory. Deploy your project through your Git integration for advanced mode to take effect.
+在设置了新Function或将 Worker 迁移到 `_worker.js`后，请确保将 `_worker.js`文件放在 Pages 的项目输出目录中。通过 Git 集成部署项目，使高级模式生效。

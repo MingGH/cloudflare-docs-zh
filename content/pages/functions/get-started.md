@@ -1,32 +1,32 @@
 ---
 pcx_content_type: get-started
-title: Get started
+title: 开始
 weight: 1
 meta:
   title: Functions - Get started
 ---
 
-# Get started
+# 开始
 
-This guide will instruct you on creating and deploying a Pages Function.
+本指南将指导你创建和部署Pages Function。
 
-## Prerequisites
+## 先决条件
 
-You must have a Pages project set up on your local machine or deployed on the Cloudflare dashboard. To create a Pages project, refer to [Get started](/pages/get-started/).
+你必须在本地计算机上设置一个 Pages 项目或在 Cloudflare 控制面板上部署一个 Pages 项目。要创建 Pages 项目，请参阅 [开始](/pages/get-started/)。
 
-## Create a Function
+## 创建一个函数
 
-To get started with generating a Pages Function, create a `/functions` directory at the root of your Pages project.
+要开始生成 Pages 函数，请在 Pages 项目根目录下创建一个 `/functions` 目录。
 
 {{<Aside type="note" header="Advanced mode">}}
 
-For existing applications where Pages Functions’ built-in file path based routing and middleware system is not desirable, use [Advanced mode](/pages/functions/advanced-mode/). Advanced mode allows you to develop your Pages Functions with a `_worker.js` file rather than the `/functions` directory.
+对于不需要 Pages Functions 内置的基于文件路径的路由和中间件系统的现有应用程序，请使用[高级模式](/pages/functions/advanced-mode/)。高级模式允许你使用`_worker.js `文件而不是`/functions `目录开发 Pages Functions。
 
 {{</Aside>}}
 
-Writing your Functions files in the `/functions` directory will automatically generate a Worker with custom functionality at predesignated routes.
+将 Functions 文件写入`/functions`目录，就会在预先指定的路线上自动生成具有自定义功能的 Worker。
 
-Copy and paste the following code into a `helloworld.js` file that you create in your `/functions` folder:
+将以下代码复制并粘贴到你在`/functions`文件夹下创建的`helloworld.js`文件中：
 
 ```js
 ---
@@ -37,38 +37,38 @@ export function onRequest(context) {
 }
 ```
 
-In the above example code, the `onRequest` handler takes a request [`context`](/pages/functions/api-reference/#eventcontext) object. The handler must return a `Response` or a `Promise` of a `Response`.
+在上述示例代码中，`onRequest `处理程序接收一个请求 [`context`](/pages/functions/api-reference/#eventcontext)对象。处理程序必须返回一个 `Response` 或一个 `Response` 的 `Promise`。
 
-This Function will run on the `/helloworld` route and returns `"Hello, world!"`. The reason this Function is available on this route is because the file is named `helloworld.js`. Similarly, if this file was called `howdyworld.js`, this function would run on `/howdyworld`.
+此函数将在 `/helloworld` 路由上运行，并返回 `Hello, world!`。此函数在此路由上可用的原因是文件名为 `helloworld.js`。同样，如果该文件名为 `howdyworld.js`，则此函数将在 `/howdyworld`上运行。
 
-Refer to [Routing](/pages/functions/routing/) for more information on route customization.
+有关路由自定义的更多信息，请参阅 [路由](/页面/功能/路由/)。
 
-### Runtime features
+### 运行时功能
 
-Workers runtime features, including compatibility with a subset of Node.js APIs and setting a [compatibility date or compatibility flag](/workers/configuration/compatibility-dates/) are configurable on Pages Functions.
+Pages Function可配置 Workers 运行时功能，包括与 Node.js API 子集兼容和设置[兼容日期或兼容标志](/workers/configuration/compatibility-dates/)。
 
-Set these configurations by passing an argument to your [Wrangler](/workers/wrangler/commands/#dev-1) command or by setting them in the dashboard. To set Pages compatibility flags in the Cloudflare dashboard:
+向 [Wrangler](/workers/wrangler/commands/#dev-1) 命令传递参数或在仪表板中设置这些配置。在 Cloudflare 面板中设置页面兼容性标志：
 
-1. Log into the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. Select **Workers & Pages** and select your Pages project.
-3. Select **Settings** > **Functions** > **Compatibility Flags**.
-4. Configure your Production and Preview compatibility flags as needed.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 选择 **工作者和页面**，然后选择页面项目。
+3. 选择 **设置**> **功能**> **兼容性标志**。
+4. 根据需要配置生产和预览兼容性标志。
 
-Additionally, use other Cloudflare products such as [D1](/d1/) (serverless DB) and [R2](/r2/) from within your Pages project by configuring [bindings](/pages/functions/bindings/).
+此外，通过配置 [绑定](/pages/functions/bindings/)，还可在 Pages 项目中使用其他 Cloudflare 产品，如 [D1](/d1/) (无服务器数据库)和 [R2](/r2/)。
 
-## Deploy your Function
+## 部署你的功能
 
-After you have set up your Function, deploy your Pages project. Deploy your project by:
+设置好功能后，部署 Pages 项目。通过以下方式部署项目
 
-* Connecting your [Git provider](/pages/get-started/git-integration/).
-* Using [Wrangler](/workers/wrangler/commands/#pages) from the command line.
+* 连接你的 [Git 提供商](/pages/get-started/git-integration/)。
+* 从命令行使用 [Wrangler](/workers/wrangler/commands/#pages)。
 
 {{<Aside type="warning">}}
-[Direct Upload](/pages/get-started/direct-upload/) from the Cloudflare dashboard is currently not supported with Functions.
+Cloudflare 仪表板上的[直接上传](/pages/get-started/direct-upload/) 功能目前不支持。
 {{</Aside>}}
 
-## Related resources
+## 相关资源
 
-- Customize your [Function's routing](/pages/functions/routing/)
-- Review the [API reference](/pages/functions/api-reference/)
-- Learn how to [debug your Function](/pages/functions/debugging-and-logging/)
+- 自定义你的[功能路由](/pages/functions/routing/)
+- 查看[应用程序接口参考](/pages/functions/api-reference/)
+- 学习如何 [调试你的函数](/pages/functions/debugging-and-logging/)

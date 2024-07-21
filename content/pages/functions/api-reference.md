@@ -1,80 +1,80 @@
 ---
 pcx_content_type: reference
-title: API reference
+title: 接口参考
 weight: 3
 meta:
-  description: Learn about the APIs used within Pages Functions.
+  description: 了解 Pages Functions 中使用的 API。
 ---
 
-# API reference
+# 接口参考
 
-The following methods can be used to configure your Pages Function.
+可以使用以下方法配置页面功能。
 
-## Methods
+## 方法
 
-### `onRequests`
+### `onRequests`(关于请求
 
 {{<definitions>}}
 
 - {{<code>}}onRequest(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all requests no matter the request method.
+  - 无论请求方法如何，所有请求都将调用该函数。
 - {{<code>}}onRequestGet(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `GET` requests.
+  - 所有 `GET` 请求都将调用该函数。
 - {{<code>}}onRequestPost(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `POST` requests.
+  - 所有 `POST` 请求都将调用该函数。
 - {{<code>}}onRequestPatch(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `PATCH` requests.
+  - 所有 `PATCH` 请求都将调用该函数。
 - {{<code>}}onRequestPut(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `PUT` requests.
+  - 所有 `PUT` 请求都将调用该函数。
 - {{<code>}}onRequestDelete(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `DELETE` requests.
+  - 所有 `DELETE` 请求都将调用该函数。
 - {{<code>}}onRequestHead(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `HEAD` requests.
+  - 所有 `HEAD` 请求都将调用该函数。
 - {{<code>}}onRequestOptions(context[{{<param-type>}}EventContext{{</param-type>}}](#eventcontext)){{</code>}} {{<type>}}Response | Promise&lt;Response&gt;{{</type>}}
-  - This function will be invoked on all `OPTIONS` requests.
+  - 所有 `OPTIONS` 请求都将调用该函数。
 
 {{</definitions>}}
 
 ### `env.ASSETS.fetch()`
 
-The `env.ASSETS.fetch()` function allows you to fetch a static asset from your Pages project.
+通过 `env.ASSETS.fetch()` 函数，你可以从 Pages 项目中获取静态资产。
 
-You can pass a [Request object](/workers/runtime-apis/request/), URL string, or URL object to `env.ASSETS.fetch()` function. The URL must be to the pretty path, not directly to the asset. For example, if you had the path `/users/index.html`, you will request `/users/` instead of `/users/index.html`. This method call will run the header and redirect rules, modifying the response that is returned.
+你可以向`env.ASSETS.fetch()`函数传递[请求对象](/workers/runtime-apis/request/)、URL 字符串或 URL 对象。URL 必须指向漂亮路径，而不是直接指向资产。例如，如果你的路径是 `/users/index.html`，你将请求 `/users/`，而不是 `/users/index.html`。此方法调用将运行头和重定向规则，修改返回的响应。
 
-## Types
+## 类型
 
-### `EventContext`
+### `EventContext` 事件上下文
 
 {{<definitions>}}
-The following are the properties on the `context` object which are passed through on the `onRequest` methods:
+以下是在 `onRequest` 方法中传递的 `context` 对象的属性：
 
   - `request` [{{<type>}}Request{{</type>}}](/workers/runtime-apis/request/)
 
-      This is the incoming [Request](/workers/runtime-apis/request/).
+      这是传入的 [请求](/workers/runtime-apis/request/)。
 
   - `functionPath` {{<type>}}string{{</type>}}
 
-      This is the path of the request.
+      这是请求的路径。
 
   - {{<code>}}waitUntil(promise{{<param-type>}}Promise&lt;any&gt;{{</param-type>}}){{</code>}} {{<type>}}void{{</type>}}
 
-      Refer to [`waitUntil` documentation](/workers/runtime-apis/context/#waituntil) for more information.
+      更多信息请参阅 [`waitUntil`文档](/workers/runtime-apis/context/#waituntil)。
 
 
   - {{<code>}}passThroughOnException(){{</code>}} {{<type>}}void{{</type>}}
 
-      Refer to [`passThroughOnException` documentation](/workers/runtime-apis/context/#passthroughonexception) for more information. Note that this will not work on an [advanced mode project](/pages/functions/advanced-mode/).
+      更多信息请参阅 [`passThroughOnException`文档](/workers/runtime-apis/context/#passthroughonexception)。请注意，这将无法在 [advanced mode project](/pages/functions/advanced-mode/) 上运行。
 
   - {{<code>}}next(input?{{<param-type>}}Request | string{{</param-type>}}, init?{{<param-type>}}RequestInit{{</param-type>}}){{</code>}} {{<type>}}Promise&lt;Response&gt;{{</type>}}
 
-      Passes the request through to the next Function or to the asset server if no other Function is available.
+      将请求传递到下一个功能，如果没有其他功能，则传递到资产服务器。
 
   - `env` [{{<type>}}EnvWithFetch{{</type>}}](#envwithfetch)
   - `params` {{<type>}}Params&lt;P&gt;{{</type>}}
 
-      Holds the values from [dynamic routing](/pages/functions/routing/#dynamic-routes).
+      保存 [dynamic routing](/pages/functions/routing/#dynamic-routes) 中的值。
 
-      In the following example, you have a dynamic path that is `/users/[user].js`. When you visit the site on `/users/nevi` the `params` object would look like:
+      在下面的示例中，动态路径为 `/users/[user].js`。当你访问 `/users/nevi`上的网站时，`params`对象将显示如下内容：
 
       ```js
       {
@@ -82,7 +82,7 @@ The following are the properties on the `context` object which are passed throug
       }
       ```
 
-      This allows you fetch the dynamic value from the path:
+      这样就可以从路径中获取动态值：
 
       ```js
       export function onRequest(context) {
@@ -96,6 +96,6 @@ The following are the properties on the `context` object which are passed throug
 
 {{</definitions>}}
 
-### `EnvWithFetch`
+### `EnvWithFetch`.
 
-Holds the environment variables, secrets, and bindings for a Function. This also holds the `ASSETS` binding which is how you can fallback to the asset-serving behavior.
+保存函数的环境变量、秘密和绑定。它还保存了 `ASSETS` 绑定，这样就可以回退到资产服务行为。
