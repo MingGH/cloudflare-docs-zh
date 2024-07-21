@@ -1,6 +1,6 @@
 ---
 pcx_content_type: reference
-title: Pricing
+title: 定价
 weight: 12
 ---
 

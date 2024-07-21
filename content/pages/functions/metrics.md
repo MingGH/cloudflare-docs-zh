@@ -1,6 +1,6 @@
 ---
 pcx_content_type: reference
-title: Metrics
+title: 指标
 weight: 11
 ---
 

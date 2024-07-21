@@ -126,3 +126,4 @@
 /content/pages/functions/metrics.md,2024-07-20 23:31:43,85e7ed18a9c05f43fd6553253b757cb0d2bbcc1065696f512b8196988779b2c4
 /content/pages/functions/api-reference.md,2024-07-20 23:31:44,d783bb7d08c9c1b5277a6232416d8cb08748238df3767643f26c2b68426437df
 /content/pages/functions/plugins/_index.md,2024-07-20 23:31:48,4a07f4ea5206e6428a8f5c31f02f5eb07f22670cd6ab9b9f665e869a5ae04451
+/content/pages/functions/wrangler-configuration.md,2024-07-21 09:10:09,3e2e3c972992a1478b3fa6ccee98794bb05b0f103a99b6c82e5a1ed18e229604

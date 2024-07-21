@@ -1,6 +1,6 @@
 ---
 pcx_content_type: how-to
-title: Advanced mode
+title: 高级模式
 weight: 9
 ---
 

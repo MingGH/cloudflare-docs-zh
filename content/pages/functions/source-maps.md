@@ -1,6 +1,6 @@
 ---
 pcx_content_type: configuration
-title: Source maps and stack traces
+title:  源映射和堆栈跟踪
 meta:
   description: Adding source maps and generating stack traces for Pages.
 ---
