@@ -4,19 +4,19 @@ title: Turnstile
 weight: 1
 ---
 
-# Turnstile Pages Plugin
+# Turnstile页面插件
 
-[Turnstile](/turnstile/) is Cloudflare's smart CAPTCHA alternative.
+[Turnstile](/turnstile/)是 Cloudflare 的智能验证码替代方案。
 
-The Turnstile Pages Plugin validates Cloudflare Turnstile tokens.
+Turnstile Pages 插件可验证 Cloudflare Turnstile 标记。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-turnstile
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -48,16 +48,16 @@ export const onRequestPost = [
 ```
 
 
-This Plugin only exposes a single route to verify an incoming Turnstile response in a `POST` as the `cf-turnstile-response` parameter. It will be available wherever it is mounted. In the example above, it is mounted in `functions/register.ts`. As a result, it will validate requests to `/register`.
- 
- ## Properties
- 
- The Plugin is mounted with a single object parameter with the following properties:
+本插件仅提供一条路由，以验证作为 `cf-turnstile-response` 参数的 `POST` 中传入的 Turnstile 响应。无论安装在何处，它都将可用。在上面的示例中，它被安装在 `functions/register.ts`中。因此，它将验证对 `/register`的请求。
 
-[`secret`](https://dash.cloudflare.com/login) is mandatory and can both be found in your Turnstile dashboard.
+## 属性
 
-`response` and `remoteip` are optional strings. `response` is the Turnstile token to verify. If it is not provided, the plugin will default to extracting `cf-turnstile-response` value from a `multipart/form-data` request). `remoteip` is the requester's IP address. This defaults to the `CF-Connecting-IP` header of the request.
+安装插件时只需一个对象参数，该参数具有以下属性：
 
-`onError` is an optional function which takes the Pages Function context object and returns a `Promise` of a `Response`. By default, it will return a human-readable error `Response`.
+[`secret`](https://dash.cloudflare.com/login)是必填项，都可以在 Turnstile 面板中找到。
 
-`context.data.turnstile` will be populated in subsequent Pages Functions (including for the `onError` function) with [the Turnstile siteverify response object](/turnstile/get-started/server-side-validation/).
+`response` 和 `remoteip` 是可选字符串。`response` 是要验证的 Turnstile 标记。如果未提供，插件将默认从 `multipart/form-data` 请求中提取 `cf-turnstile-response` 值)。`remoteip` 是请求者的 IP 地址。默认为请求的 `CF-Connecting-IP` header。
+
+`onError `是一个可选函数，它接收页面函数上下文对象并返回一个 `Response `的 `Promise`。默认情况下，它会返回一个人类可读的错误`Response`。
+
+`context.data.turnstile `将在后续的页面函数(包括 `onError `函数)中使用[Turnstile siteverify 响应对象](/turnstile/get-started/server-side-validation/)进行填充。

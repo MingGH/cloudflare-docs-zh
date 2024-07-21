@@ -4,19 +4,19 @@ title: Honeycomb
 weight: 1
 ---
 
-# Honeycomb Pages Plugin
+# Honeycomb 页面插件
 
-The Honeycomb Pages Plugin automatically sends traces to Honeycomb for analysis and observability.
+Honeycomb 页面插件会自动向 Honeycomb 发送跟踪信息，以便进行分析和观察。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-honeycomb
 ```
 
-## Usage
+## 使用方法
 
-The following usage example uses environment variables you will need to set in your Pages project settings. 
+下面的使用示例使用了你需要在 Pages 项目设置中设置的环境变量。
 
 ```typescript
 ---
@@ -35,7 +35,7 @@ export const onRequest: PagesFunction<{
 }
 ```
 
-Alternatively, you can hard-code (not advisable for API key) your settings the following way:
+或者，你也可以通过以下方式进行硬编码设置(不建议使用 API 密钥)：
 
 ```typescript
 ---
@@ -49,22 +49,22 @@ export const onRequest = honeycombPlugin({
 });
 ```
 
-This Plugin is based on the `@cloudflare/workers-honeycomb-logger` and accepts the same [configuration options](https://github.com/cloudflare/workers-honeycomb-logger#config).
+该插件基于 `@cloudflare/workers-honeycomb-logger`，接受相同的 [配置选项](https://github.com/cloudflare/workers-honeycomb-logger#config)。
 
-Ensure that you enable the option to **Automatically unpack nested JSON** and set the **Maximum unpacking depth** to **5** in your Honeycomb dataset settings.
+确保在 Honeycomb 数据集设置中启用**自动解压缩嵌套 JSON**选项，并将**最大解压缩深度**设为**5**。
 
-![Follow the instructions above to toggle on Automatically unpack nested JSON and set the Maximum unpacking depth option to 5 in the Honeycomb dashboard](/images/pages/platform/functions/honeycomb.png)
+![按照上述说明在 Honeycomb 面板中切换 `自动解压缩嵌套 JSON `并将 `最大解压缩深度 `选项设置为 5](/images/pages/platform/functions/honeycomb.png)
 
-### Additional context
+### 补充背景
 
-`data.honeycomb.tracer` has two methods for attaching additional information about a given trace:
+data.honeycomb.tracer `有两种方法可附加有关给定跟踪的附加信息：
 
-- `data.honeycomb.tracer.log` which takes a single argument, a `String`.
-- `data.honeycomb.tracer.addData` which takes a single argument, an object of arbitrary data.
+- `data.honeycomb.tracer.log `只接受一个参数，即一个 `字符串`。
+- `data.honeycomb.tracer.addData `只接受一个参数，即任意数据对象。
 
-More information about these methods can be seen on [`@cloudflare/workers-honeycomb-logger`'s documentation](https://github.com/cloudflare/workers-honeycomb-logger#adding-logs-and-other-data).
+有关这些方法的更多信息，请参阅 [`@cloudflare/workers-honeycomb-logger`的文档](https://github.com/cloudflare/workers-honeycomb-logger#adding-logs-and-other-data)。
 
-For example, if you wanted to use the `addData` method to attach user information:
+例如，如果你想使用 `addData` 方法附加用户信息：
 
 ```typescript
 ---

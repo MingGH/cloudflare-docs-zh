@@ -4,17 +4,17 @@ title: Static Forms
 weight: 1
 ---
 
-# Static Forms Pages Plugin
+# 静态表单页面插件
 
-The Static Forms Pages Plugin intercepts all form submissions made which have the `data-static-form-name` attribute set. This allows you to take action on these form submissions by, for example, saving the submission to KV.
+静态表单页面插件可拦截所有设置了 `data-static-form-name `属性的表单提交。这样，你就可以对这些表单提交采取行动，例如，将提交保存到 KV。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-static-forms
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -44,6 +44,6 @@ filename: public/sales-enquiry.html
 </body>
 ```
 
-The Plugin takes a single argument, an object with a `respondWith` property. This function takes an object with a `formData` property (the [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instance) and `name` property (the name value of your `data-static-form-name` attribute). It should return a `Response` or `Promise` of a `Response`. It is in this `respondWith` function that you can take action such as serializing the `formData` and saving it to a KV namespace.
+该插件只接受一个参数，即带有 `respondWith` 属性的对象。该函数接收一个具有 `formData` 属性([`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) 实例)和 `name` 属性(你的 `data-static-form-name` 属性的名称值)的对象。它应返回 `Response` 或 `Response` 的 `Promise`。正是在这个 `respondWith` 函数中，你可以执行一些操作，例如序列化 `formData` 并将其保存到 KV 命名空间。
 
-The `method` and `action` attributes of the HTML form do not need to be set. The Plugin will automatically override them to allow it to intercept the submission.
+HTML 表单的 `method `和 `action `属性无需设置。插件会自动覆盖它们，以便拦截提交。

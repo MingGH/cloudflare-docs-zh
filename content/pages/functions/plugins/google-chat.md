@@ -4,17 +4,17 @@ title: Google Chat
 weight: 1
 ---
 
-# Google Chat Pages Plugin
+# 谷歌聊天页面插件
 
-The Google Chat Pages Plugin creates a Google Chat bot which can respond to messages. It also includes an API for interacting with Google Chat (for example, for creating messages) without the need for user input. This API is useful for situations such as alerts.
+谷歌聊天页面插件可创建一个能回复消息的谷歌聊天机器人。它还包含一个 API，用于与谷歌聊天进行交互(例如创建消息)，而无需用户输入。该 API 在警告等情况下非常有用。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-google-chat
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -31,15 +31,15 @@ export const onRequest: PagesFunction = googleChatPlugin(async (message) => {
 });
 ```
 
-The Plugin takes a function, which in turn takes an incoming message, and returns a `Promise` of a response message (or `void` if there should not be any response).
+该插件接收一个函数，该函数反过来接收一个传入消息，并返回一个响应消息的 `Promise`(如果没有任何响应，则返回 `void`)。
 
-The Plugin only exposes a single route, which is the URL you should set in the Google Cloud Console when creating the bot.
+该插件只公开一个路由，即创建机器人时应在 Google 云控制台中设置的 URL。
 
-![Google Cloud Console's Connection Settings for the Google Chat API showing 'App URL' selected and 'https://example.com/google-chat' entered into the 'App URL' text input.](/images/pages/platform/functions/google-chat.png)
+![Google 云控制台的 Google Chat API 连接设置显示已选择 `App URL`，并在 `App URL`文本输入中输入了 `https://example.com/google-chat`。](/images/pages/platform/functions/google-chat.png)
 
 ### API
 
-The Google Chat API can be called directly using the `GoogleChatAPI` class:
+可以使用 `GoogleChatAPI` 类直接调用 Google 聊天 API：
 
 ```typescript
 ---
@@ -70,9 +70,9 @@ export const onRequest: PagesFunction = () => {
 };
 ```
 
-We recommend storing your service account's credentials in KV rather than in plain text as above.
+我们建议将服务账户的凭据存储在 KV 中，而不是上述的纯文本中。
 
-The following functions are available on a `GoogleChatAPI` instance. Each take up to three arguments: an object of path parameters, an object of query parameters, and an object of the request body; as described in the [Google Chat API's documentation](https://developers.google.com/chat/api/reference/rest).
+以下函数可用于 `GoogleChatAPI` 实例。如 [Google Chat API 文档](https://developers.google.com/chat/api/reference/rest) 所述，每个函数最多包含三个参数：路径参数对象、查询参数对象和请求正文对象。
 
 - [`downloadMedia`](https://developers.google.com/chat/api/reference/rest/v1/media/download)
 - [`getSpace`](https://developers.google.com/chat/api/reference/rest/v1/spaces/get)

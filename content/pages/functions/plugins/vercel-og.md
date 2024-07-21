@@ -3,21 +3,21 @@ pcx_content_type: reference
 title: vercel/og
 ---
 
-# `@vercel/og` Pages Plugin
+# `@vercel/og` 页面插件
 
-The `@vercel/og` Pages Plugin is a middleware which renders social images for webpages. It also includes an API to create arbitrary images.
+`@vercel/og` 页面插件是一个为网页渲染社交图片的中间件。它还包括一个用于创建任意图像的 API。
 
-As the name suggests, it is powered by [`@vercel/og`](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation). This plugin and its underlying [Satori](https://github.com/vercel/satori) library was created by the Vercel team.
+顾名思义，它由[`@vercel/og`](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation)提供支持。该插件及其底层 [Satori](https://github.com/vercel/satori) 库由 Vercel 团队创建。
 
-## Install
+## 安装
 
-To install the `@vercel/og` Pages Plugin, run:
+要安装 `@vercel/og` 页面插件，请运行
 
 ```sh
 $ npm install @cloudflare/pages-plugin-vercel-og
 ```
 
-## Use
+## 使用
 
 ```typescript
 ---
@@ -50,25 +50,25 @@ export const onRequest = vercelOGPagesPlugin<Props>({
 });
 ```
 
-The Plugin takes an object with six properties:
+该插件接收一个包含六个属性的对象：
 
-- `imagePathSuffix`: the path suffix to make the generate image available at. For example, if you mount this Plugin at `functions/blog/_middleware.ts`, set the `imagePathSuffix` as `/social-image.png` and have a `/blog/hello-world` page, the image will be available at `/blog/hello-world/social-image.png`.
+- `imagePathSuffix`：生成图片的路径后缀。例如，如果将此插件挂载到 `functions/blog/_middleware.ts` 处，将 `imagePathSuffix` 设置为 `/social-image.png`，并拥有一个 `/blog/hello-world`页面，则图片将在 `/blog/hello-world/social-image.png`处可用。
 
-- `component`: the React component that will be used to render the image. By default, the React component is given a `pathname` property equal to the pathname of the underlying webpage (for example, `/blog/hello-world`), but more dynamic properties can be provided with the `extractors` option.
+- `component`：用于渲染图像的 React 组件。默认情况下，React 组件的 `pathname` 属性等于底层网页的路径名(例如，`/blog/hello-world`)，但可以使用 `extractors` 选项提供更多动态属性。
 
-- `extractors`: an optional object with two optional properties: `on` and `onDocument`. These properties can be set to a function which takes an object and returns a [`HTMLRewriter` element handler](/workers/runtime-apis/html-rewriter/#element-handlers) or [document handler](/workers/runtime-apis/html-rewriter/#document-handlers) respectively. The object parameter can be mutated in order to provide the React component with additional properties. In the example above, you will use an element handler to extract the `og:title` meta tag from the webpage and pass that to the React component as the `ogTitle` property. This is the primary mechanism you will use to create dynamic images which use values from the underlying webpage.
+- `extractors`: 可选对象，有两个可选属性：`on`和`onDocument`。这些属性可被设置为一个函数，该函数接收一个对象，并分别返回[`HTMLRewriter` element handler](/workers/runtime-apis/html-rewriter/#element-handlers)或[document handler](/workers/runtime-apis/html-rewriter/#document-handlers)。对象参数可以更改，以便为 React 组件提供更多属性。在上面的示例中，你将使用元素处理程序从网页中提取 `og:title` 元标记，并将其作为 `ogTitle` 属性传递给 React 组件。这是你用来创建动态图片的主要机制，这些图片使用了底层网页中的值。
 
-- `options`: [an optional object which is given directly to the `@vercel/og` library](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation/og-image-api).
+- `options`：[一个直接提供给 `@vercel/og` 库的可选对象](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation/og-image-api)。
 
-- `onError`: an optional function which returns a `Response` or a promise of a `Response`. This function is called when a request is made to the `imagePathSuffix` and `extractors` are provided but the underlying webpage is not valid HTML. Defaults to returning a `404` response.
+- `onError`：一个可选函数，用于返回一个`Response`或一个`Response`的承诺。当向 `imagePathSuffix` 提出请求并提供了 `extractors` 但底层网页不是有效的 HTML 时，该函数将被调用。默认返回 `404` 响应。
 
-- `autoInject`: an optional object with an optional property: `openGraph`. If set to `true`, the Plugin will automatically set the `og:image`, `og:image:height` and `og:image:width` meta tags on the underlying webpage.
+- `autoInject`：一个可选对象，带有一个可选属性：`openGraph`。如果设置为 `true`，插件将自动在底层网页上设置 `og:image`、`og:image:height `和 `og:image:width `元标记。
 
-### Generate arbitrary images
+### 生成任意图像
 
-Use this Plugin's API to generate arbitrary images, not just as middleware.
+使用该插件的 API 生成任意图像，而不仅仅是作为中间件。
 
-For example, the below code will generate an image saying "Hello, world!" which is available at `/greet`.
+例如，下面的代码将生成一张图片，上面写着 `Hello, world!`，该图片可在 `/greet`中找到。
 
 ```typescript
 ---
@@ -88,4 +88,4 @@ export const onRequest: PagesFunction = async () => {
 };
 ```
 
-This is the same API that the underlying [`@vercel/og` library](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation/og-image-api) offers.
+这与底层 [`@vercel/og`库](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation/og-image-api) 提供的 API 相同。

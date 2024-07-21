@@ -4,17 +4,17 @@ title: Cloudflare Access
 weight: 1
 ---
 
-# Cloudflare Access Pages Plugin
+# Cloudflare 访问页面插件
 
-The Cloudflare Access Pages Plugin is a middleware to validate Cloudflare Access JWT assertions. It also includes an API to lookup additional information about a given user's JWT.
+Cloudflare Access Pages Plugin 是验证 Cloudflare Access JWT 断言的中间件。它还包含一个 API，用于查询有关给定用户 JWT 的其他信息。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-cloudflare-access
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -28,13 +28,13 @@ export const onRequest: PagesFunction = cloudflareAccessPlugin({
 });
 ```
 
-The Plugin takes an object with two properties: the `domain` of your Cloudflare Access account, and the policy `aud` (audience) to validate against. Any requests which fail validation will be returned a `403` status code.
+该插件接收一个包含两个属性的对象：Cloudflare Access 帐户的 `domain`(域)和要验证的策略 `aud`(受众)。任何未通过验证的请求都将返回一个 `403` 状态代码。
 
-### Access the JWT payload
+### 访问 JWT payload
 
-If you need to use the JWT payload in your application (for example, you need the user's email address), this Plugin will make this available for you at `data.cloudflareAccess.JWT.payload`.
+如果你需要在应用程序中使用 JWT 有效载荷(例如，你需要用户的电子邮件地址)，本插件将在 `data.cloudflareAccess.JWT.payload` 中为你提供。
 
-For example:
+例如
 
 ```typescript
 ---
@@ -51,11 +51,11 @@ export const onRequest: PagesFunction<unknown, any, PluginData> = async ({
 };
 ```
 
-The [entire JWT payload](/cloudflare-one/identity/authorization-cookie/application-token/#payload) will be made available on `data.cloudflareAccess.JWT.payload`. Be aware that the fields available differ between identity authorizations (for example, a user in a browser) and non-identity authorizations (for example, a service token).
+[整个 JWT 有效载荷](/cloudflare-one/identity/authorization-cookie/application-token/#payload)将在 `data.cloudflareAccess.JWT.payload` 中提供。请注意，身份授权(例如浏览器中的用户)和非身份授权(例如服务令牌)的可用字段有所不同。
 
-### Look up identity
+### 查询身份
 
-In order to get more information about a given user's identity, use the provided `getIdentity` API function:
+要获取有关给定用户身份的更多信息，请使用所提供的 `getIdentity` API 函数：
 
 ```typescript
 ---
@@ -73,9 +73,9 @@ export const onRequest: PagesFunction = async ({ data }) => {
 };
 ```
 
-The `getIdentity` function takes an object with two properties: a `jwt` string, and a `domain` string. It returns a `Promise` of [the object returned by the `/cdn-cgi/access/get-identity` endpoint](/cloudflare-one/identity/authorization-cookie/application-token/#user-identity). This is particularly useful if you want to use a user's group membership for something like application permissions.
+`getIdentity `函数接收一个包含两个属性的对象：一个 `jwt `字符串和一个 `domain `字符串。它会返回一个[由 `/cdn-cgi/access/get-identity` 接口返回的对象](/cloudflare-one/identity/authorization-cookie/application-token/#user-identity)的`Promise`。如果你想使用用户的群组成员身份来获取应用程序权限，这一点尤其有用。
 
-For convenience, this same information can be fetched for the current request's JWT with the `data.cloudflareAccess.JWT.getIdentity` function, (assuming you have already validated the request with the Plugin as above):
+为方便起见，可使用 `data.cloudflareAccess.JWT.getIdentity` 函数获取当前请求的 JWT 的相同信息(假设你已使用上述插件验证了请求)：
 
 ```typescript
 ---
@@ -92,9 +92,9 @@ export const onRequest: PagesFunction<unknown, any, PluginData> = async ({
 };
 ```
 
-### Login and logout URLs
+### 登录和注销 URL
 
-If you want to force a login or logout, use these utility functions to generate URLs and redirect a user:
+如果要强制登录或注销，可使用这些实用功能生成 URL 并重定向用户：
 
 ```typescript
 ---

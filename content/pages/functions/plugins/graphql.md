@@ -4,17 +4,17 @@ title: GraphQL
 weight: 1
 ---
 
-# GraphQL Pages Plugin
+# GraphQL 页面插件
 
-The GraphQL Pages Plugin creates a GraphQL server which can respond to `application/json` and `application/graphql` `POST` requests. It responds with [the GraphQL Playground](https://github.com/graphql/graphql-playground) for `GET` requests.
+GraphQL Pages Plugin 可创建一个 GraphQL 服务器，用于响应 `application/json` 和 `application/graphql` `POST` 请求。它使用[the GraphQL Playground](https://github.com/graphql/graphql-playground)响应`GET`请求。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-graphql
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -48,4 +48,4 @@ export const onRequest: PagesFunction = graphQLPlugin({
 });
 ```
 
-This Plugin only exposes a single route, so wherever it is mounted is wherever it will be available. In the above example, because it is mounted in `functions/graphql.ts`, the server will be available on `/graphql` of your Pages project.
+该插件只公开一条路由，因此安装在哪里，它就在哪里可用。在上例中，由于它被挂载在 `functions/graphql.ts` 中，服务器将在 Pages 项目的 `/graphql` 中可用。

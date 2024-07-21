@@ -4,17 +4,17 @@ title: Stytch
 weight: 1
 ---
 
-# Stytch Pages Plugin
+# Stytch 页面插件
 
-The Stytch Pages Plugin is a middleware which validates all requests and their `session_token`.
+Stytch Pages 插件是一个中间件，用于验证所有请求及其 `session_token`。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-stytch
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -30,8 +30,8 @@ export const onRequest: PagesFunction = stytchPlugin({
 });
 ```
 
-We recommend storing your secret in KV rather than in plain text as above.
+我们建议将秘密存储在 KV 中，而不是上述的纯文本中。
 
-The Stytch Plugin takes a single argument, an object with several properties. `project_id` and `secret` are mandatory strings and can be found in [Stytch's dashboard](https://stytch.com/dashboard/api-keys). `env` is also a mandatory string, and can be populated with the `envs.test` or `envs.live` variables in the API. By default, the Plugin validates a `session_token` cookie of the incoming request, but you can also optionally pass in a `session_token` or `session_jwt` string yourself if you are using some other mechanism to identify user sessions. Finally, you can also pass in a `session_duration_minutes` in order to extend the lifetime of the session. More information on these parameters can be found in [Stytch's documentation](https://stytch.com/docs/api/session-auth).
+Stytch 插件只有一个参数，即一个包含多个属性的对象。`project_id `和 `secret `是必填字符串，可在［Stytch 的仪表板］(https://stytch.com/dashboard/api-keys) 中找到。`env `也是必填字符串，可通过 API 中的 `envs.test `或 `envs.live `变量填充。默认情况下，插件会验证传入请求中的 `session_token` cookie，但如果使用其他机制来识别用户会话，也可以自行选择传入 `session_token` 或 `session_jwt` 字符串。最后，你还可以传入一个 `session_duration_minutes` 来延长会话的生命周期。有关这些参数的更多信息，请参阅 [Stytch 文档](https://stytch.com/docs/api/session-auth)。
 
-The validated session response containing user information is made available to subsequent Pages Functions on `data.stytch.session`.
+包含用户信息的经过验证的会话响应将提供给`data.stytch.session`上的后续页面函数。

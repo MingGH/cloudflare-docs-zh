@@ -4,17 +4,17 @@ title: Sentry
 weight: 1
 ---
 
-# Sentry Pages Plugin
+# 哨兵页面插件
 
-The Sentry Pages Plugin captures and logs all exceptions which occur below it in the execution chain of your Pages Functions. It is therefore recommended that you install this Plugin at the root of your application in `functions/_middleware.ts` as the very first Plugin.
+Sentry Pages 插件会捕获并记录页面函数执行链中发生的所有异常。因此，建议将此插件作为第一个插件安装在应用程序根目录下的 `functions/_middleware.ts` 中。
 
-## Installation
+## 安装
 
 ```sh
 $ npm install @cloudflare/pages-plugin-sentry
 ```
 
-## Usage
+## 使用方法
 
 ```typescript
 ---
@@ -27,9 +27,9 @@ export const onRequest: PagesFunction = sentryPlugin({
 });
 ```
 
-The Plugin uses [Toucan](https://github.com/robertcepa/toucan-js). Refer to the Toucan README to [review the options it can take](https://github.com/robertcepa/toucan-js#other-options). `context`, `request`, and `event` are automatically populated and should not be manually configured.
+该插件使用 [Toucan](https://github.com/robertcepa/toucan-js)。请参阅 Toucan README [查看它可以使用的选项](https://github.com/robertcepa/toucan-js#other-options)。`context`、`request `和 `event `是自动填充的，无需手动配置。
 
-If your [DSN](https://docs.sentry.io/product/sentry-basics/dsn-explainer/) is held as an environment variable or in KV, you can access it like so:
+如果 [DSN](https://docs.sentry.io/product/sentry-basics/dsn-explainer/)是作为环境变量或在 KV 中保存的，则可以这样访问它：
 
 ```typescript
 ---
@@ -57,11 +57,11 @@ export const onRequest: PagesFunction<{
 };
 ```
 
-### Additional context
+### 补充背景
 
-If you need to set additional context for Sentry (for example, user information or additional logs), use the `data.sentry` instance in any Function below the Plugin in the execution chain.
+如果需要为 Sentry 设置其他上下文(例如用户信息或其他日志)，请在执行链中插件下方的任何函数中使用 `data.sentry` 实例。
 
-For example, you can access `data.sentry` and set user information like so:
+例如，你可以访问 `data.sentry` 并设置用户信息：
 
 ```typescript
 ---
@@ -82,4 +82,4 @@ export const onRequest: PagesFunction<unknown, any, PluginData> = async ({
 };
 ```
 
-Again, the full list of features can be found in [Toucan's documentation](https://github.com/robertcepa/toucan-js#features).
+同样，完整的功能列表可参见 [Toucan 文档](https://github.com/robertcepa/toucan-js#features)。
