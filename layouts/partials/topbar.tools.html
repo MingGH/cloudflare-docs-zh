@@ -6,10 +6,10 @@
 {{ $rssFeed := "" }}
 {{ $rssIconDescription := "" -}}
 {{- $githubURL := "https://github.com/cloudflare/cloudflare-docs" -}}
+{{ $originURL := "https://developers.cloudflare.com" }}
 {{- with .File -}}
 {{- $githubURL = (printf "https://github.com/MingGH/cloudflare-docs-zh/tree/main/content/%s" (replace .Path "\\" "/")) -}}
-
-
+{{- $originURL = (replace (printf "https://developers.cloudflare.com/%s" (replace (replace .Path "\\" "/") "_index.md" "")) ".md" "") -}}
 {{- end -}}
 
 <div class="DocsToolbar--tools">
@@ -30,7 +30,7 @@
 </div>
   <div class="DocsToolbar--tools-spacer"></div>
   <div class="Tooltip---root">
-  <a class="DocsToolbar--feedback Button Button-is-docs-secondary" href="https://developers.cloudflare.com" target="_blank">
+  <a class="DocsToolbar--feedback Button Button-is-docs-secondary" href="{{$originURL}}" target="_blank">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-navigation-2"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
     英文原文档
   </a>
