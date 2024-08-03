@@ -1,4 +1,5 @@
 relativeURLs = true
+baseURL = "https://002.wiki/"
 
 title = "Cloudflare 中文文档"
 languageCode = "zh"
