@@ -155,7 +155,7 @@ const renderCodeBlock = (): PluginOption => {
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    host: true, // 允许所有 IP 地址访问
+    host: '0.0.0.0',
   },
   plugins: [
     renderCodeBlock(),
