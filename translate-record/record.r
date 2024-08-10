@@ -127,3 +127,6 @@
 /content/pages/functions/api-reference.md,2024-07-20 23:31:44,d783bb7d08c9c1b5277a6232416d8cb08748238df3767643f26c2b68426437df
 /content/pages/functions/plugins/_index.md,2024-07-20 23:31:48,4a07f4ea5206e6428a8f5c31f02f5eb07f22670cd6ab9b9f665e869a5ae04451
 /content/pages/functions/wrangler-configuration.md,2024-07-21 09:10:09,3e2e3c972992a1478b3fa6ccee98794bb05b0f103a99b6c82e5a1ed18e229604
+/content/workers/glossary.md,2024-08-10 22:39:45,ee50e19356b789c91e0acfbe20dcd3bf2ed26094152e9bfcdd5291db11e476e4
+/content/workers/configuration/smart-placement.md,2024-08-10 22:40:02,63daae3dd1c8464403e15267ac11c7729de7b74ccab009919bad000b80c0eaaf
+/content/workers/databases/vectorize.md,2024-08-10 22:41:30,0ae0b4e8303a047d2e970b332ceddcd01a0d7f03134fd2770152546ebf6f52ff

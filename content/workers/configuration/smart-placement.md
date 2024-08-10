@@ -7,85 +7,85 @@ meta:
 
 {{<heading-pill style="beta">}}Smart Placement{{</heading-pill>}}
 
-By default, [Workers](/workers/) and [Pages Functions](/pages/functions/) are invoked in a data center closest to where the request was received. If you are running back-end logic in a Worker, it may be more performant to run that Worker closer to your back-end infrastructure rather than the end user. Smart Placement automatically places your workloads in an optimal location that minimizes latency and speeds up your applications.
+默认情况下，[Worker](/workers/) 和 [Pages Functions](/pages/functions/) 会在最靠近接收请求的数据中心调用。如果你在 Worker 中运行后端逻辑，那么在更靠近后端基础架构而不是终端用户的地方运行 Worker 可能会更有效。Smart Placement功能可自动将工作负载放置在最佳位置，从而最大限度地减少延迟并加快应用速度。
 
-You may benefit from Smart Placement if you are making multiple round trips to a centralized database, API or origin server in a Worker.
+如果你要多次往返于集中式数据库、API 或 Worker 中的源服务器，你可能会从 Smart Placement 中受益。
 
-## Background
+## 背景
 
-The following example demonstrates how moving your Worker close to your back-end services could decrease application latency:
+下面的示例演示了如何将 Worker 移至靠近后端服务的位置，以减少应用延迟：
 
-You have a user in Sydney, Australia who is accessing an application running on Workers. This application makes multiple round trips to a database located in Frankfurt, Germany in order to serve the user’s request.
+澳大利亚悉尼的一名用户正在访问一个运行在 Workers 上的应用程序。为了满足用户的请求，该应用程序多次往返于位于德国法兰克福的数据库。
 
-![A user located in Sydney, AU connecting to a Worker in the same region which then makes multiple round trips to a database located in Frankfurt, DE. ](/images/workers/platform/workers-smart-placement-disabled.png)
+![位于澳大利亚悉尼的用户连接到同一地区的 Worker，然后该 Worker 会多次往返于位于德国法兰克福的数据库。](/images/workers/platform/workers-smart-placement-disabled.png)
 
-The issue is the time that it takes the Worker to perform multiple round trips to the database. Instead of the request being processed close to the user, the Cloudflare network, with Smart Placement enabled, would process the request in a data center closest to the database.
+问题在于 Worker 多次往返数据库所需的时间。启用Smart Placement后，Cloudflare 网络将在最靠近数据库的数据中心处理请求，而不是在靠近用户的地方处理请求。
 
-![A user located in Sydney, AU connecting to a Worker in Frankfurt, DE which then makes multiple round trips to a database also located in Frankfurt, DE. ](/images/workers/platform/workers-smart-placement-enabled.png)
+![位于澳大利亚悉尼的用户连接到位于德国法兰克福的 Worker，然后 Worker 会多次往返于同样位于德国法兰克福的数据库。](/images/workers/platform/workers-smart-placement-enabled.png)
 
-## Understand how Smart Placement works
+## 了解Smart Placement的工作原理
 
-Smart Placement is enabled on a per-Worker basis. Once enabled, fetch requests (also known as subrequests) from your Worker are analyzed regularly. The Smart Placement algorithm determines the optimal placement to minimize the round-trip time (RTT) between the Worker and the back-end service the Worker is communicating with.
+Smart Placement功能是按 Worker 启用的。启用后，将定期分析来自 Worker 的获取请求(也称为子请求)。Smart Placement算法会确定最佳放置位置，以尽量减少 Worker 与 Worker 通信的后端服务之间的往返时间 (RTT)。
 
-Smart Placement is only active for Workers that **make more than one roundtrip** to back-end infrastructure. If your Worker does less than one subrequest on average, Smart Placement will run the Worker at the data center closest to the user.
+Smart Placement仅适用于 **往返后端基础设施一次以上** 的 Worker。如果你的 Worker 平均处理的子请求少于一个，智能分区将在离用户最近的数据中心运行 Worker。
 
-Smart Placement is a best-effort attempt. Smart Placement will not take action unless it is more performant than the default (which is running the Worker at the data center closest to the user).
+Smart Placement是一种尽力而为的尝试。除非Smart Placement比默认值(即在最靠近用户的数据中心运行 Worker)性能更高，否则不会采取行动。
 
-Smart Placement only affects the execution of [fetch event handlers](/workers/runtime-apis/handlers/fetch/). Workers without a fetch event handler will be ignored by Smart Placement. For Workers with both fetch and non-fetch event handlers, Smart Placement will only affect the execution of the fetch event handler.
+Smart Placement 只影响 [fetch 事件处理程序](/workers/runtime-apis/handlers/fetch/) 的执行。没有 `提取 `事件处理程序的 Worker 将被 Smart Placement 忽略。对于既有提取事件处理程序又有非提取事件处理程序的 Worker，智能布局只会影响提取事件处理程序的执行。
 
 ### D1
 
-Workers with a [D1](/d1/) binding will always be placed in a data center near the location of the D1 database they are bound to. Subrequests to other back-end services are ignored by Smart Placement in this case.
+绑定了 [D1](/d1/) 的 Worker 将始终被放置在其绑定的 D1 数据库位置附近的数据中心。在这种情况下，Smart Placement会忽略对其他后端服务的子请求。
 
-### Unsupported back-end services
+### 不支持的后端服务
 
-There are some back-end services that are not considered by the Smart Placement algorithm:
+有些后端服务不在智能配售算法的考虑范围内：
 
-- **Globally distributed services**: If the services that your Worker communicates with are geo-distributed in many regions (for example, CDNs, distributed databases, distributed APIs), Smart Placement is not a good fit. We automatically rule these out of the Smart Placement optimization.
-    - Examples: Google APIs, services using Fastly or Akamai's CDN.
+- **全球分布式服务**：如果与你的 Worker 通信的服务在地理上分布在许多地区(例如，CDN、分布式数据库、分布式 API)，则不适合使用 `Smart Placement`。我们会自动将这些服务排除在Smart Placement优化之外。
+    - 例如：Google API、使用 Fastly 或 Akamai CDN 的服务：Google API、使用 Fastly 或 Akamai CDN 的服务。
 
 
-- **Analytics or logging services**: Requests to analytics or logging services should not be in the critical path of your application. [`waitUntil()`](/workers/runtime-apis/context/#waituntil) should be used so that the response back to users is not blocked when instrumenting your code. Since `waitUntil()` does not impact the request duration from a user’s perspective, we automatically rule analytics and logging services out of the Smart Placement optimization.
-    - Examples: New Relic, Datadog, Tinybird, Grafana, Amplitude, Honeycomb.
+- **分析或日志服务**：向分析或日志服务发出的请求不应处于应用程序的关键路径中。应使用 [`waitUntil()`](/workers/runtime-apis/context/#waituntil)，以便在检测代码时不会阻止向用户返回响应。由于从用户角度来看，`waitUntil()` 不会影响请求持续时间，因此我们会自动将分析和日志服务排除在Smart Placement优化之外。
+    - 例如：New Relic、Datadog、Tinybird、Grafana、Amplitude、Honeycomb。
 
-## Enable Smart Placement
+## 启用Smart Placement
 
-Smart Placement is available to users on all Workers plans.
+Smart Placement功能适用于所有Works计划的用户。
 
-### Enable Smart Placement via Wrangler
+### 通过 Wrangler 启用Smart Placement
 
-To enable Smart Placement via Wrangler:
+要通过 Wrangler 启用Smart Placement：
 
-1. Make sure that you have `wrangler@2.20.0` or later [installed](/workers/wrangler/install-and-update/).
-2. Add the following to your Worker project's `wrangler.toml` file:
+1. 确保已[安装](/workers/wrangler/install-and-update/)`wrangler@2.20.0`或更高版本。
+2. 在 Worker 项目的`wrangler.toml`文件中添加以下内容：
 
     ```toml
     [placement]
     mode = "smart"
     ```
 
-3. Send some initial traffic (approximately 20-30 requests) to your Worker. It takes a few minutes after you have sent traffic to your Worker for Smart Placement to take effect.
+3. 向 Worker 发送一些初始流量(约 20-30 个请求)。向 Worker 发送流量后需要几分钟，Smart Placement才会生效。
 
-4. View your Worker's [request duration analytics](/workers/observability/metrics-and-analytics/).
+4. 查看Works的 [申请期限分析](/workers/observability/metrics-and-analytics/)。
 
 
-### Enable Smart Placement via the dashboard
+### 通过仪表板启用Smart Placement功能
 
-To enable Smart Placement via the dashboard:
+通过仪表板启用Smart Placement：
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In **Account Home**, select **Workers & Pages**.
-3. In **Overview**,select your Worker.
-4. Select **Settings** > **General**.
-5. Under **Placement**, choose **Smart**.
-6. Send some initial traffic (approximately 20-30 requests) to your Worker. It takes a few minutes after you have sent traffic to your Worker for Smart Placement to take effect.
-7. View your Worker's [request duration analytics](/workers/observability/metrics-and-analytics/)
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com) 并选择你的账户。
+2. 在**账户主页**，选择**Workers & Pages**。
+3. 在**概览**中，选择你的Works。
+4. 选择 **设置**> **常规**。
+5. 在**位置**下，选择**智能**。
+6. 向 Worker 发送一些初始流量(约 20-30 个请求)。向 Worker 发送流量后需要几分钟，Smart Placement才会生效。
+7. 查看Works的[request duration analytics](/workers/observability/metrics-and-analytics/)。
 
-## Observability
+## 可观察性
 
-### Placement Status
+### 安置情况
 
-A Worker's metadata contains details about a Worker's placement status. Query your Worker's placement status through the following Workers API endpoint:
+Worker 的元数据包含有关 Worker 安置状态的详细信息。你可以通过以下 Workers API 接口查询 Worker 的安置状态：
 
 ```bash
 $ curl -X GET https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/workers/services/{WORKER_NAME} \
@@ -93,40 +93,40 @@ $ curl -X GET https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/workers
 -H "Content-Type: application/json" | jq .
 ```
 
-Possible placement states include:
-- _(not present)_: The Worker has not been analyzed for Smart Placement yet.
-- `INSUFFICIENT_INVOCATIONS`: Not enough requests for Smart Placement to make a placement decision.
-- `NO_VALID_HOSTS`: The Worker does not send subrequests to back-end services supported by Smart Placement.
-- `INSUFFICIENT_SUBREQUESTS`: The Worker does not send enough subrequests to valid back-end services.
-- `SUCCESS`: The Worker has been successfully analyzed and will be optimized by Smart Placement.
+可能的placement状态包括
+- _(not present)_:：尚未对Works进行Smart Placement分析。
+- `INSUFFICIENT_INVOCATIONS`：没有足够的请求让Smart Placement做出安置决定。
+- `NO_VALID_HOSTS`：Worker 不会向 Smart Placement 支持的后端服务发送子请求。
+- `INSUFFICIENT_SUBREQUESTS`：Worker 没有向有效的后端服务发送足够的子请求。
+- `SUCCESS`：已成功分析 Worker，并将通过 Smart Placement 进行优化。
 
-### Request Duration Analytics
+### 请求持续时间分析
 
-Once Smart Placement is enabled, data about request duration gets collected. Request duration is measured at the data center closest to the end user.
+启用Smart Placement后，将收集有关请求持续时间的数据。请求持续时间是在离最终用户最近的数据中心测量的。
 
-By default, one percent (1%) of requests are not routed with Smart Placement. These requests serve as a baseline to compare to.
+默认情况下，有百分之一 (1%) 的请求未使用Smart Placement。这些请求可作为比较基准。
 
 ### `cf-placement` header
 
-Once Smart Placement is enabled, Cloudflare adds a `cf-placement` header to all requests. This can be used to check whether a request has been routed with Smart Placement and where the Worker is processing the request (which is shown as the nearest airport code to the data center).
+启用Smart Placement后，Cloudflare 会在所有请求中添加一个 `cf-placement` header。这可用于检查请求是否已通过Smart Placement路由，以及 Worker 处理请求的位置(显示为距离数据中心最近的机场代码)。
 
-For example, the `cf-placement: remote-LHR` header's `remote` value indicates that the request was routed using Smart Placement to a Cloudflare data center near London. The `cf-placement: local-EWR` header's `local` value indicates that the request was not routed using Smart Placement and the Worker was invoked in a data center closest to where the request was received, close to Newark Liberty International Airport (EWR).
+例如，`cf-placement: remote-LHR` header的`remote`值表示请求通过Smart Placement路由到伦敦附近的 Cloudflare 数据中心。`cf-placement：local-EWR `header的 `local `值表示请求未使用Smart Placement路由，Worker 在最接近接收请求的数据中心(靠近纽瓦克自由国际机场 (EWR))调用。
 
 {{<Aside type="warning" header="Beta use only">}}
 
-We may remove the `cf-placement` header before Smart Placement enters general availability.
+我们可能会在 `Smart Placement `全面可用之前删除 `cf-placement `header。
 
 {{</Aside>}}
 
 
-## Best practices
+## 最佳做法
 
-If you are building full-stack applications on Workers, we recommend splitting up the front-end and back-end logic into different Workers and using [Service Bindings](/workers/runtime-apis/bindings/service-bindings/) to connect your front-end logic and back-end logic Workers.
+如果你要在 Worker 上构建全栈应用程序，我们建议你将前端和后端逻辑拆分成不同的 Worker，并使用 [Service Bindings](/workers/runtime-apis/bindings/service-bindings/) 来连接前端逻辑和后端逻辑 Worker。
 
-![Smart Placement and Service Bindings](/images/workers/platform/smart-placement-service-bindings.png)
+Smart Placement和服务绑定](/images/workers/platform/smart-placement-service-bindings.png)
 
-Enabling Smart Placement on your back-end Worker will invoke it close to your back-end service, while the front-end Worker serves requests close to the user. This architecture maintains fast, reactive front-ends while also improving latency when the back-end Worker is called.
+在后端 Worker 上启用 Smart Placement 将在靠近后端服务的地方调用 Worker，而前端 Worker 则在靠近用户的地方为请求提供服务。这种架构既能保持快速、反应灵敏的前端，又能改善调用后端 Worker 时的延迟。
 
-## Give feedback on Smart Placement
+## 对Smart Placement提出反馈意见
 
-Smart Placement is in beta. To share your thoughts and experience with Smart Placement, join the [Cloudflare Developer Discord](https://discord.cloudflare.com).
+Smart Placement 处于测试阶段。要分享你对Smart Placement的想法和体验，请加入 [Cloudflare 开发人员讨论区](https://discord.cloudflare.com)。
