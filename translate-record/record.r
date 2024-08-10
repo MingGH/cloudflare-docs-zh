@@ -130,3 +130,9 @@
 /content/workers/glossary.md,2024-08-10 22:39:45,ee50e19356b789c91e0acfbe20dcd3bf2ed26094152e9bfcdd5291db11e476e4
 /content/workers/configuration/smart-placement.md,2024-08-10 22:40:02,63daae3dd1c8464403e15267ac11c7729de7b74ccab009919bad000b80c0eaaf
 /content/workers/databases/vectorize.md,2024-08-10 22:41:30,0ae0b4e8303a047d2e970b332ceddcd01a0d7f03134fd2770152546ebf6f52ff
+/content/workers/wrangler/environments.md,2024-08-10 23:08:18,e5b90614ca8a21bfe578b8984823f5c97640f1bb909f6e8bf20298482a7bf79d
+/content/workers/configuration/bindings.md,2024-08-10 23:08:50,acd0e6fc13c66ab2183e48db66cdb352d08bfa29534dd6b8485e2af30cb6fb90
+/content/workers/databases/analytics-engine.md,2024-08-10 23:08:51,06cc8d35768113d89c4d651f47275f9e467ebabf8df97daff2a932fb8beb22de
+/content/workers/wrangler/custom-builds.md,2024-08-10 23:08:59,557881b807ade43c27023cdf5c3ef8d7b80dde349292d9c0b2a9b14056afd67b
+/content/workers/configuration/versions-and-deployments/rollbacks.md,2024-08-10 23:09:03,444dd08dd61d08449458ee78fa7f3016a0a2511e78b9e77d1f17bc2f3701fe5c
+/content/workers/configuration/versions-and-deployments/gradual-deployments.md,2024-08-10 23:09:58,5421bd38df972087aeb3ff60965867d34b9915daf8c0302a141411b3bcb041d5

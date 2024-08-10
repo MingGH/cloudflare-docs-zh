@@ -1,80 +1,80 @@
 ---
 pcx_content_type: configuration
-title: Gradual deployments
+title: 渐进式部署
 meta:
-  description: Incrementally deploy code changes to your Workers with gradual deployments.
+  description: 通过渐进式部署，将代码更改增量部署到您的 Workers。
 ---
 
-{{<heading-pill style="beta">}}Gradual deployments{{</heading-pill>}}
+{{<heading-pill style="beta">}}渐进式部署{{</heading-pill>}}
 
-Gradual Deployments give you the ability to incrementally deploy new [versions](/workers/configuration/versions-and-deployments/#versions) of Workers by splitting traffic across versions.
+渐进式部署通过在不同版本之间拆分流量，让你能够渐进式地部署 Workers 的新 [版本](/workers/configuration/versions-and-deployments/#versions)。
 
-![Gradual Deployments](/images/workers/platform/versions-and-deployments/gradual-deployments.png)
+![渐进部署](/images/workers/platform/version-and-deployments/gradual-deployments.png)
 
-Using gradual deployments, you can:
+通过渐进式部署，你可以
 
-- Gradually shift traffic to a newer version of your Worker.
-- Monitor error rates and exceptions across versions using [analytics and logging](/workers/configuration/versions-and-deployments/gradual-deployments/#observability) tooling.
-- [Roll back](/workers/configuration/versions-and-deployments/rollbacks/) to a previously stable version if you notice issues when deploying a new version.
+- 逐步将流量转移到更新版本的 Worker 上。
+- 使用 [analytics and logging](/workers/configuration/versions-and-deployments/gradual-deployments/#observability)工具监控各版本的错误率和异常情况。
+- 如果在部署新版本时发现问题，可[回滚](/workers/configuration/versions-and-deployments/rollbacks/) 到先前的稳定版本。
 
 {{<Aside type="warning">}}
 
-Gradual deployments are in **beta and under active development**. Review [Limits](/workers/configuration/versions-and-deployments//gradual-deployments/#limits) associated with rollbacks before using this feature.
+渐进式部署处于**beta 阶段，正在积极开发中**。使用此功能前，请查看与回滚相关的 [限制](/workers/configuration/version-and-deployments//gradual-deployments/#limits)。
 
-Provide your feedback on the rollbacks feature through the [feedback form](https://www.cloudflare.com/lp/developer-week-deployments).
+通过 [反馈表](https://www.cloudflare.com/lp/developer-week-deployments)，提供你对回滚功能的反馈意见。
 
 {{</Aside>}}
 
-## Use gradual deployments
+## 使用渐进式部署
 
-The following section guides you through an example usage of gradual deployments. You will choose to use either [Wrangler](/workers/configuration/versions-and-deployments/gradual-deployments/#via-wrangler) or the [Cloudflare dashboard](/workers/configuration/versions-and-deployments/gradual-deployments/#via-the-cloudflare-dashboard) to:
+以下部分将指导你使用渐进部署的示例。你将选择使用 [Wrangler](/workers/configuration/version-and-deployments/gradual-deployments/#via-wrangler)或 [Cloudflare dashboard](/workers/configuration/version-and-deployments/gradual-deployments/#via-the-cloudflare-dashboard)：
 
-- Create a new Worker.
-- Publish a new version of that Worker without deploying it.
-- Create a gradual deployment between the two versions.
-- Progress the deployment of the new version to 100% of traffic.
+- 创建新Works。
+- 发布该 Worker 的新版本，而不进行部署。
+- 在两个版本之间建立渐进式部署。
+- 将新版本的部署进度提高到 100% 流量。
 
-### Via Wrangler
+### 通过 Wrangler
 
 {{<Aside type="note">}}
 
-Minimum required wrangler version: 3.40.0.
+所需的最低 Wrangler 程序版本：3.40.0。
 
 {{</Aside>}}
 
-#### 1. Create and deploy a new Worker
+#### 1. 创建并部署新的 Worker
 
-Create a new `"Hello World"` Worker using the [`create-cloudflare` CLI (C3)](/pages/get-started/c3/) and deploy it.
+使用 [`create-cloudflare` CLI (C3)](/pages/get-started/c3/) 创建一个新的 `Hello World` Worker 并进行部署。
 
 
 ```sh
 $ npm create cloudflare@latest <NAME> -- --type=hello-world
 ```
 
-Answer `yes` or `no` to using TypeScript. Answer `yes` to deploying your application. This is the first version of your Worker.
+回答 `yes `或 `no `使用 TypeScript。请回答 `yes `部署应用程序。这是 Worker 的第一个版本。
 
-#### 2. Create a new version of the Worker
+#### 2. 创建新版本的Works
 
-To create a new version of the Worker, edit the Worker code by changing the `Response` content to your desired text and upload the Worker by using the [`wrangler versions upload`](/workers/wrangler/commands/#upload) command.
+要创建新版本的 Worker，请编辑 Worker 代码，将 `Response `内容改为所需文本，然后使用 [`wrangler versions upload`](/workers/wrangler/commands/#upload)命令上传 Worker。
 
 ```sh
 $ npx wrangler versions upload --experimental-versions
 ```
 
-This will create a new version of the Worker that is not automatically deployed.
+这将创建一个不会自动部署的新版本 Worker。
 
-#### 3. Create a new deployment
+#### 3.创建新的部署
 
-Use the [`wrangler versions deploy`](/workers/wrangler/commands/#deploy-2) command to
-create a new deployment that splits traffic between two versions of the Worker. Follow the interactive prompts to create a deployment with the versions uploaded in [step #1](/workers/configuration/versions-and-deployments/gradual-deployments/#1-create-and-deploy-a-new-worker) and [step #2](/workers/configuration/versions-and-deployments/gradual-deployments/#2-create-a-new-version-of-the-worker). Select your desired percentages for each version.
+使用[`wrangler versions upload`](/workers/wrangler/commands/#deploy-2)命令来
+创建一个新部署，在两个版本的 Worker 之间分配流量。按照交互式提示，使用 [步骤 #1](/workers/configuration/versions-and-deployments/gradual-deployments/#1-create-and-deploy-a-new-worker)和 [步骤 #2](/workers/configuration/versions-and-deployments/gradual-deployments/#2-create-a-new-version-of-the-worker)中上传的版本创建部署。为每个版本选择所需的百分比。
 
 ```sh
 $ npx wrangler versions deploy --experimental-versions
 ```
 
-#### 4. Test the split deployment
+#### 4.测试分拆部署
 
-Run a cURL command on your Worker to test the split deployment.
+在 Worker 上运行 cURL 命令来测试拆分部署。
 
 ```bash
 for j in {0..10}
@@ -82,27 +82,27 @@ do
     curl -s https://$WORKER_NAME.$SUBDOMAIN.workers.dev
 done
 ```
-You should see 10 responses. Responses will reflect the content returned by the versions in your deployment. Responses will vary depending on the percentages configured in [step #3](/workers/configuration/versions-and-deployments/gradual-deployments/#3-create-a-new-deployment).
+你应该会看到 10 个回复。回复将反映部署中各版本返回的内容。响应将根据 [步骤 #3](/workers/configuration/versions-and-deployments/gradual-deployments/#3-create-a-new-deployment)中配置的百分比而有所不同。
 
-You can test also target a specific version using [version overrides](#version-overrides).
+你还可以使用 [版本覆盖](#version-overrides)，针对特定版本进行测试。
 
-#### 5. Set your new version to 100% deployment
+#### 5.将新版本设置为 100% 部署
 
-Run `wrangler versions deploy` again and follow the interactive prompts. Select the version uploaded in [step 2](/workers/configuration/versions-and-deployments/gradual-deployments/#2-create-a-new-version-of-the-worker) and set it to 100% deployment.
+再次运行 `wrangler versions deploy` 并按照交互式提示操作。选择 [步骤 2] 中上传的版本(/workers/configuration/versions-and-deployments/gradual-deployments/#2-create-a-new-version-of-the-worker)，并将其设置为 100% 部署。
 
 ```sh
 $ npx wrangler versions deploy --experimental-versions
 ```
 
-### Via the Cloudflare dashboard
+#### 通过 Cloudflare 仪表板
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com/?to=/:account/workers) and select your account.
-2. Go to **Workers & Pages**.
-3. Select **Create application** > **Hello World** template > deploy your Worker.
-4. Once the Worker is deployed, go to the online code editor through **Edit code**. Edit the Worker code (change the `Response` content) and upload the Worker.
-5. To save changes, select the **down arrow** next to **Deploy** > **Save**. This will create a new version of your Worker.
-6. Create a new deployment that splits traffic between the two versions created in step 3 and 5 by going to **Deployments** and selecting **Deploy Version**.
-7. cURL your Worker to test the split deployment.
+1. 登录 [Cloudflare 仪表板](https://dash.cloudflare.com/?to=/:account/workers) 并选择你的账户。
+2. 转到**Workers & Pages**。
+3. 选择 **Create application**> **Hello World**模板 > 部署 Worker。
+4. 部署好 Worker 后，通过**编辑代码**进入在线代码编辑器。编辑 Worker 代码(更改 `Response `内容)并上传 Worker。
+5. 要保存更改，请选择**部署**> **保存**旁边的**向下箭头**。这将创建一个新版本的 Worker。
+6. 进入 **部署**，选择 **部署版本**，创建一个新的部署，在步骤 3 和步骤 5 中创建的两个版本之间分割流量。
+7. cURL 你的 Worker 以测试拆分部署。
 
 ```bash
 for j in {0..10}
@@ -110,39 +110,39 @@ do
     curl -s https://$WORKER_NAME.$SUBDOMAIN.workers.dev
 done
 ```
-You should see 10 responses. Responses will reflect the content returned by the versions in your deployment. Responses will vary depending on the percentages configured in step #6.
+你应该会看到 10 个responses。responses将反映部署中各版本返回的内容。响应将根据步骤 #6 中配置的百分比而有所不同。
 
-## Version affinity
+## 版本亲和性
 
-By default, the percentages configured when using gradual deployments operate on a per-request basis — a request has a X% probability of invoking one of two versions of the Worker in the [deployment](/workers/configuration/versions-and-deployments/#deployments).
+默认情况下，使用渐进部署时配置的百分比是按请求进行操作的，即一个请求调用 [部署] 中两个 Worker 版本之一的概率为 X%(/workers/configuration/versions-and-deployments/#deployments)。
 
-You may want requests associated with a particular identifier (such as user, session, or any unique ID) to be handled by a consistent version of your Worker to prevent version skew. Version skew occurs when there are multiple versions of an application deployed that are not forwards/backwards compatible. You can configure version affinity to prevent the Worker's version from changing back and forth on a per-request basis.
+你可能希望与特定标识符(如用户、会话或任何唯一标识符)相关联的请求由统一版本的 Worker 处理，以防止版本偏移。如果部署的应用程序有多个版本，而这些版本之间不能正向/反向兼容，就会出现版本偏移。你可以配置版本亲和性，以防止 Worker 的版本按请求来回变化。
 
-You can do this by setting the `Cloudflare-Workers-Version-Key` header on the incoming request to your Worker. For example:
+你可以通过在向 Worker 发出的传入请求中设置 `Cloudflare-Workers-Version-Key `header来做到这一点。例如
 
 ```sh
 $ curl -s https://$SCRIPT_NAME.$SUBDOMAIN.workers.dev -H 'Cloudflare-Workers-Version-Key: foo'
 ```
 
-For a given [deployment](/workers/configuration/versions-and-deployments/#deployments), all requests with a version key set to `foo` will be handled by the same version of your Worker. The specific version of your Worker that the version key `foo` corresponds to is determined by the percentages you have configured for each Worker version in your deployment.
+对于给定的 [部署](/workers/configuration/versions-and-deployments/#deployments)，版本密钥设置为 `foo` 的所有请求都将由相同版本的 Worker 处理。版本密钥 `foo` 所对应的 Worker 具体版本由你在部署中为每个 Worker 版本配置的百分比决定。
 
-You can set the `Cloudflare-Workers-Version-Key` header both when making an external request from the Internet to your Worker, as well as when making a subrequest from one Worker to another Worker using a [service binding](/workers/runtime-apis/bindings/service-bindings/).
+你既可以在从互联网向你的 Worker 发出外部请求时设置 `Cloudflare-Workers-Version-Key `header，也可以在使用 [service binding](/workers/runtime-apis/bindings/service-bindings/)从一个 Worker 向另一个 Worker 发出子请求时设置 `Cloudflare-Workers-Version-Key `header。
 
-### Setting `Cloudflare-Workers-Version-Key` using Ruleset Engine
+### 使用规则集引擎设置 `Cloudflare-Workers-Version-Key
 
-You may want to extract a version key from certain properties of your request such as the URL, headers or cookies. You can configure a [Ruleset Engine](/ruleset-engine/) rule on your zone to do this. This allows you to specify version affinity based on these properties without having to modify the external client that makes the request.
+你可能希望从请求的某些属性(如 URL、标题或 cookie)中提取版本密钥。你可以在区域上配置[Ruleset Engine](/ruleset-engine/)规则来实现这一目的。这样，你就可以根据这些属性指定版本亲和性，而无需修改发出请求的外部客户端。
 
-For example, if your worker serves video assets under the URI path `/assets/` and you wanted requests to each unique asset to be handled by a consistent version, you could define the following [request header modification](/rules/transform/request-header-modification/) rule:
+例如，如果你的 Worker 在 URI 路径`/assets/`下提供视频资产，而你希望通过一致的版本处理对每个唯一资产的请求，那么你可以定义以下 [request header modification](/rules/transform/request-header-modification/) 规则：
 
 {{<example>}}
 
-Text in **Expression Editor**:
+**Expression Editor** 中的文本：
 
 ```txt
 starts_with(http.request.uri.path, "/asset/")
 ```
 
-Selected operation under **Modify request header**: _Set dynamic_
+修改请求**header**下的选定操作：_Set dynamic_
 
 **Header name**: `Cloudflare-Workers-Version-Key`
 
@@ -150,72 +150,72 @@ Selected operation under **Modify request header**: _Set dynamic_
 
 {{</example>}}
 
-## Version overrides
+## 版本覆盖
 
-You can use version overrides to send a request to a specific version of your Worker in your gradual deployment.
+你可以使用版本重载向渐进部署中特定版本的 Worker 发送请求。
 
-To specify a version override in your request, you can set the `Cloudflare-Workers-Version-Overrides` header on the request to your Worker. For example:
+要在请求中指定版本覆盖，可在向 Worker 发出的请求中设置 `Cloudflare-Workers-Version-Overrides `头。例如
 
 ```sh
 $ curl -s https://$SCRIPT_NAME.$SUBDOMAIN.workers.dev -H 'Cloudflare-Workers-Version-Overrides: my-worker-name="dc8dcd28-271b-4367-9840-6c244f84cb40"'
 ```
 
-`Cloudflare-Workers-Version-Overrides` is a [Dictionary Structured Header](https://www.rfc-editor.org/rfc/rfc8941#name-dictionaries).
+`Cloudflare-Workers-Version-Overrides `是一个[字典结构header](https://www.rfc-editor.org/rfc/rfc8941#name-dictionaries)。
 
-The dictionary can contain multiple key-value pairs. Each key indicates the name of the Worker the override should be applied to. The value indicates the version ID that should be used and must be a [String](https://www.rfc-editor.org/rfc/rfc8941#name-strings).
+字典可以包含多个键值对。每个键表示覆盖应适用的 Worker 名称。值表示应使用的版本 ID，必须是 [String](https://www.rfc-editor.org/rfc/rfc8941#name-strings)。
 
-A version override will only be applied if the specified version is in the current deployment. The versions in the current deployment can be found using the [`wrangler deployments list --experimental-versions`](/workers/wrangler/commands/#list---experimental-versions) command or on the [Workers Dashboard](https://dash.cloudflare.com/?to=/:account/workers) under Worker > Deployments > Active Deployment. 
+只有在当前部署中存在指定版本时，才会应用版本覆盖。当前部署中的版本可使用 [`wrangler部署列表 --experimental-versions`](/workers/wrangler/commands/#list---experimental-versions) 命令或在 Worker > Deployments > Active Deployment 下的 [Workers Dashboard](https://dash.cloudflare.com/?to=/:account/workers) 上找到。
 
 {{<Aside type="note" header="Verifying that the version override was applied">}}
 
-There are a number of reasons why a request's version override may not be applied. For example:
-* The deployment containing the specified version may not have propagated yet.
-* The header value may not be a valid [Dictionary](https://www.rfc-editor.org/rfc/rfc8941#name-dictionaries).
+有多种原因导致请求的版本覆盖可能无法应用。例如
+* 包含指定版本的部署可能尚未传播。
+* header值可能不是有效的 [字典](https://www.rfc-editor.org/rfc/rfc8941#name-dictionaries)。
 
-In the case that a request's version override is not applied, the request will be routed according to the percentages set in the gradual deployment configuration.
+如果未应用请求的版本覆盖，则将根据渐进部署配置中设置的百分比对请求进行路由。
 
-To make sure that the request's version override was applied correctly, you can [observe](#observability) the version of your Worker that was invoked. You could even automate this check by using the [runtime binding](#runtime-binding) to return the version in the Worker's response.
+为确保正确应用了请求的版本覆盖，你可以 [观察](#observability) 被调用 Worker 的版本。你甚至可以使用 [runtime binding](#runtime-binding) 在 Worker 的响应中返回版本，从而自动进行检查。
 
 {{</Aside>}}
 
-### Example
+### 示例
 
-You may want to test a new version in production before gradually deploying it to an increasing proportion of external traffic.
+你可能希望先在生产中测试新版本，然后再逐步将其部署到比例越来越高的外部流量中。
 
-In this example, your deployment is initially configured to route all traffic to a single version:
+在此示例中，部署的初始配置是将所有流量路由到单一版本：
 
 | Version ID                             | Percentage |
 | :------------------------------------: | :--------: |
 | db7cd8d3-4425-4fe7-8c81-01bf963b6067   | 100%       |
 
-Create a new deployment using [`wrangler versions deploy --experimental-versions`](/workers/wrangler/commands/#deploy-2) and specify 0% for the new version whilst keeping the previous version at 100%.
+使用 [`wrangler versions deploy --experimental-versions`](/workers/wrangler/commands/#deploy-2) 创建一个新的部署，并为新版本指定 0%，同时将以前的版本保持为 100% 。
 
 | Version ID                             | Percentage |
 | :------------------------------------: | :--------: |
 | dc8dcd28-271b-4367-9840-6c244f84cb40   | 0%         |
 | db7cd8d3-4425-4fe7-8c81-01bf963b6067   | 100%       |
 
-Now test the new version with a version override before gradually progressing the new version to 100%:
+现在，先用版本覆盖测试新版本，然后再将新版本逐步升级到 100%：
 
 ```sh
 $ curl -s https://$SCRIPT_NAME.$SUBDOMAIN.workers.dev -H 'Cloudflare-Workers-Version-Overrides: my-worker-name="dc8dcd28-271b-4367-9840-6c244f84cb40"'
 ```
 
-## Gradual deployments for Durable Objects
+## 渐进式部署耐用对象
 
-Due to [global uniqueness](/durable-objects/platform/known-issues/#global-uniqueness), only one version of each [Durable Object](/durable-objects/) can run at a time. This means that gradual deployments work slightly differently for Durable Objects.
+由于 [全局唯一性](/durable-objects/platform/known-issues/#global-uniqueness)，每个 [Durable Object](/durable-objects/) 一次只能运行一个版本。这意味着渐进部署对 Durable Objects 的作用略有不同。
 
-When you create a new gradual deployment for a Durable Object Worker, each Durable Object instance is assigned a Worker version based on the percentages you configured in your [deployment](/workers/configuration/versions-and-deployments/#deployments). This version will not change until you create a new deployment.
+当你为 Durable Object Worker 创建新的渐进部署时，每个 Durable Object 实例都会根据你在 [部署](/workers/configuration/versions-and-deployments/#deployments)中配置的百分比分配一个 Worker 版本。在创建新部署之前，该版本不会改变。
 
-![Gradual Deployments Durable Objects](/images/workers/platform/versions-and-deployments/durable-objects.png)
+![渐进部署耐用对象](/images/workers/platform/version-and-deployments/durable-objects.png)
 
-### Example
+### 示例
 
-This example assumes that you have previously created 3 Durable Objects and [derived their IDs from the names](/durable-objects/best-practices/access-durable-objects-from-a-worker/#derive-ids-from-names) "foo", "bar" and "baz".
+本例假定你先前已创建了 3 个耐用对象，并[从名称导出了它们的 ID](/durable-objects/best-practices/access-durable-objects-from-a-worker/#derive-ids-from-names) `foo`、`bar `和 `baz`。
 
-Your Worker is currently on a version that we will call version "A" and you want to gradually deploy a new version "B" of your Worker.
+你的 Worker 目前使用的版本我们称之为 `A `版，而你希望渐进式部署新的 Worker `B `版。
 
-Here is how the versions of your Durable Objects might change as you progress your gradual deployment:
+以下是耐用对象版本在渐进式部署过程中可能发生的变化：
 
 | Deployment config                      | "foo" | "bar" | "baz" |
 | :------------------------------------: | :---: | :---: | :---: |
@@ -224,27 +224,27 @@ Here is how the versions of your Durable Objects might change as you progress yo
 | Version B: 50% <br> Version A: 50%     | B     | B     | A     |
 | Version B: 100% <br>                   | B     | B     | B     |
 
-This is only an example, so the versions assigned to your Durable Objects may be different. However, the following is guaranteed:
+这只是一个示例，因此分配给你的耐用对象的版本可能会有所不同。不过，以下内容是可以保证的：
 
-- For a given deployment, requests to each Durable Object will always use the same Worker version.
-- When you specify each version in the same order as the previous deployment and increase the percentage of a version, Durable Objects which were previously assigned that version will not be assigned a different version. In this example, Durable Object "foo" would never revert from version "B" to version "A".
-- The Durable Object will only be [reset](/durable-objects/observability/troubleshooting/#durable-object-reset-because-its-code-was-updated) when it is assigned a different version, so each Durable Object will only be reset once in this example.
+- 对于给定的部署，对每个持久对象的请求将始终使用相同的 Worker 版本。
+- 当你以与之前部署相同的顺序指定每个版本，并增加某个版本的百分比时，之前分配给该版本的耐用对象将不会被分配到不同的版本。在此示例中，耐用对象 `foo `永远不会从版本 `B `恢复到版本 `A`。
+- 只有当持久对象被分配到不同的版本时，它才会被 [重置](/durable-objects/observability/troubleshooting/#durable-object-reset-because-its-code-was-updated)，因此在本例中，每个持久对象只会被重置一次。
 
 {{<Aside type="note">}}
 
-Typically, your Durable Object Worker will define both your Durable Object class and the Worker that interacts with it. In this case, you cannot deploy changes to your Durable Object and its Worker independently.
+通常情况下，你的 Durable Object Worker 将同时定义你的 Durable Object 类和与其交互的 Worker。在这种情况下，你不能单独部署对 Durable Object 及其 Worker 的更改。
 
-You should ensure that API changes between your Durable Object and its Worker are [forwards and backwards compatible](/durable-objects/platform/known-issues/#code-updates) whether you are using gradual deployments or not. However, using gradual deployments will make it even more likely that different versions of your Durable Objects and its Worker will interact with each other.
+无论你是否使用渐进部署，都应确保你的 Durable Object 及其 Worker 之间的 API 变动是 [向前和向后兼容的](/durable-objects/platform/known-issues/#code-updates)。不过，使用渐进部署会使不同版本的 Durable Objects 及其 Worker 更有可能相互影响。
 
 {{</Aside>}}
 
-## Observability
+## 可观察性
 
-When using gradual deployments, you may want to attribute Workers invocations to a specific version in order to get visibility into the impact of deploying new versions.
+在使用渐进式部署时，你可能希望将Works调用归因于特定版本，以便了解部署新版本的影响。
 
 ### Logpush
 
-A new `ScriptVersion` object is available in [Workers Logpush](/workers/observability/logging/logpush/). `ScriptVersion` can only be added through the [Logpush API](/api/operations/post-accounts-account_identifier-logpush-jobs) right now. Sample API call:
+Workers Logpush](/workers/observability/logging/logpush/) 中新增了一个 `ScriptVersion` 对象。现在只能通过 [Logpush API](/api/operations/post-accounts-account_identifier-logpush-jobs) 添加 `ScriptVersion` 对象。示例 API 调用：
 
 ```bash
 curl -X POST 'https://api.cloudflare.com/client/v4/accounts/<ACCOUNT_ID>/logpush/jobs' \
@@ -259,7 +259,7 @@ curl -X POST 'https://api.cloudflare.com/client/v4/accounts/<ACCOUNT_ID>/logpush
 }'| jq .
 ```
 
-`ScriptVersion` is an object with the following structure:
+`ScriptVersion` 是一个具有以下结构的对象：
 
 ```json
 scriptVersion: {
@@ -269,20 +269,20 @@ scriptVersion: {
 }
 ```
 
-### Runtime binding
+### 运行时绑定
 
-Use the [Version metadata binding](/workers/runtime-apis/bindings/version-metadata/) in to access version ID or version tag in your Worker.
+使用[版本元数据绑定](/workers/runtime-apis/bindings/version-metadata/) 访问 Worker 中的版本 ID 或版本标记。
 
 ## Limits
 
-### Deployments limit
+### 部署限制
 
-You can only create a new deployment with the last 10 uploaded versions of your Worker.
+你只能使用最近 10 个上传的 Worker 版本创建新部署。
 
-### Unsupported features
+### 不支持的功能
 
-These Workers features will be supported in the near future.
+这些Works功能将在不久的将来得到支持。
 
-- Updating [Secrets via wrangler](/workers/wrangler/commands/#secret) with a split deployment is not supported. You must fully deploy the latest version before using updating secrets.
-- Gradual deployments are not supported for Workers with the [mTLS binding](/workers/runtime-apis/bindings/mtls/). Use [`wrangler deploy`](/workers/wrangler/commands/#deploy) for Workers with an mTLS binding.
-- Creating a gradual deployment with [Durable Object migrations](/durable-objects/reference/durable-objects-migrations/) is not supported. Use [`wrangler deploy`](/workers/wrangler/commands/#deploy) if you are applying a [Durable Object migration](/durable-objects/reference/durable-objects-migrations/).
+- 不支持通过拆分部署更新 [Secrets via wrangler](/workers/wrangler/commands/#secret)。在使用更新密钥之前，您必须完全部署最新版本。
+- 具有 [mTLS 绑定](/workers/runtime-apis/bindings/mtls/) 的 Workers 不支持逐步部署。对具有 mTLS 绑定的 Workers 使用 [`wrangler deploy`](/workers/wrangler/commands/#deploy)。
+- 不支持使用 [Durable Objects migrations](/durable-objects/reference/durable-objects-migrations/)创建渐进式部署。如果要应用 [Durable Object migration](/durable-objects/reference/durable-objects-migrations/)，请使用 [`wrangler deploy`](/workers/wrangler/commands/#deploy)。
