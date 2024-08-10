@@ -5,8 +5,8 @@ layout: wide
 weight: 13
 ---
 
-# Glossary
+# 词汇表
 
-Review the definitions for terms used across Cloudflare's Workers documentation.
+查看 Cloudflare Works文档中使用的术语定义。
 
 {{<glossary product="Workers">}}
