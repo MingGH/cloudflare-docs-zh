@@ -8,76 +8,76 @@ meta:
 
 # Wrangler API
 
-Wrangler offers APIs to programmatically interact with your Cloudflare Workers.
+Wrangler 提供 API，以编程方式与 Cloudflare Workers 交互。
 
-- [`unstable_dev`](#unstable_dev) - Start a server for running either end-to-end (e2e) or integration tests against your Worker.
-- [`getPlatformProxy`](#getplatformproxy) - Get proxies and values for emulating the Cloudflare Workers platform in a Node.js process.
+- [`unstable_dev`](#unstable_dev) - 启动服务器，针对 Worker 运行端到端(e2e)测试或集成测试。
+- [`getPlatformProxy`](#getplatformproxy) - 在 Node.js 进程中获取用于模拟 Cloudflare Workers 平台的代理和值。
 
 ## `unstable_dev`
 
-Start an HTTP server for testing your Worker.
+启动 HTTP 服务器，测试 Worker。
 
-Once called, `unstable_dev` will return a `fetch()` function for invoking your Worker without needing to know the address or port, as well as a `stop()` function to shut down the HTTP server.
+调用后，`unstable_dev` 将返回一个`fetch()`函数，用于调用 Worker 而无需知道地址或端口，以及一个`stop()`函数，用于关闭 HTTP 服务器。
 
-By default, `unstable_dev` will perform integration tests against a local server. If you wish to perform an e2e test against a preview Worker, pass `local: false` in the `options` object when calling the `unstable_dev()` function. Note that e2e tests can be significantly slower than integration tests.
+默认情况下，`unstable_dev` 将针对本地服务器进行集成测试。如果希望针对预览 Worker 执行 e2e 测试，请在调用 `unstable_dev()` 函数时在 `options` 对象中传递 `local: false` 。请注意，e2e 测试可能比集成测试慢得多。
 
 {{<Aside type="note">}}
 
-The `unstable_dev()` function has an `unstable_` prefix because the API is experimental and may change in the future.
+`unstable_dev()`函数的前缀是`unstable_`，因为 API 是试验性的，将来可能会发生变化。
 
-`unstable_dev()` has no known bugs and is safe to use. If you discover any bugs, open a [GitHub issue](https://github.com/cloudflare/workers-sdk/issues/new/choose).
+`unstable_dev()` 没有已知错误，可以安全使用。如果发现任何错误，请打开 [GitHub issue](https://github.com/cloudflare/workers-sdk/issues/new/choose).
 
 {{</Aside>}}
 
-### Constructor
+### 构造函数
 
 ```js
 const worker = await unstable_dev(script, options)
 ```
 
-### Parameters
+### 参数
 
 {{<definitions>}}
 
 *   `script` {{<type>}}string{{</type>}}
 
-    *   A string containing a path to your Worker script, relative to your Worker project's root directory.
+    * 包含 Worker 脚本路径的字符串，相对于 Worker 项目的根目录。
 
 *   `options` {{<type>}}object{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}}
 
-    *   Optional options object containing `wrangler dev` configuration settings.
-    *   Include an `experimental` object inside `options` to access experimental features such as `disableExperimentalWarning`.
-        *   Set `disableExperimentalWarning` to `true` to disable Wrangler's warning about using `unstable_` prefixed APIs.
+    * 包含 `wrangler dev` 配置设置的可选选项对象。
+    * 在 `options` 中包含一个 `experimental` 对象，以访问 `disableExperimentalWarning` 等实验功能。
+        * 将 `disableExperimentalWarning` 设为 `true`，以禁用 Wrangler 对使用 `unstable_` 前缀 API 的警告。
 
 {{</definitions>}}
 
-### Return Type
+### 返回类型
 
-`unstable_dev()` returns an object containing the following methods:
+`unstable_dev()` 返回一个包含以下方法的对象：
 
 {{<definitions>}}
 
 *   `fetch()` {{<type>}}Promise\<Response>{{</type>}}
 
-    *   Send a request to your Worker. Returns a Promise that resolves with a [`Response`](/workers/runtime-apis/response) object.
-    *   Refer to [`Fetch`](/workers/runtime-apis/fetch/).
+    * 向 Worker 发送请求。返回一个与 [`Response`](/workers/runtime-apis/response)对象解析的 Promise。
+    * 请参阅 [`Fetch`](/workers/runtime-apis/fetch/)。
 
 
 *   `stop()` {{<type>}}Promise\<void>{{</type>}}
 
-    *   Shuts down the dev server.
+    * 关闭开发服务器。
 
 {{</definitions>}}
 
-### Usage
+### 使用方法
 
-When initiating each test suite, use a `beforeAll()` function to start `unstable_dev()`. The `beforeAll()` function is used to minimize overhead: starting the dev server takes a few hundred milliseconds, starting and stopping for each individual test adds up quickly, slowing your tests down.
+启动每个测试套件时，使用 `beforeAll()` 函数启动 `unstable_dev()`。使用 `beforeAll()` 函数是为了最大限度地减少开销：启动开发服务器只需几百毫秒，而每个测试的启动和停止时间会迅速增加，从而减慢测试速度。
 
-In each test case, call `await worker.fetch()`, and check that the response is what you expect.
+在每个测试用例中，调用 `await worker.fetch()`，并检查响应是否与预期一致。
 
-To wrap up a test suite, call `await worker.stop()` in an `afterAll` function.
+要结束测试套件，可在`afterAll`函数中调用`await worker.stop()`。
 
-#### Single Worker example
+#### 单个Works示例
 
 {{<tabs labels="js | ts">}}
 {{<tab label="js" default="true">}}
@@ -140,11 +140,11 @@ describe("Worker", () => {
 {{</tabs>}}
 
 
-#### Multi-Worker example
+#### 多Worker示例
 
-You can test Workers that call other Workers. In the below example, we refer to the Worker that calls other Workers as the parent Worker, and the Worker being called as a child Worker.
+你可以测试调用其他 Worker 的 Worker。在下面的示例中，我们将调用其他 Worker 的 Worker 称为父 Worker，将被调用的 Worker 称为子 Worker。
 
-If you shut down the child Worker prematurely, the parent Worker will not know the child Worker exists and your tests will fail.
+如果你过早关闭子 Worker，父 Worker 将不知道子 Worker 的存在，你的测试就会失败。
 
 {{<tabs labels="js | ts">}}
 {{<tab label="js" default="true">}}
@@ -232,104 +232,104 @@ describe("multi-worker testing", () => {
 {{</tab>}}
 {{</tabs>}}
 
-## `getPlatformProxy`
+## `getPlatformProxy`.
 
-The `getPlatformProxy` function provides a way to obtain an object containing proxies (to **local** `workerd` bindings) and emulations of Cloudflare Workers specific values, allowing the emulation of such in a Node.js process.
+`getPlatformProxy `函数提供了一种获取对象的方法，该对象包含代理(与**本地**`workerd `绑定)和 Cloudflare Workers 特定值的仿真，允许在 Node.js 进程中进行仿真。
 
 {{<Aside type="warning">}}
 
-`getPlatformProxy` is, by design, to be used exclusively in Node.js applications. `getPlatformProxy` cannot be run inside the Workers runtime.
+根据设计，`getPlatformProxy` 只能在 Node.js 应用程序中使用。`getPlatformProxy` 不能在 Workers 运行时内运行。
 
 {{</Aside>}}
 
-One general use case for getting a platform proxy is for emulating bindings in applications targeting Workers, but running outside the Workers runtime (for example, framework local development servers running in Node.js), or for testing purposes (for example, ensuring code properly interacts with a type of binding).
+获取平台代理的一个一般用例是在以 Workers 为目标的应用程序中模拟绑定，但在 Workers 运行时之外运行(例如，在 Node.js 中运行的本地开发服务器框架)，或者用于测试目的(例如，确保代码与某种类型的绑定正确交互)。
 
 {{<Aside type="note">}}
 
-Binding proxies provided by this function are a best effort emulation of the real production bindings. Although they are designed to be as close as possible to the real thing, there might be slight differences and inconsistencies between the two.
+该函数提供的绑定代理是对真实生产绑定的尽力模拟。虽然它们的设计尽可能接近真实情况，但两者之间可能存在细微差别和不一致。
 
 {{</Aside>}}
 
-### Syntax
+### 语法
 
 ```js
 const platform = await getPlatformProxy(options);
 ```
 
-### Parameters
+### 参数
 
 {{<definitions>}}
 
 *   `options` {{<type>}}object{{</type>}} {{<prop-meta>}}optional{{</prop-meta>}}
 
-    *   Optional options object containing preferences for the bindings:
+    * 包含绑定首选项的可选选项对象：
 
         * `environment` {{<type>}}string{{</type>}}
 
-          The environment to use.
+          使用环境。
 
         * `configPath` {{<type>}}string{{</type>}}
 
-          The path to the config file to use.
+          要使用的配置文件的路径。
 
-          If no path is specified the default behavior is to search from the current directory up the filesystem for a `wrangler.toml` to use.
+          如果未指定路径，默认行为是在文件系统中从当前目录向上搜索要使用的 `wrangler.toml`。
 
-          **Note:** this field is optional but if a path is specified it must point to a valid file on the filesystem.
+          **注意：**该字段为可选项，但如果指定了路径，则必须指向文件系统中的有效文件。
 
         * `experimentalJsonConfig` {{<type>}}boolean{{</type>}}
 
-          If `true`, allows the utility to read a JSON config file (for example, `wrangler.json`).
+          `true`，则允许实用程序读取 JSON 配置文件(例如，`wrangler.json`)。
 
         * `persist` {{<type>}}boolean | { path: string }{{</type>}}
 
-          Indicates if and where to persist the bindings data. If `true` or `undefined`, defaults to the same location used by Wrangler, so data can be shared between it and the caller. If `false`, no data is persisted to or read from the filesystem.
+          指示是否持久化绑定数据以及持久化的位置。如果是 `true` 或 `undefined`，默认与 Wrangler 使用的位置相同，因此数据可在它和调用者之间共享。如果是 `false`，则不会将数据持久化到文件系统，也不会从文件系统读取数据。
 
-          **Note:** If you use `wrangler`'s `--persist-to` option, note that this option adds a sub directory called `v3` under the hood while `getPlatformProxy`'s `persist` does not. For example, if you run `wrangler dev --persist-to ./my-directory`, to reuse the same location using `getPlatformProxy`, you will have to specify: `persist: "./my-directory/v3"`.
+          **注意：**如果使用 `wrangler` 的 `--persist-to` 选项，请注意该选项会在引擎盖下添加一个名为 `v3` 的子目录，而 `getPlatformProxy` 的 `persist` 不会。例如，如果运行 `wrangler dev --persist-to ./my-directory`，要使用 `getPlatformProxy` 重用同一位置，则必须指定：`persist:"./my-directory/v3"`。
 
 {{</definitions>}}
 
-### Return Type
+### 返回类型
 
-`getPlatformProxy()` returns a `Promise` resolving to an object containing the following fields.
+`getPlatformProxy()` 返回一个解析为包含以下字段的对象的 `Promise'。
 
 {{<definitions>}}
 
 *   `env` {{<type>}}Record<string, unknown>{{</type>}}
 
-    *   Object containing proxies to bindings that can be used in the same way as production bindings. This matches the shape of the `env` object passed as the second argument to modules-format workers. These proxy to binding implementations run inside `workerd`.
-    *   Typescript Tip: `getPlatformProxy<Env>()` is a generic function. You can pass the shape of the bindings record as a type argument to get proper types without `unknown` values.
+    * 包含可与生产绑定以相同方式使用的绑定代理的对象。这与作为模块格式化工作者第二个参数传递的 `env` 对象的形状相匹配。这些绑定代理实现在 `workerd` 中运行。
+    * Typescript 提示：`getPlatformProxy<Env>()` 是一个通用函数。你可以将绑定记录的形状作为类型参数传递，以获得不含`unknown`值的适当类型。
 
 *   `cf` {{<type-link href="/workers/runtime-apis/request/#incomingrequestcfproperties">}}IncomingRequestCfProperties{{</type-link>}} {{<prop-meta>}}read-only{{</prop-meta>}}
 
-    * Mock of the `Request`'s `cf` property, containing data similar to what you would see in production.
+    * 模拟 `Request` 的 `cf` 属性，包含与生产中类似的数据。
 
 *   `ctx` {{<type>}}object{{</type>}}
 
-    * Mock object containing implementations of the [`waitUntil`](/workers/runtime-apis/context/#waituntil) and [`passThroughOnException`](/workers/runtime-apis/context/#passthroughonexception) functions that do nothing.
+    * 包含 [`waitUntil`](/workers/runtime-apis/context/#waituntil) 和 [`passThroughOnException`](/workers/runtime-apis/context/#passthroughonexception) 函数实现的模拟对象。
 
 *   `caches` {{<type>}}object{{</type>}}
 
-    *   Emulation of the [Workers `caches` runtime API](/workers/runtime-apis/cache/).
-    *   For the time being, all cache operations do nothing. A more accurate emulation will be made available soon.
+    * 仿真 [Workers `caches` runtime API](/workers/runtime-apis/cache/)。
+    * 目前，所有高速缓存操作都不起作用。我们将很快提供更精确的模拟。
 
 *   `dispose()` {{<type>}}() => Promise\<void>{{</type>}}
 
-    *   Terminates the underlying `workerd` process.
-    *   Call this after the platform proxy is no longer required by the program. If you are running a long running process (such as a dev server) that can indefinitely make use of the proxy, you do not need to call this function.
+    * 终止底层的 `workerd` 进程。
+    * 在程序不再需要平台代理后调用该函数。如果运行的是可无限期使用代理的长期进程(如开发服务器)，则无需调用此函数。
 
 {{</definitions>}}
 
 
-### Usage
+### 使用方法
 
-The `getPlatformProxy` function uses bindings found in `wrangler.toml`. For example, if you have an [environment variable](/workers/configuration/environment-variables/#add-environment-variables-via-wrangler) configuration set up in `wrangler.toml`:
+`getPlatformProxy `函数使用 `wrangler.toml `中的绑定。例如，如果你在`wrangler.toml`中设置了[环境变量](/workers/configuration/environment-variables/#add-environment-variables-via-wrangler)配置：
 
 ```js
 [vars]
 MY_VARIABLE = "test"
 ```
 
-You can access the bindings by importing `getPlatformProxy` like this:
+你可以像这样导入 `getPlatformProxy` 来访问绑定：
 
 ```js
 import { getPlatformProxy } from "wrangler";
@@ -337,31 +337,31 @@ import { getPlatformProxy } from "wrangler";
 const { env } = await getPlatformProxy();
 ```
 
-To access the value of the `MY_VARIABLE` binding add the following to your code:
+要访问 `MY_VARIABLE` 绑定的值，请在代码中添加以下内容：
 
 ```js
 console.log(`MY_VARIABLE = ${env.MY_VARIABLE}`);
 ```
 
-This will print the following output: `MY_VARIABLE = test`.
+这将打印以下输出：`MY_VARIABLE = test`.
 
-### Supported bindings
+### 支持的绑定
 
-All supported bindings found in your `wrangler.toml` are available to you via `env`.
+你可以通过 `env` 使用 `wrangler.toml` 中的所有支持绑定。
 
-The bindings supported by `getPlatformProxy` are:
+`getPlatformProxy` 支持的绑定包括
 
- * [Environment variables](/workers/configuration/environment-variables/)
+* [环境变量](/workers/configuration/environment-variables/)
 
- * [Service bindings](/workers/runtime-apis/bindings/service-bindings/)
+* [服务绑定](/workers/runtime-apis/bindings/service-bindings/)
 
- * [KV namespace bindings](/kv/api/)
+* [KV 名称空间绑定](/kv/api/)
 
- * [Durable Object bindings](/durable-objects/api/)
+* [耐用对象绑定](/durable-objects/api/)
 
-     * To use a Durable Object binding with `getPlatformProxy`, always [specify a `script_name`](/workers/wrangler/configuration/#durable-objects) and have the target Worker run in a separate terminal via [`wrangler dev`](/workers/wrangler/commands/#dev).
+     * 要使用与 `getPlatformProxy` 的持久对象绑定，请务必 [指定一个 `script_name`](/workers/wrangler/configuration/#durable-objects) 并通过 [`wrangler dev`](/workers/wrangler/commands/#dev) 在单独的终端中运行目标 Worker。
 
-        For example, you might have the following file read by `getPlatformProxy`.
+        例如，`getPlatformProxy`可能会读取以下文件。
 
         ```toml
         ---
@@ -373,18 +373,17 @@ The bindings supported by `getPlatformProxy` are:
         script_name = "my-worker"
         ```
 
-        In order for this binding to be successfully proxied by `getPlatformProxy`, a worker named `my-worker`
-        with a Durable Object declaration using the same `class_name` of `"MyDurableObject"` must be run
-        separately via `wrangler dev`.
+        为了让`getPlatformProxy`成功代理此绑定，需要一个名为`my-worker`的 Worker
+        必须运行使用相同`class_name`的`MyDurableObject`持久对象声明的
+        分别通过 `wrangler dev`.
 
 
- * [R2 bucket bindings](/r2/api/workers/workers-api-reference/)
+* [R2 桶绑定](/r2/api/workers/workers-api-reference/)
 
- * [Queue bindings](/queues/configuration/javascript-apis/)
+* [队列绑定](/queues/configuration/javascript-apis/)
 
- * [D1 database bindings](/d1/build-with-d1/d1-client-api/)
+* [D1 数据库绑定](/d1/build-with-d1/d1-client-api/)
 
- * [Workers AI bindings](/workers-ai/get-started/workers-wrangler/#2-connect-your-worker-to-workers-ai)
+* [Works人工智能绑定](/workers-ai/get-started/workers-wrangler/#2-connect-your-worker-to-workers-ai)
 
     {{<render file="_ai-local-usage-charges.md" productFolder="workers">}}
-

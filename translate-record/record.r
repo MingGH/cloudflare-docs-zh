@@ -136,3 +136,8 @@
 /content/workers/wrangler/custom-builds.md,2024-08-10 23:08:59,557881b807ade43c27023cdf5c3ef8d7b80dde349292d9c0b2a9b14056afd67b
 /content/workers/configuration/versions-and-deployments/rollbacks.md,2024-08-10 23:09:03,444dd08dd61d08449458ee78fa7f3016a0a2511e78b9e77d1f17bc2f3701fe5c
 /content/workers/configuration/versions-and-deployments/gradual-deployments.md,2024-08-10 23:09:58,5421bd38df972087aeb3ff60965867d34b9915daf8c0302a141411b3bcb041d5
+/content/workers/playground.md,2024-08-11 13:56:31,db67f97aafe1148dfd9e7251da433b32f2020489e1a504f2d83c18c785c938a3
+/content/workers/_index.md,2024-08-11 13:56:31,d90987f283bbb17bd1f09e119c873143e3e9e996a34995fb3715f78738193562
+/content/workers/wrangler/api.md,2024-08-11 13:56:55,98c2f147cc26c3dceb2760ab8320d63cdcb67e797e96e1b02fb6a2a2c3318f8e
+/content/workers/wrangler/deprecations.md,2024-08-11 13:56:58,d409c6239271fda07dcb39260ad48102023b0778b50a3bf18cb3f82dd46a37c6
+/content/workers/wrangler/commands.md,2024-08-11 13:59:23,d1baabe91d4ca6b3a5c25d97b4e49d0911d1306118a19748e8d7209c5568ea3a
