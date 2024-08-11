@@ -1,6 +1,6 @@
 ---
 pcx_content_type: navigation
-title: Analytics Engine
+title: 分析引擎
 weight: 8
 
 external_link: /analytics/analytics-engine/
@@ -9,5 +9,5 @@ _build:
   render: never
 
 meta:
-  description: Use Workers to receive performance analytics about your applications, products and projects.
+  description: 使用 Workers 接收有关你的应用程序、产品和项目的性能分析。
 ---

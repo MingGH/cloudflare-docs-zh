@@ -8,5 +8,5 @@ _build:
   render: never
 
 meta:
-  description: The various bindings that are available to Cloudflare Workers.
+  description: Cloudflare Workers 可用的各种绑定。
 ---

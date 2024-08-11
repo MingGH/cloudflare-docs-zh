@@ -1,38 +1,38 @@
 ---
 pcx_content_type: concept
-title: Environments
+title: 环境
 meta:
-  description: Deploy the same Worker application with different configuration for each environment.
+  description: 为每个环境部署具有不同配置的相同 Worker 应用程序。
 ---
 
-# Environments
+# 环境
 
-## Background
+## 背景
 
-Wrangler allows you to deploy the same Worker application with different configuration for each environment. You must configure environments in your Worker application's `wrangler.toml` file.
+Wrangler 允许你在部署同一个 Worker 应用程序时，为每个环境配置不同的配置。你必须在 Worker 应用程序的 `wrangler.toml` 文件中配置环境。
 
-Review the following environments flow:
+查看以下环境流程：
 
-1. You have created a Worker application named `my-worker`.
-2. You create an environment, for example, `dev`, in the Worker's `wrangler.toml` configuration file.
-3. In `wrangler.toml`, you configure the `dev` environment by [adding bindings](/workers/runtime-apis/bindings/) and/or [routes](/workers/configuration/routing/routes/).
-4. You deploy the Worker using `npx wrangler deploy -e dev`.
-5. In the background, Wrangler creates a new Worker named `my-worker-dev`.
-6. You can now change your `my-worker` Worker code and configuration, and choose which environment to deploy your changes to.
+1. 你创建了一个名为 `my-worker `的 Worker 应用程序。
+2. 在 Worker 的 `wrangler.toml` 配置文件中创建一个环境，例如`dev`。
+3. 在`wrangler.toml`中，你可以通过[添加绑定](/workers/runtime-apis/bindings/)和/或[路由](/workers/configuration/routing/routes/)来配置`dev`环境。
+4. 使用 `npx wrangler deploy -e dev` 部署 Worker。
+5. 在后台，Wrangler 创建了一个名为 `my-worker-dev `的新 Worker。
+6. 现在，你可以更改 `my-worker `Worker 代码和配置，并选择将更改部署到哪个环境。
 
-Environments are used with the `--env` or `-e` flag on `wrangler dev`, `npx wrangler deploy`, and `wrangler secret`.
+在 `wrangler dev`、`npx wrangler deploy` 和 `wrangler secret` 中使用`--env`或`-e`标记时，就可以使用环境。
 
-## Configuration
+## 配置
 
-To create an environment:
+创造环境：
 
-1. Open your Worker's `wrangler.toml` file.
-2. Add `[env.<NAME>]` and change `<NAME>` to the desired name of your environment.
-3. Repeat step 2 to create multiple environments.
+1. 打开 Worker 的`wrangler.toml`文件。
+2. 添加 `[env.<NAME>]`，并将 `<NAME>` 改为所需的环境名称。
+3. 重复步骤 2，创建多个环境。
 
-Be careful when naming your environments that they do not contain sensitive information, such as, `migrating-service-from-company1-to-company2` or `company1-acquisition-load-test`.
+在命名环境时，请注意不要包含敏感信息，如 `migrating-service-from-company1-to-company2 `或 `company1-acquisition-load-test`。
 
-Review the layout of an example `[env.dev]` environment that sets up a custom `dev.example.com` route:
+查看设置了自定义 `dev.example.com `路由的`[env.dev]`环境示例的布局：
 
 ```toml
 ---
@@ -45,19 +45,19 @@ route = "example.com"
 route = "dev.example.com"
 ```
 
-You cannot specify multiple environments with the same name.
+不能指定多个相同名称的环境。
 
-Wrangler appends the environment name to the top-level name to deploy a Worker. For example, a Worker project named `my-worker` with an environment `[env.dev]` would deploy a Worker named `my-worker-dev`.
+在部署 Worker 时，Wrangler 会将环境名称附加到顶层名称上。例如，如果 Worker 项目名为 `my-worker`，且环境为 `[env.dev]`，则将部署名为 `my-worker-dev`的 Worker。
 
-After you have configured your environment, run `npx wrangler deploy` in your Worker project directory for the changes to take effect.
+配置环境后，在 Worker 项目目录下运行 `npx wrangler deploy` 使更改生效。
 
-## Non-inheritable keys and environments
+## 不可继承的键和环境
 
-[Non-inheritable keys](/workers/wrangler/configuration/#non-inheritable-keys) are configurable at the top-level, but cannot be inherited by environments and must be specified for each environment.
+[非继承键](/workers/wrangler/configuration/#non-inheritable-keys)可在顶层配置，但不能被环境继承，必须为每个环境指定。
 
-[Bindings](/workers/runtime-apis/bindings/) and [environment variables](/workers/configuration/environment-variables/) must be specified per each [environment](/workers/wrangler/environments/) in your [`wrangler.toml`](/workers/wrangler/configuration/) file.
+[绑定](/workers/runtime-apis/bindings/) 和[环境变量](/workers/configuration/environment-variables/) 必须在[`wrangler.toml`](/workers/wrangler/configuration/) 文件中为每个[环境](/workers/wrangler/environments/) 指定。
 
-Review the following example `wrangler.toml` file:
+查看下面的示例 `wrangler.toml` 文件：
 
 ```toml
 ---
@@ -80,7 +80,7 @@ kv_namespaces = [
 ]
 ```
 
-You may assign environment-specific [secrets](/workers/configuration/secrets/) by running the command [`wrangler secret put <KEY> -env`](/workers/wrangler/commands/#put-3).
+你可以通过运行[`wrangler secret put <KEY> -env`](/workers/wrangler/commands/#put-3)命令指定特定环境的[secrets](/workers/configuration/secrets/)。
 
 ---
 
@@ -110,9 +110,9 @@ routes = [
 ]
 ```
 
-In order to use environments with this configuration, you can pass the name of the environment via the `--env` flag.
+为了使用具有此配置的环境，您可以通过`--env`标志传递环境名称。
 
-With this configuration, Wrangler will behave in the following manner:
+通过此配置，Wrangler 将按以下方式运行：
 
 ```sh
 ~/my-worker $ npx wrangler deploy
@@ -135,9 +135,9 @@ Published my-worker-production
   example.com/*
 ```
 
-Any defined [environment variables](/workers/configuration/environment-variables/) (the [`vars`](/workers/wrangler/configuration/) key) are exposed as global variables to your Worker.
+任何定义的[环境变量](/workers/configuration/environment-variables/)（[`vars`](/workers/wrangler/configuration/) 键）都会作为全局变量公开给您的 Worker。
 
-With this configuration, the `ENVIRONMENT` variable can be used to call specific code depending on the given environment:
+通过此配置，`ENVIRONMENT`变量可用于根据给定环境调用特定代码：
 
 ```js
 if (ENVIRONMENT === "staging") {
@@ -149,7 +149,7 @@ if (ENVIRONMENT === "staging") {
 
 ### Staging environment with \*.workers.dev
 
-To deploy your code to your `*.workers.dev` subdomain, include `workers_dev = true` in the desired environment. Your `wrangler.toml` file may look like this:
+要将代码部署到`*.workers.dev`子域，请在所需环境中包含`workers_dev = true`。您的`wrangler.toml`文件可能如下所示：
 
 ```toml
 ---
@@ -162,7 +162,7 @@ route = "example.com/*"
 workers_dev = true
 ```
 
-With this configuration, Wrangler will behave in the following manner:
+通过此配置，Wrangler 将按以下方式运行：
 
 ```sh
 ~/my-worker $ npx wrangler deploy
@@ -180,7 +180,6 @@ Published my-worker
 
 {{<Aside type="warning">}}
 
-When you create a Worker via an environment, Cloudflare automatically creates an SSL certification for it. SSL certifications are discoverable and a matter of public record.
+当您通过环境创建 Worker 时，Cloudflare 会自动为其创建 SSL 认证。 SSL 认证是可发现的并且是公共记录的问题。
 
 {{</Aside>}}
-
